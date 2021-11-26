@@ -1,0 +1,87 @@
+@use "./breakpoints/base";
+
+.signupnannyContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/img/login.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  //   max-height: 100vh;
+
+  .signupnannyWrapper {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signupnannyLogin {
+    // display: flex;
+    // flex-direction: column;
+    background-color: base.$white-color;
+    height: 38.5rem;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 32px;
+
+    h5 {
+      margin-left: 2.5rem;
+      font-size: 16px;
+      font-weight: 100;
+    }
+    .signupnannyLoginForm {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      .signupnannySignin {
+        display: flex;
+        align-items: center;
+        margin-right: 13rem;
+        font-size: 14px;
+        a {
+          text-decoration: none;
+          color: base.$green-color;
+          margin-left: 0.5rem;
+        }
+      }
+      
+    }
+  }
+
+  .signupnannyHeader {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-left: 2.5rem;
+  }
+
+  .signupnannyInput {
+    @extend %inputbuttonStyle;
+    outline: #999;
+    border: none;
+    border-bottom: 2px base.$gray-color solid;
+    width: 24rem;
+  }
+
+  .signupnannyButton {
+    @extend %inputbuttonStyle;
+    background-color: base.$pink-color;
+    color: base.$white-color;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    height: 3.5rem;
+    width: 26rem;
+    border-radius: 8px;
+  }
+}
