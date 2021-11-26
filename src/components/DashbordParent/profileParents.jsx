@@ -1,150 +1,74 @@
-// import * as React from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SecurityIcon from '@mui/icons-material/Security';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import { randomCreatedDate, randomUpdatedDate } from '@mui/x-data-grid-generator';
-import React from 'react'
-import { useState, useCallback, useMemo } from 'react';
-
-
-const initialRows = [
-  {
-    id: 1,
-    name: 'Damien',
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-    isAdmin: true,
-    country: 'Spain',
-    discount: '',
-  },
-  {
-    id: 2,
-    name: 'Nicolas',
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-    isAdmin: false,
-    country: 'France',
-    discount: '',
-  },
-  {
-    id: 3,
-    name: 'Kate',
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-    isAdmin: false,
-    country: 'Brazil',
-    discount: 'junior',
-  },
-];
-
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
 
 export default function ProfileParents() {
-  const [rows, setRows] = useState(initialRows);
-
-  const deleteUser = useCallback(
-    (id) => () => {
-      setTimeout(() => {
-        setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-      });
-    },
-    [],
-  );
-
-  const toggleAdmin = useCallback(
-    (id) => () => {
-      setRows((prevRows) =>
-        prevRows.map((row) =>
-          row.id === id ? { ...row, isAdmin: !row.isAdmin } : row,
-        ),
-      );
-    },
-    [],
-  );
-
-  const duplicateUser = useCallback(
-    (id) => () => {
-      setRows((prevRows) => {
-        const rowToDuplicate = prevRows.find((row) => row.id === id);
-        return [...prevRows, { ...rowToDuplicate, id: Date.now() }];
-      });
-    },
-    [],
-  );
-
-  const columns = useMemo(
-    () => [
-      { field: 'name', type: 'string' },
-      { field: 'age', type: 'number' },
-      { field: 'dateCreated', type: 'date', width: 130 },
-      { field: 'lastLogin', type: 'dateTime', width: 180 },
-      { field: 'isAdmin', type: 'boolean', width: 120 },
-      {
-        field: 'country',
-        type: 'singleSelect',
-        width: 120,
-        valueOptions: [
-          'Bulgaria',
-          'Netherlands',
-          'France',
-          'United Kingdom',
-          'Spain',
-          'Brazil',
-        ],
-      },
-      {
-        field: 'discount',
-        type: 'singleSelect',
-        width: 120,
-        editable: true,
-        valueOptions: ({ row }) => {
-          if (row === undefined) {
-            return ['EU-resident', 'junior'];
-          }
-          const options = [];
-          if (!['United Kingdom', 'Brazil'].includes(row.country)) {
-            options.push('EU-resident');
-          }
-          if (row.age < 27) {
-            options.push('junior');
-          }
-          return options;
-        },
-      },
-      {
-        field: 'actions',
-        type: 'actions',
-        width: 80,
-        getActions: (params) => [
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={deleteUser(params.id)}
-          />,
-          <GridActionsCellItem
-            icon={<SecurityIcon />}
-            label="Toggle Admin"
-            onClick={toggleAdmin(params.id)}
-            showInMenu
-          />,
-          <GridActionsCellItem
-            icon={<FileCopyIcon />}
-            label="Duplicate User"
-            onClick={duplicateUser(params.id)}
-            showInMenu
-          />,
-        ],
-      },
-    ],
-    [deleteUser, toggleAdmin, duplicateUser],
-  );
-
   return (
-    <div style={{ height: 300, width: '100%' }}>
-      <DataGrid columns={columns} rows={rows} />
-    </div>
+    <Box
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          required
+          id="outlined-required"
+          label="Parent Name"
+          defaultValue="Vegeta Super"
+        />
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+        />
+        <label htmlFor="contained-button-file">
+          <Input
+            accept="image/*"
+            id="contained-button-file"
+            multiple
+            type="file"
+          />
+          <Button variant="contained" component="span">
+            Upload
+          </Button>
+        </label>
+        <TextField
+          input="file"
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+        />
+        <TextField
+          id="outlined-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+        <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField id="outlined-search" label="Search field" type="search" />
+        <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+        />
+      </div>
+    </Box>
   );
 }

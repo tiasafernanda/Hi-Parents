@@ -1,26 +1,17 @@
 //import React from "react";
 import SignUpNannyStyle from "./signupnanny.module.scss";
 import * as React from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-
-const top100Films = [{ label: "Nanny" }, { label: "Parent" }];
-const useStyles = makeStyles({
-  customTextField: {
-    "& input::placeholder": {
-      fontSize: "20px",
-      backgroundColor: "red",
-      outline: "#999",
-      border: "none",
-      borderBottom: "2px #CCC solid",
-      width: "24rem",
-    },
-  },
-});
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import NativeSelect from "@mui/material/NativeSelect";
+import { Select } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
 
 export default function RegisterNanny() {
-  const classes = useStyles();
+  const [showPass, setShowPass] = useState(false);
   return (
     <div className={SignUpNannyStyle.signupnannyContainer}>
       <div className={SignUpNannyStyle.signupnannyWrapper}>
@@ -44,32 +35,40 @@ export default function RegisterNanny() {
 
             <input
               className={SignUpNannyStyle.signupnannyInput}
-              type="text"
+              type={showPass === false ? "text" : "password" }
               placeholder="Password"
               name="password"
             />
 
-            <Autocomplete
-              disablePortal
-              //id="combo-box-demo"
-              options={top100Films}
-              sx={{ width: 385, margin: "2rem" }}
-              renderInput={(params) => (
-                <TextField
-                  classes={{ root: classes.customTextField }}
-                  variant="standard"
-                  {...params}
-                  placeholder="Select role"
-                />
-              )}
-            />
+            {showPass ? (
+              <VisibilityIcon
+                className={SignUpNannyStyle.signupnannyIcon}
+                onClick={() => setShowPass(!showPass)}
+              />
+            ) : (
+              <VisibilityOffIcon
+                className={SignUpNannyStyle.signupnannyIcon}
+                onClick={() => setShowPass(!showPass)}
+              />
+            )}
 
-            {/* <input
-              className={SignUpNannyStyle.signupnannyInput}
-              type="text"
-              placeholder="Role"
-              name="select role"
-            /> */}
+            <Box sx={{ minWidth: 382 }}>
+              <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Role
+                </InputLabel>
+                <NativeSelect
+                  defaultValue={"Select Role"}
+                  inputProps={{
+                    name: "age",
+                    id: "uncontrolled-native",
+                  }}
+                >
+                  <option value={"Nanny"}>Nanny</option>
+                  <option value={"Parent"}>Parent</option>
+                </NativeSelect>
+              </FormControl>
+            </Box>
             <button className={SignUpNannyStyle.signupnannyButton}>
               Sign Up
             </button>

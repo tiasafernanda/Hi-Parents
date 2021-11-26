@@ -41,6 +41,13 @@
       align-items: center;
       display: flex;
       flex-direction: column;
+
+      .signupnannyIcon {
+        position: relative;
+        left: 10rem;
+        bottom: 4rem;
+      }
+
       .signupnannySignin {
         display: flex;
         align-items: center;
