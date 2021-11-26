@@ -62,6 +62,7 @@
     display: flex;
     flex-direction: column;
     padding: 15rem 13rem;
+    position: absolute;
 
     p {
       font-size: 20px;
@@ -75,11 +76,16 @@
   }
 }
 
-// .hero::before {
-//   content: '';
-//   position: absolute;
-//   background-color: #2f2f33;
-// }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: #2f2f33;
+  opacity: 0.5;
+}
 
 .about {
   display: flex;
@@ -213,19 +219,55 @@
 .footer {
   background-color: #2f2f33;
   padding: 2rem 10rem;
+  color: white;
 
   .grid {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
 
     .logo {
       img {
         width: 15rem;
       }
+
+      p {
+        width: 19rem;
+      }
     }
 
     .socials {
+      a {
+        margin-right: 1rem;
+      }
       img {
+        margin-top: 1rem;
         width: 2rem;
+        margin-right: 1rem;
+      }
+    }
+
+    .footerLinks {
+      display: flex;
+      flex-direction: column;
+
+      h5 {
+        font-size: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: white;
+        margin-top: 1rem;
+      }
+    }
+
+    .footerContact {
+      h5 {
+        margin-bottom: 1rem;
+        font-size: 20px;
+      }
+      p {
+        margin-top: 0.2rem;
       }
     }
   }
