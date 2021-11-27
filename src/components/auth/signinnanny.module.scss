@@ -1,0 +1,94 @@
+@use "./breakpoints/base";
+
+.signinnannyContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/img/login.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  //   max-height: 100vh;
+
+  .signinnannyWrapper {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signinnannyLogin {
+    // display: flex;
+    // flex-direction: column;
+    background-color: base.$white-color;
+    height: 35rem;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 32px;
+
+    h5 {
+      margin-left: 4.5rem;
+      font-size: 16px;
+      font-weight: 100;
+    }
+    .signinnannyLoginForm {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      .signinnannyIcon {
+        position: relative;
+        left: 10rem;
+        bottom: 4rem;
+      }
+
+      .signinnannySignup {
+        display: flex;
+        align-items: center;
+        margin-right: 13rem;
+        font-size: 14px;
+
+        a {
+          text-decoration: none;
+          color: base.$green-color;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .signinnannyHeader {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-left: 4.5rem;
+  }
+
+  .signinnannyInput {
+    @extend %inputbuttonStyle;
+    outline: #999;
+    border: none;
+    border-bottom: 2px base.$gray-color solid;
+    width: 24rem;
+  }
+
+  .signinnannyButton {
+    @extend %inputbuttonStyle;
+    background-color: base.$pink-color;
+    color: base.$white-color;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    height: 3.5rem;
+    width: 26rem;
+    border-radius: 8px;
+  }
+}
