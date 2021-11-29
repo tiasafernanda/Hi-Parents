@@ -10,8 +10,7 @@ import facebook from './assets/img/facebook.png';
 import twitter from './assets/img/twitter.png';
 import instagram from './assets/img/instagram.png';
 import youtube from './assets/img/youtube.png';
-// import left from './assets/img/left.png';
-// import right from './assets/img/right.png';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   return (
@@ -19,8 +18,8 @@ export default function HomePage() {
       <div className={styles.navbar}>
         <p>Contact us on 083849420146 or iraziqony@gmail.com</p>
         <div className={styles.auth}>
-          <a href='x'>Register</a>
-          <a href='x'>Login</a>
+          <Link to='/auth/signup'>Register</Link>
+          <Link to='auth/signin'>Login</Link>
         </div>
       </div>
       <div className={styles.header}>
@@ -62,7 +61,7 @@ export default function HomePage() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est in neque aliquet vitae
               turpis amet, urna netus sed. Eu semper eu neque, massa pharetra orci fusce ac..{' '}
             </p>
-            <a href='x'>Register</a>
+            <Link to='/auth/signup'>Register</Link>
           </div>
         </div>
         <div className={styles.intro2}>
@@ -72,7 +71,7 @@ export default function HomePage() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est in neque aliquet vitae
               turpis amet, urna netus sed. Eu semper eu neque, massa pharetra orci fusce ac..{' '}
             </p>
-            <a href='x'>Login</a>
+            <Link to='/auth/signin'>Login</Link>
           </div>
           <img src={intro2} alt='' />
         </div>
