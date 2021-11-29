@@ -1,10 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import { DashboardIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon } from './DashboardIcons';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { DashboardIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon } from './DashboardIcons';
 import mainLogo from './assets/hi-parents.png';
 import SearchInput from './SearchInput';
 import NannyList from '../../pages/nannyList/NannyList';
