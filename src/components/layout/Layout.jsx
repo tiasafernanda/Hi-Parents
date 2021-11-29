@@ -1,12 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, IconButton, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { DashboardIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon } from './DashboardIcons';
 import mainLogo from './assets/hi-parents.png';
 import SearchInput from './SearchInput';
+import NannyList from '../../pages/nannyList/NannyList';
+import ManageChild from '../../pages/nannyList/ManageChild';
 
 const drawerWidth = 290;
 
@@ -40,15 +42,17 @@ function Layout(props) {
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FCFCFC' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, height: '5.0625rem', ml: { sm: `${drawerWidth}px` }, background: 'white', boxShadow: 'none', display: 'flex', justifyContent: 'center' }}>
+      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, height: '4rem', ml: { sm: `${drawerWidth}px` }, background: 'white', boxShadow: 'none', display: 'flex', justifyContent: 'center' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton color="default" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: '0.125rem', display: { sm: 'none' } }}>
             <MenuIcon />
           </IconButton>
           <SearchInput />
           <Box sx={{ display: 'flex', flexDirection: 'row', paddingRight: '2rem' }}>
-            <IconButton aria-label="notification" size="large" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <NotificationsIcon fontSize="inherit" />
+            <IconButton aria-label="notification" size="large" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#F77979' }}>
+              <Badge overlap="circular" variant="dot" badgeContent={5} color="warning">
+                <NotificationsIcon fontSize="inherit" />
+              </Badge>
             </IconButton>
             <span className="divider" style={{ borderWidth: '0.0625rem', borderStyle: 'solid', borderColor: '#768471' }}></span>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -81,19 +85,8 @@ function Layout(props) {
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        {/*} <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet.
-          Semper risus in hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum est
-          ultricies integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At
-          augue eget arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit gravida
-          rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo
-          viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>*/}
+        <Toolbar />
+        <NannyList />
       </Box>
     </Box>
   );
