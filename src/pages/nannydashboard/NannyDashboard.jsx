@@ -3,6 +3,10 @@ import styles from './assets/NannyDashboard.module.scss';
 import appointment from './assets/img/new.png';
 import client from './assets/img/client.png';
 import nanny from './assets/img/nanny.png';
+import { BsCheck2Circle } from 'react-icons/bs';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { BiXCircle } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 export default function NannyDashboard() {
   return (
@@ -48,10 +52,34 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Yugi Muto</td>
             <td>
-              <button>Active</button>
+              <div className={styles.dropdown}>
+                <button className={styles.statusButton}>Active</button>
+                <div className={styles.dropdownContent}>
+                  <a href='x'>
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </a>
+                  <a href='x'>
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </a>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
             <td>
-              <button>&bull;&bull;&bull;</button>
+              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -60,10 +88,34 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Nobitakun</td>
             <td>
-              <button>Active</button>
+              <div className={styles.dropdown}>
+                <button className={styles.statusButton}>Active</button>
+                <div className={styles.dropdownContent}>
+                  <a href='x'>
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </a>
+                  <a href='x'>
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </a>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
             <td>
-              <button>&bull;&bull;&bull;</button>
+              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -72,10 +124,34 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Nobitakun Desu Ne</td>
             <td>
-              <button>Active</button>
+              <div className={styles.dropdown}>
+                <button className={styles.statusButton}>Active</button>
+                <div className={styles.dropdownContent}>
+                  <a href='x'>
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </a>
+                  <a href='x'>
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </a>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
             <td>
-              <button>&bull;&bull;&bull;</button>
+              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -84,10 +160,34 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Doraemon to Nani</td>
             <td>
-              <button>Active</button>
+              <div className={styles.dropdown}>
+                <button className={styles.statusButton}>Active</button>
+                <div className={styles.dropdownContent}>
+                  <a href='x'>
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </a>
+                  <a href='x'>
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </a>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
             <td>
-              <button>&bull;&bull;&bull;</button>
+              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -96,10 +196,34 @@ export default function NannyDashboard() {
             <td className={styles.noBorder}>#000123</td>
             <td className={styles.noBorder}>Sugoi Desu</td>
             <td className={styles.noBorder}>
-              <button>Active</button>
+              <div className={styles.dropdown}>
+                <button className={styles.statusButton}>Active</button>
+                <div className={styles.dropdownContent}>
+                  <a href='x'>
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </a>
+                  <a href='x'>
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </a>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
             <td className={styles.noBorder}>
-              <button>&bull;&bull;&bull;</button>
+              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
         </table>
