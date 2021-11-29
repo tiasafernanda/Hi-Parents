@@ -1,9 +1,6 @@
-import React from 'react';
+import { all } from "redux-saga/effects";
+import { watchLoginNanny } from "./auth";
 
-export default function index() {
-  return (
-    <div>
-      <h1>Test</h1>
-    </div>
-  );
+export default function* rootSaga() {
+  yield all([watchLoginNanny()]);
 }
