@@ -161,8 +161,15 @@ export default function ClientDetail() {
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
             </div>
             <div className={styles.inputPhoto}>
-              <label>Photo</label>
-              <input type='file' id='myfile' name='myfile' />
+              <p>Photo</p>
+              <div className={styles.image}>
+                <img
+                  src={client}
+                  alt=''
+                  className='expandable-image'
+                  onClick={imageExpansionHandler()}
+                />
+              </div>
             </div>
           </div>
           <div className={styles.form2}>
