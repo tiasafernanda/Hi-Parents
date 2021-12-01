@@ -1,56 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import styles from './assets/ClientDetail.module.scss';
 import client from './assets/img/clientphoto.jpg';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
 
 export default function ClientDetail() {
-  // Image expansion
-
-  function imageExpansionHandler() {
-    var expandableImages = document.querySelectorAll('.expandable-image');
-
-    function imgExpansionEvent(e) {
-      function createImg(url) {
-        var img = document.createElement('img');
-        img.setAttribute('src', url);
-
-        img.addEventListener('click', (_) => img.classNameList.toggle('image--enlarged'));
-
-        return img;
-      }
-
-      function createBackdrop() {
-        var span = document.createElement('span');
-        span.addEventListener('click', (_) =>
-          expansionContainer.parentNode.removeChild(expansionContainer)
-        );
-
-        return span;
-      }
-
-      if (!document.querySelector('.expansion-container')) {
-        // create enclosing container
-        var expansionContainer = document.createElement('div');
-        expansionContainer.classNameList.add('expansion-container');
-
-        // create children and append them to enclosing container
-        expansionContainer.appendChild(createImg(e.src));
-        expansionContainer.appendChild(createBackdrop());
-
-        // add container to DOM
-        document.body.appendChild(expansionContainer);
-      }
-    }
-
-    expandableImages.forEach((e) => {
-      e.addEventListener('click', (_) => {
-        console.log('click');
-
-        imgExpansionEvent(e);
-      });
-    });
-  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className={styles.containers}>
@@ -108,12 +76,7 @@ export default function ClientDetail() {
             <div className={styles.inputPhoto}>
               <p>Photo</p>
               <div className={styles.image}>
-                <img
-                  src={client}
-                  alt=''
-                  className='expandable-image'
-                  onClick={imageExpansionHandler()}
-                />
+                <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
               </div>
             </div>
           </div>
@@ -161,8 +124,10 @@ export default function ClientDetail() {
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
             </div>
             <div className={styles.inputPhoto}>
-              <label>Photo</label>
-              <input type='file' id='myfile' name='myfile' />
+              <p>Photo</p>
+              <div className={styles.image}>
+                <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
+              </div>
             </div>
           </div>
           <div className={styles.form2}>
@@ -207,6 +172,25 @@ export default function ClientDetail() {
         >
           Accept
         </button>
+      </div>
+      <div className={styles.modal}>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen} />
+            </Box>
+          </Fade>
+        </Modal>
       </div>
     </div>
   );
