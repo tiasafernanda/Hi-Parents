@@ -24,10 +24,8 @@ jobs:
       - run: yarn test
       - run: yarn build
       - name: deploy to
-        uses: netlify/actions/cli@master
-        env:
-          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
-          NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+        uses: akhileshns/heroku-deploy@v3.4.6
         with:
-          args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
+          HEROKU_EMAIL: ${{secrets.HEROKU_EMAIL}}
