@@ -41,29 +41,19 @@ export default function ActivityDetail() {
         <form className={styles.form2}>
           <div>
             <div className={styles.childName}>
-              <label>Children Name</label>
+              <label>Activity</label>
               <input type='text' id='child name' name='child name' />
             </div>
             <br></br>
             <div className={styles.gender}>
-              <label>Gender</label>
-              <input type='text' id='child name' name='child name' />
-            </div>
-            <br></br>
-            <div className={styles.photo}>
-              <label>Photo</label>
+              <label>Photo Activity</label>
               <input type='text' id='child name' name='child name' />
             </div>
           </div>
           <div>
             <div className={styles.birthPlace}>
-              <label>Birth Place</label>
-              <input type='text' id='child name' name='child name' />
-            </div>
-            <br></br>
-            <div className={styles.birthDate}>
-              <label>Birth Date</label>
-              <input type='text' id='child name' name='child name' />
+              <label>Time</label>
+              <input type='text' id='Time' name='Time' />
             </div>
           </div>
         </form>
