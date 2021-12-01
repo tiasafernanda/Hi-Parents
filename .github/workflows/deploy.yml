@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: ${{matrix.node-version}}
       - run: yarn
-      - run: yarn test
+      # - run: yarn test
       - run: yarn build
       - name: deploy to
         uses: akhileshns/heroku-deploy@v3.4.6
