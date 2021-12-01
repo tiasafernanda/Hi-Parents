@@ -1,7 +1,25 @@
 import React from 'react';
 import styles from './assets/ActivityDetail.module.scss';
+import { useState } from 'react';
 
 export default function ActivityDetail() {
+  const [image, setImage] = useState();
+  const [preview, setPreview] = useState();
+  console.log('preview', preview);
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    reader.onerror = () => {
+      console.log('error on loading image');
+    };
+  };
+  console.log('image', image);
+
   return (
     <div className={styles.containers}>
       <div className={styles.container}>
@@ -21,7 +39,8 @@ export default function ActivityDetail() {
             <br></br>
             <div className={styles.photo}>
               <label>Photo</label>
-              <input type='text' id='child name' name='child name' />
+              <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
+              {preview ? <img src={preview} alt='preview' /> : null}
             </div>
           </div>
           <div>

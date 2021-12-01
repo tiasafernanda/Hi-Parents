@@ -45,6 +45,10 @@
       .photo {
         display: flex;
         flex-direction: column;
+        border: 2px solid #d9d9d9;
+        img {
+          width: 4rem;
+        }
       }
       .birthPlace {
         display: flex;
