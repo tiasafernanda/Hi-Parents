@@ -11,6 +11,7 @@ import DashboardParent from '../pages/dashboardParents/DashboardParent';
 import DashboardRouter from './DashboardRouter';
 import Layout from '../components/Layout/Layout';
 import ActifityParent from '../pages/dashboardParents/ActifityParent';
+import NannyList from '../pages/nannyList/NannyList';
 
 export default function Router() {
   return (
@@ -26,6 +27,7 @@ export default function Router() {
         <Route path='/dashboardparent' exact element={<DashboardParent />} />
         <Route path='/dashboard/:param' exact element={<Layout />} />
         <Route parh='/actifity' exact element={<ActifityParent />} />
+        {/* <Route path="/" exact element={<Layout />} /> */}
       </Routes>
     </div>
   );

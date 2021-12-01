@@ -1,16 +1,18 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, IconButton, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import { DashboardIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon } from './DashboardIcons';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { DashboardIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon } from './DashboardIcons';
 import mainLogo from './assets/hi-parents.png';
 import SearchInput from './SearchInput';
 import DashboardRouter from '../../routes/DashboardRouter';
 import NannyDashboard from '../../pages/nannydashboard/NannyDashboard';
 import DashboardParent from '../DashbordParent/profileParents';
 import { useParams } from 'react-router-dom';
+import NannyList from '../../pages/nannyList/NannyList';
+import ManageChild from '../../pages/nannyList/ManageChild';
 
 const drawerWidth = 290;
 
@@ -46,15 +48,17 @@ function Layout(props) {
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FCFCFC' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, height: '5.0625rem', ml: { sm: `${drawerWidth}px` }, background: 'white', boxShadow: 'none', display: 'flex', justifyContent: 'center' }}>
+      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, height: '4rem', ml: { sm: `${drawerWidth}px` }, background: 'white', boxShadow: 'none', display: 'flex', justifyContent: 'center' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton color="default" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: '0.125rem', display: { sm: 'none' } }}>
             <MenuIcon />
           </IconButton>
           <SearchInput />
           <Box sx={{ display: 'flex', flexDirection: 'row', paddingRight: '2rem' }}>
-            <IconButton aria-label="notification" size="large" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <NotificationsIcon fontSize="inherit" />
+            <IconButton aria-label="notification" size="large" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#F77979' }}>
+              <Badge overlap="circular" variant="dot" badgeContent={5} color="warning">
+                <NotificationsIcon fontSize="inherit" />
+              </Badge>
             </IconButton>
             <span className="divider" style={{ borderWidth: '0.0625rem', borderStyle: 'solid', borderColor: '#768471' }}></span>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -89,6 +93,8 @@ function Layout(props) {
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <DashboardRouter params={param}/>
         
+        {/* <Toolbar />
+        <NannyList /> */}
       </Box>
     </Box>
   );
