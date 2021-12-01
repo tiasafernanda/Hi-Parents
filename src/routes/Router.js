@@ -7,6 +7,10 @@ import Auth from '../components/Auth';
 import ClientList from '../pages/clientList/ClientList';
 import ChildActivity from '../pages/childactivity/ChildActivity';
 import ActivityDetail from '../pages/activitydetail/ActivityDetail';
+import DashboardParent from '../pages/dashboardParents/DashboardParent';
+import DashboardRouter from './DashboardRouter';
+import Layout from '../components/Layout/Layout';
+import ActifityParent from '../pages/dashboardParents/ActifityParent';
 
 export default function Router() {
   return (
@@ -19,6 +23,9 @@ export default function Router() {
         <Route path='/client' exact element={<ClientList />} />
         <Route path='/child' exact element={<ChildActivity />} />
         <Route path='/activity' exact element={<ActivityDetail />} />
+        <Route path='/dashboardparent' exact element={<DashboardParent />} />
+        <Route path='/dashboard/:param' exact element={<Layout />} />
+        <Route parh='/actifity' exact element={<ActifityParent />} />
       </Routes>
     </div>
   );
