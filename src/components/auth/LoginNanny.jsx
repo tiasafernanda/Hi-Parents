@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { LoginNannyAction } from "../../store/actions/auth";
-import SignInNannyStyle from "./signinnanny.module.scss";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { LoginNannyAction } from '../../store/actions/auth';
+import SignInNannyStyle from './signinnanny.module.scss';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Link } from 'react-router-dom';
 
 export default function LoginNanny() {
   const [showPass, setShowPass] = useState(false);
   const dispatch = useDispatch();
   const [inputLoginNanny, setInputLoginNanny] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const changeInput = (e) => {
@@ -32,18 +33,17 @@ export default function LoginNanny() {
           <div className={SignInNannyStyle.signinnannyLoginForm}>
             <input
               className={SignInNannyStyle.signinnannyInput}
-              type="text"
-              placeholder="Email Addres"
-              name="email addres"
+              type='text'
+              placeholder='Email Addres'
+              name='email addres'
               onChange={(e) => changeInput(e)}
             />
 
             <input
               className={SignInNannyStyle.signinnannyInput}
-              type={showPass === false ? "text" : "password" }
-              
-              placeholder="Enter your password"
-              name="password"
+              type={showPass === false ? 'text' : 'password'}
+              placeholder='Enter your password'
+              name='password'
               onChange={(e) => changeInput(e)}
             />
 
@@ -59,16 +59,13 @@ export default function LoginNanny() {
               />
             )}
 
-            <button
-              className={SignInNannyStyle.signinnannyButton}
-              onClick={submitLoginNanny}
-            >
+            <button className={SignInNannyStyle.signinnannyButton} onClick={submitLoginNanny}>
               Login to Continue
             </button>
 
             <div className={SignInNannyStyle.signinnannySignup}>
               <p>Don’t have an account ?</p>
-              <a href="registernanny">Sign up</a>
+              <Link to='/auth/signup'>Sign up</Link>
             </div>
           </div>
         </div>

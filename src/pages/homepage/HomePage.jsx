@@ -19,7 +19,7 @@ export default function HomePage() {
         <p>Contact us on 083849420146 or iraziqony@gmail.com</p>
         <div className={styles.auth}>
           <Link to='/auth/signup'>Register</Link>
-          <Link to='auth/signin'>Login</Link>
+          <Link to='/auth/signin'>Login</Link>
         </div>
       </div>
       <div className={styles.header}>

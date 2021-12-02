@@ -7,12 +7,14 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import TextField from '@mui/material/TextField';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
+  outline: 'none',
 };
 
 export default function ClientDetail() {
@@ -21,7 +23,12 @@ export default function ClientDetail() {
   const handleClose = () => setOpen(false);
 
   return (
-    <div className={styles.containers}>
+    <div
+      className={styles.containers}
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+    >
       <Link to='/nanny'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Client Detail
@@ -37,10 +44,11 @@ export default function ClientDetail() {
       <div className={styles.container}>
         <h3>Parent Information</h3>
         <hr />
+
         <form>
           <div className={styles.form1}>
-            <div className={styles.inputParent}>
-              <label>Parent Name</label>
+            <fieldset>
+              <legend className={styles.legend}>Children Name</legend>
               <input
                 type='text'
                 id='parent'
@@ -48,9 +56,9 @@ export default function ClientDetail() {
                 value='Vegeta Super'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputEmail}>
-              <label>Email</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Email</legend>
               <input
                 type='text'
                 id='email'
@@ -58,13 +66,13 @@ export default function ClientDetail() {
                 value='vegeta@goku.com'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputPhone}>
-              <label>Phone Number</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Phone Number</legend>
               <input type='number' id='phone' name='phone' value='0823102492' readonly='readonly' />
-            </div>
-            <div className={styles.inputAddress}>
-              <label>Address</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Address</legend>
               <input
                 type='text'
                 id='address'
@@ -72,25 +80,25 @@ export default function ClientDetail() {
                 value='Jl. Namek'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputPhoto}>
-              <p>Photo</p>
-              <div className={styles.image}>
+            </fieldset>
+            <div>
+              <fieldset>
+                <legend className={styles.legend}>Photo</legend>
                 <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
-              </div>
+              </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
-            <div className={styles.inputJob}>
-              <label>Job</label>
+            <fieldset>
+              <legend className={styles.legend}>Job</legend>
               <input type='text' id='job' name='job' value='Warrior of Light' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirth}>
-              <label>Place Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Place</legend>
               <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirthDate}>
-              <label>Date Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Date</legend>
               <input
                 type='text'
                 id='birthplace'
@@ -98,53 +106,48 @@ export default function ClientDetail() {
                 value='16 November 1992'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputGender}>
-              <label>Gender</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Gender</legend>
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
-            </div>
+            </fieldset>
           </div>
         </form>
         <h3>Children Information 1</h3>
         <hr />
+
         <form>
           <div className={styles.form1}>
-            <div className={styles.inputParent}>
-              <label>Parent Name</label>
-              <input
-                type='text'
-                id='parent'
-                name='parent'
-                value='Vegeta Super'
-                readonly='readonly'
-              />
-            </div>
-            <div className={styles.inputGender}>
-              <label>Gender</label>
+            <fieldset>
+              <legend className={styles.legend}>Children Name</legend>
+              <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Gender </legend>
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
-            </div>
-            <div className={styles.inputPhoto}>
-              <p>Photo</p>
-              <div className={styles.image}>
+            </fieldset>
+            <div>
+              <fieldset>
+                <legend className={styles.legend}>Photo</legend>
                 <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
-              </div>
+              </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
-            <div className={styles.inputBirthPlace}>
-              <label>Place Birth</label>
+            <fieldset>
+              <legend className={styles.legend}>Birth Place</legend>
               <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirthDate}>
-              <label>Date Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Date</legend>
               <input
                 type='text'
-                id='birthplace'
-                name='birthplace'
+                id='birthdate'
+                name='birthdate'
                 value='16 November 1992'
                 readonly='readonly'
               />
-            </div>
+            </fieldset>
           </div>
         </form>
       </div>
@@ -187,7 +190,7 @@ export default function ClientDetail() {
         >
           <Fade in={open}>
             <Box sx={style}>
-              <img src={client} alt='' onClick={handleOpen} />
+              <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
             </Box>
           </Fade>
         </Modal>
