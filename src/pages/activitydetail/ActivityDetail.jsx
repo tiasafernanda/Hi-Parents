@@ -20,6 +20,22 @@ export default function ActivityDetail() {
     };
   };
   console.log('image', image);
+  const [image1, setImage1] = useState();
+  const [preview1, setPreview1] = useState();
+  console.log('preview', preview1);
+  const handleImage1 = (e) => {
+    const file = e.target.files[0];
+    setImage1(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setPreview1(reader.result);
+    };
+    reader.onerror = () => {
+      console.log('error on loading image');
+    };
+  };
+  console.log('image', image1);
 
   return (
     <div className={styles.containers}>
@@ -73,8 +89,8 @@ export default function ActivityDetail() {
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
-                <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
-                {preview ? <img src={preview} alt='preview' /> : null}
+                <input type='file' accept='image/*' onChange={(e) => handleImage1(e)} />
+                {preview1 ? <img src={preview1} alt='preview' /> : null}
               </fieldset>
             </div>
           </div>

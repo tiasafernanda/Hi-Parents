@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.navbar}>
         <p>Contact us on 083849420146 or iraziqony@gmail.com</p>
         <div className={styles.auth}>

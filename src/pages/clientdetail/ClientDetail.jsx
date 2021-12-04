@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import TextField from '@mui/material/TextField';
+import Swal from 'sweetalert2';
 
 const style = {
   position: 'absolute',
@@ -18,6 +19,24 @@ const style = {
 };
 
 export default function ClientDetail() {
+  const showAlert = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Accept Client Success!',
+    });
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,12 +53,12 @@ export default function ClientDetail() {
         Client Detail
       </Link>
 
-      <div className={styles.success}>
+      {/* <div className={styles.success}>
         <p>Accept Client Success!</p>
         <button>
           <b> X</b>
         </button>
-      </div>
+      </div> */}
 
       <div className={styles.container}>
         <h3>Parent Information</h3>
@@ -172,6 +191,7 @@ export default function ClientDetail() {
             borderRadius: '40px',
             color: 'white',
           }}
+          onClick={showAlert}
         >
           Accept
         </button>

@@ -22,6 +22,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   color: '#787885',
+  zIndex: '-10',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -45,7 +46,10 @@ const SearchInput = () => {
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
-        <StyledInputBase placeholder="Search something here..." inputProps={{ 'aria-label': 'search' }} />
+        <StyledInputBase
+          placeholder='Search something here...'
+          inputProps={{ 'aria-label': 'search' }}
+        />
       </Search>
     </>
   );

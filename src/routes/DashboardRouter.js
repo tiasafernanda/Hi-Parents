@@ -19,17 +19,17 @@ export default function DashboardRouter(props) {
       return <DashboardParent />;
     case 'actifity':
       return <ActifityParent />;
-    case 'clientdetail':
+    case 'client-detail':
       return <ClientDetail />;
-    case 'childactivity':
+    case 'child-activity':
       return <ChildActivity />;
-    case 'activitydetail':
+    case 'activity-detail':
       return <ActivityDetail />;
     case 'client':
       return <ClientList />;
-    case 'parentform':
+    case 'parent-form':
       return <ProfileParents />;
-    case 'nannylist':
+    case 'nanny-list':
       return <NannyList />;
     case 'manage':
       return <ManageChild />;

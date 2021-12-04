@@ -52,8 +52,11 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Yugi Muto</td>
             <td>
+              <button className={styles.statusButton}>Active</button>
+            </td>
+            <td>
               <div className={styles.dropdown}>
-                <button className={styles.statusButton}>Active</button>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
                     <span>
@@ -77,9 +80,6 @@ export default function NannyDashboard() {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -88,8 +88,11 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Nobitakun</td>
             <td>
+              <button className={styles.statusButton}>Active</button>
+            </td>
+            <td>
               <div className={styles.dropdown}>
-                <button className={styles.statusButton}>Active</button>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
                     <span>
@@ -113,9 +116,6 @@ export default function NannyDashboard() {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -124,8 +124,11 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Nobitakun Desu Ne</td>
             <td>
+              <button className={styles.statusButton}>Active</button>
+            </td>
+            <td>
               <div className={styles.dropdown}>
-                <button className={styles.statusButton}>Active</button>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
                     <span>
@@ -149,9 +152,6 @@ export default function NannyDashboard() {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -160,8 +160,11 @@ export default function NannyDashboard() {
             <td>#000123</td>
             <td>Doraemon to Nani</td>
             <td>
+              <button className={styles.statusButton}>Active</button>
+            </td>
+            <td>
               <div className={styles.dropdown}>
-                <button className={styles.statusButton}>Active</button>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
                     <span>
@@ -185,9 +188,6 @@ export default function NannyDashboard() {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
           <tr>
@@ -196,8 +196,11 @@ export default function NannyDashboard() {
             <td className={styles.noBorder}>#000123</td>
             <td className={styles.noBorder}>Sugoi Desu</td>
             <td className={styles.noBorder}>
+              <button className={styles.statusButton}>Active</button>
+            </td>
+            <td className={styles.noBorder}>
               <div className={styles.dropdown}>
-                <button className={styles.statusButton}>Active</button>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
                     <span>
@@ -221,9 +224,6 @@ export default function NannyDashboard() {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td className={styles.noBorder}>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
             </td>
           </tr>
         </table>
