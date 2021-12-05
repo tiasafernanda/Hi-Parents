@@ -5,20 +5,84 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+// import MenuItem from '@mui/material/MenuItem';
+// import Select from '@mui/material/Select';
 // import { Select } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { RegisterNannyAction } from '../../store/actions/auth';
 
 export default function RegisterNanny() {
-  const [role, setRole] = React.useState('');
-  const handleChange = (event) => {
-    setRole(event.target.value);
-  };
+  // const [role, setRole] = React.useState('');
+  // const handleChange = (event) => {
+  // setRole(event.target.value);
+  // };
   const [showPass, setShowPass] = useState(false);
+  // const [showCPass, setShowCPass] = useState(false);
+
+  const dispatch = useDispatch();
+  const [isRole, setIsRole] = useState('');
+  const [registerNanny, setRegisterNanny] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: '',
+  });
+  console.log(isRole);
+  const changeInput = (e) => {
+    setRegisterNanny({ ...registerNanny, [e.target.name]: e.target.value });
+  };
+
+  const submitRegisterNanny = (e) => {
+    e.preventDefault();
+    dispatch(RegisterNannyAction(registerNanny));
+  };
+  console.log('registerNanny', registerNanny);
+
+  // const [fullName, setFullName] = useState('');
+  const [isFullName, setIsFullName] = useState(true);
+
+  // const [email, setEmail] = useState('');
+  const [isEmail, setIsEmail] = useState(true);
+  // const [password, setPassword] = useState('');
+  const [isPassword, setIsPassword] = useState(true);
+
+  const validasiInputFullName = (data) => {
+    console.log(isFullName);
+    if (data === '') {
+      setIsFullName(false);
+    } else {
+      setIsFullName(true);
+    }
+  };
+
+  const validasiInputEmail = (data) => {
+    console.log(isEmail);
+    if (data === '') {
+      setIsEmail(false);
+    } else {
+      setIsEmail(true);
+    }
+  };
+
+  const validasiInputPassword = (data) => {
+    console.log(isPassword);
+    if (data === '') {
+      setIsPassword(false);
+    } else {
+      setIsPassword(true);
+    }
+  };
+
+  const handleRole = (e) => {
+    e.preventDefault();
+    setIsRole(e.target.value);
+    changeInput(e);
+  };
+
   return (
     <div className={SignUpNannyStyle.signupnannyContainer}>
       <div className={SignUpNannyStyle.signupnannyWrapper}>
@@ -27,24 +91,54 @@ export default function RegisterNanny() {
           <h5>to Hi-Parents to continue</h5>
           <div className={SignUpNannyStyle.signupnannyLoginForm}>
             <input
-              className={SignUpNannyStyle.signupnannyInput}
+              className={
+                isFullName === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
               type='text'
               placeholder='Full Name'
-              name='full name'
+              name='name'
+              onChange={(e) => {
+                validasiInputFullName(e.target.value);
+                changeInput(e);
+              }}
             />
+            {isFullName !== true ? (
+              <span className={SignUpNannyStyle.signupnannyInputError}>This field is required</span>
+            ) : null}
 
             <input
-              className={SignUpNannyStyle.signupnannyInput}
+              className={
+                isEmail === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
               type='text'
               placeholder='Email Addres'
               name='email'
+              onChange={(e) => {
+                validasiInputEmail(e.target.value);
+                changeInput(e);
+              }}
             />
+            {isEmail !== true ? (
+              <span className={SignUpNannyStyle.signupnannyInputError}>Email is invalid</span>
+            ) : null}
 
             <input
-              className={SignUpNannyStyle.signupnannyInput}
+              className={
+                isPassword === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
               type={showPass === false ? 'text' : 'password'}
               placeholder='Password'
               name='password'
+              onChange={(e) => {
+                validasiInputPassword(e.target.value);
+                changeInput(e);
+              }}
             />
 
             {showPass ? (
@@ -58,27 +152,37 @@ export default function RegisterNanny() {
                 onClick={() => setShowPass(!showPass)}
               />
             )}
+            {isPassword !== true ? (
+              <span className={SignUpNannyStyle.signupSpanError}>
+                Password must be at least 6 characters
+              </span>
+            ) : null}
 
             <Box sx={{ minWidth: 382 }}>
-              <InputLabel
-                id='demo-simple-select-standard-label'
-                sx={{ paddingLeft: '1rem', color: '#8E8E8A', fontWeight: '100' }}
-              >
-                Role
-              </InputLabel>
-              <FormControl variant='standard' fullWidth>
-                <Select
-                  value={role}
-                  onChange={handleChange}
-                  label='Select Role'
-                  sx={{ paddingLeft: '1rem', color: '#8E8E8A' }}
+              <FormControl fullWidth>
+                <InputLabel variant='standard' htmlFor='uncontrolled-native'>
+                  Role
+                </InputLabel>
+                <NativeSelect
+                  defaultValue={'Select Role'}
+                  inputProps={{
+                    name: 'role',
+                    id: 'uncontrolled-native',
+                  }}
+                  onChange={handleRole}
                 >
-                  <MenuItem value={'Nanny'}>Nanny</MenuItem>
-                  <MenuItem value={'Parent'}>Parent</MenuItem>
-                </Select>
+                  <option value={'Nanny'}>Nanny</option>
+                  <option value={'Parent'}>Parent</option>
+                </NativeSelect>
               </FormControl>
             </Box>
-            <button className={SignUpNannyStyle.signupnannyButton}>Sign Up</button>
+            <button
+              onClick={(e) => submitRegisterNanny(e)}
+              type='submit'
+              className={SignUpNannyStyle.signupnannyButton}
+            >
+              Sign Up
+            </button>
             <div className={SignUpNannyStyle.signupnannySignin}>
               <p>Already have an account ?</p>
               <Link to='/auth/signin'>Sign in</Link>

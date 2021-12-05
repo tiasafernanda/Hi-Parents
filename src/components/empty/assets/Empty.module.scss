@@ -1,0 +1,27 @@
+.container {
+  position: relative;
+  left: 296px;
+  tr {
+    border: none;
+  }
+  td {
+    border: none !important;
+
+
+    .noClient {
+      margin: auto;
+      width: 100%;
+
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      color: #768471;
+
+      img {
+        display: block;
+        margin: auto;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
-import React from 'react'
+import { combineReducers } from "redux";
+import authNanny from "./auth";
 
-export default function index() {
-  return (
-    <div>
-      <h1>Test</h1>
-    </div>
-  )
-}
+const rootReducer = combineReducers({
+  auth: authNanny,
+  
+});
+
+export default rootReducer;

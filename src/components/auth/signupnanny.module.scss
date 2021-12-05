@@ -1,4 +1,5 @@
 @use "./breakpoints/base";
+@import "../../breakpoints/breakpoints.scss";
 
 .signupnannyContainer {
   height: 100vh;
@@ -10,6 +11,18 @@
   background-size: cover;
   background-repeat: no-repeat;
 
+  @include media("<=desktop") {
+    height: 150vh;
+  }
+
+  @include media("<=tablet") {
+    height: 100vh;
+  }
+
+  @include media("<=phone") {
+    height: 100vh;
+  }
+
   //   max-height: 100vh;
 
   .signupnannyWrapper {
@@ -19,6 +32,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include media("<=phone") {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
   }
 
   .signupnannyLogin {
@@ -32,20 +53,41 @@
     justify-content: center;
     border-radius: 32px;
 
+    @include media("<=phone") {
+      height: 30.5rem;
+      width: 20rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h5 {
       margin-left: 2.5rem;
       font-size: 16px;
       font-weight: 100;
+      @include media("<=phone") {
+        margin-bottom: 1rem;
+        font-size: 12px;
+      }
     }
     .signupnannyLoginForm {
       align-items: center;
       display: flex;
       flex-direction: column;
 
+      @include media("<=phone") {
+      }
+
       .signupnannyIcon {
         position: relative;
         left: 10rem;
         bottom: 4rem;
+
+        @include media("<=phone") {
+          left: 7rem;
+          bottom: 3rem;
+          font-size: 1.25rem;
+        }
       }
 
       .signupnannySignin {
@@ -53,13 +95,22 @@
         align-items: center;
         margin-right: 13rem;
         font-size: 14px;
+
+        @include media("<=phone") {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          margin-right: 5rem;
+          font-size: 12px;
+        }
         a {
           text-decoration: none;
           color: base.$green-color;
           margin-left: 0.5rem;
+          @include media("<=phone") {
+          }
         }
       }
-      
     }
   }
 
@@ -68,6 +119,10 @@
     font-weight: 700;
     margin-bottom: 0.75rem;
     margin-left: 2.5rem;
+    @include media("<=phone") {
+      margin-top: 0.5rem;
+      font-size: 1.8rem;
+    }
   }
 
   .signupnannyInput {
@@ -76,6 +131,12 @@
     border: none;
     border-bottom: 2px base.$gray-color solid;
     width: 24rem;
+    @include media("<=phone") {
+      width: 16rem;
+      height: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .signupnannyButton {
@@ -90,5 +151,13 @@
     height: 3.5rem;
     width: 26rem;
     border-radius: 8px;
+
+    @include media("<=phone") {
+      width: 17rem;
+      height: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 15px;
+
+    }
   }
 }

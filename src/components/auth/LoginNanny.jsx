@@ -14,6 +14,8 @@ export default function LoginNanny() {
     password: '',
   });
 
+  console.log (inputLoginNanny)
+
   const changeInput = (e) => {
     setInputLoginNanny({
       ...inputLoginNanny,
@@ -22,6 +24,7 @@ export default function LoginNanny() {
   };
 
   const submitLoginNanny = () => {
+    
     dispatch(LoginNannyAction(inputLoginNanny));
   };
   return (
@@ -33,9 +36,9 @@ export default function LoginNanny() {
           <div className={SignInNannyStyle.signinnannyLoginForm}>
             <input
               className={SignInNannyStyle.signinnannyInput}
-              type='text'
-              placeholder='Email Addres'
-              name='email addres'
+              type="text"
+              placeholder="Email Addres"
+              name="email"
               onChange={(e) => changeInput(e)}
             />
 
