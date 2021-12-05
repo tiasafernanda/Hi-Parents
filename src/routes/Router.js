@@ -7,7 +7,6 @@ import Auth from "../components/Auth";
 import DashboardParent from "../pages/dashboardParents/DashboardParent";
 import DashboardRouter from "./DashboardRouter";
 import Layout from "../components/Layout/Layout";
-import ActifityParent from "../pages/dashboardParents/ActifityParent";
 
 export default function Router() {
   return (
@@ -19,7 +18,6 @@ export default function Router() {
         <Route path="/auth/:type" exact element={<Auth />} />
         <Route path="/dashboardparent" exact element={<DashboardParent />} />
         <Route path="/dashboard/:param" exact element={<Layout />} />
-        <Route parh="/actifity" exact element={<ActifityParent />} />
       </Routes>
     </div>
   );

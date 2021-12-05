@@ -13,6 +13,8 @@ export default function LoginNanny() {
     password: "",
   });
 
+  console.log (inputLoginNanny)
+
   const changeInput = (e) => {
     setInputLoginNanny({
       ...inputLoginNanny,
@@ -21,6 +23,7 @@ export default function LoginNanny() {
   };
 
   const submitLoginNanny = () => {
+    
     dispatch(LoginNannyAction(inputLoginNanny));
   };
   return (
@@ -34,7 +37,7 @@ export default function LoginNanny() {
               className={SignInNannyStyle.signinnannyInput}
               type="text"
               placeholder="Email Addres"
-              name="email addres"
+              name="email"
               onChange={(e) => changeInput(e)}
             />
 
@@ -68,7 +71,7 @@ export default function LoginNanny() {
 
             <div className={SignInNannyStyle.signinnannySignup}>
               <p>Don’t have an account ?</p>
-              <a href="registernanny">Sign up</a>
+              <a href="signup">Sign up</a>
             </div>
           </div>
         </div>

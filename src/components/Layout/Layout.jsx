@@ -10,6 +10,7 @@ import SearchInput from './SearchInput';
 import DashboardRouter from '../../routes/DashboardRouter';
 import NannyDashboard from '../../pages/nannydashboard/NannyDashboard';
 import DashboardParent from '../DashbordParent/profileParents';
+import ActivityParent from '../../pages/dashboardParents/ActivityParent';
 import { useParams } from 'react-router-dom';
 
 const drawerWidth = 290;
@@ -88,6 +89,7 @@ function Layout(props) {
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <DashboardRouter params={param}/>
+
         
       </Box>
     </Box>

@@ -5,13 +5,76 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import { Select } from "@mui/material";
+// import { Select } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { RegisterNannyAction } from "../../store/actions/auth";
 
 export default function RegisterNanny() {
   const [showPass, setShowPass] = useState(false);
+  const [showCPass, setShowCPass] = useState(false);
+
+  const dispatch = useDispatch();
+  const [isRole, setIsRole] = useState("");
+  const [registerNanny, setRegisterNanny] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "",
+  });
+  const changeInput = (e) => {
+    setRegisterNanny({ ...registerNanny, [e.target.name]: e.target.value });
+  };
+
+  const submitRegisterNanny = (e) => {
+    e.preventDefault();
+    dispatch(RegisterNannyAction(registerNanny));
+  };
+  console.log("registerNanny", registerNanny);
+
+  const [fullName, setFullName] = useState("");
+  const [isFullName, setIsFullName] = useState(true);
+
+  const [email, setEmail] = useState("");
+  const [isEmail, setIsEmail] = useState(true);
+  const [password, setPassword] = useState("");
+  const [isPassword, setIsPassword] = useState(true);
+
+  const validasiInputFullName = (data) => {
+    console.log(isFullName);
+    if (data === "") {
+      setIsFullName(false);
+    } else {
+      setIsFullName(true);
+    }
+  };
+
+  const validasiInputEmail = (data) => {
+    console.log(isEmail);
+    if (data === "") {
+      setIsEmail(false);
+    } else {
+      setIsEmail(true);
+    }
+  };
+
+  const validasiInputPassword = (data) => {
+    console.log(isPassword);
+    if (data === "") {
+      setIsPassword(false);
+    } else {
+      setIsPassword(true);
+    }
+  };
+
+  const handleRole = (e) => {
+    e.preventDefault();
+    setIsRole(e.target.value);
+    changeInput(e);
+  };
+
   return (
     <div className={SignUpNannyStyle.signupnannyContainer}>
       <div className={SignUpNannyStyle.signupnannyWrapper}>
@@ -20,24 +83,58 @@ export default function RegisterNanny() {
           <h5>to Hi-Parents to continue</h5>
           <div className={SignUpNannyStyle.signupnannyLoginForm}>
             <input
-              className={SignUpNannyStyle.signupnannyInput}
+              className={
+                isFullName === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
               type="text"
               placeholder="Full Name"
-              name="full name"
+              name="name"
+              onChange={(e) => {
+                validasiInputFullName(e.target.value);
+                changeInput(e);
+              }}
             />
+            {isFullName !== true ? (
+              <span className={SignUpNannyStyle.signupnannyInputError}>
+                This field is required
+              </span>
+            ) : null}
 
             <input
-              className={SignUpNannyStyle.signupnannyInput}
+              className={
+                isEmail === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
               type="text"
               placeholder="Email Addres"
               name="email"
+              onChange={(e) => {
+                validasiInputEmail(e.target.value);
+                changeInput(e);
+              }}
             />
+            {isEmail !== true ? (
+              <span className={SignUpNannyStyle.signupnannyInputError}>
+                Email is invalid
+              </span>
+            ) : null}
 
             <input
-              className={SignUpNannyStyle.signupnannyInput}
-              type={showPass === false ? "text" : "password" }
+              className={
+                isPassword === true
+                  ? SignUpNannyStyle.signupnannyInput
+                  : SignUpNannyStyle.signupnannyInputError
+              }
+              type={showPass === false ? "text" : "password"}
               placeholder="Password"
               name="password"
+              onChange={(e) => {
+                validasiInputPassword(e.target.value);
+                changeInput(e);
+              }}
             />
 
             {showPass ? (
@@ -51,6 +148,11 @@ export default function RegisterNanny() {
                 onClick={() => setShowPass(!showPass)}
               />
             )}
+            {isPassword !== true ? (
+              <span className={SignUpNannyStyle.signupSpanError}>
+                Password must be at least 6 characters
+              </span>
+            ) : null}
 
             <Box sx={{ minWidth: 382 }}>
               <FormControl fullWidth>
@@ -60,21 +162,26 @@ export default function RegisterNanny() {
                 <NativeSelect
                   defaultValue={"Select Role"}
                   inputProps={{
-                    name: "age",
+                    name: "role",
                     id: "uncontrolled-native",
                   }}
+                  onChange={handleRole}
                 >
                   <option value={"Nanny"}>Nanny</option>
                   <option value={"Parent"}>Parent</option>
                 </NativeSelect>
               </FormControl>
             </Box>
-            <button className={SignUpNannyStyle.signupnannyButton}>
+            <button
+              onClick={(e) => submitRegisterNanny(e)}
+              type="submit"
+              className={SignUpNannyStyle.signupnannyButton}
+            >
               Sign Up
             </button>
             <div className={SignUpNannyStyle.signupnannySignin}>
               <p>Already have an account ?</p>
-              <a href="loginnanny">Sign in</a>
+              <a href="signin">Sign in</a>
             </div>
           </div>
         </div>
