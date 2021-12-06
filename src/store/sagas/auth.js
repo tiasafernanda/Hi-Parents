@@ -15,7 +15,7 @@ function* loginNanny(action) {
         type: LOGINNANNY_SUCCESS,
       },
       localStorage.setItem('token', res.data.token),
-      (window.location.href = '/dashboard/nanny') // setup token on local storage
+      (window.location.href = '/dashboard/nannydashboard') // setup token on local storage
     );
   } catch (err) {
     console.log(err);
