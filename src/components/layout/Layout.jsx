@@ -1,79 +1,61 @@
 import * as React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Badge,
-  Avatar,
-  Typography,
-  Toolbar,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  CssBaseline,
-} from '@mui/material';
-import {
-  DashboardIcon,
-  ClientListIcon,
-  NannyListIcon,
-  ChildActivityIcon,
-  UserProfileIcon,
-} from './DashboardIcons';
+import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import SearchInput from './SearchInput';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { DashboardIcon, DashboardOnClickIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon, ClientListOnClickIcon, NannyListOnClickIcon, ChildActivityOnClickIcon, UserProfileOnClickIcon } from './DashboardIcons';
 import mainLogo from './assets/hi-parents.png';
-import SearchInput from './SearchInput';
-import DashboardRouter from '../../routes/DashboardRouter';
-
-import { useParams } from 'react-router-dom';
 
 const drawerWidth = 290;
 
 function Layout(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location.pathname);
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { param } = useParams();
 
-  console.log(param);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <List sx={{ width: '15.6875rem', marginRight: 'auto', marginLeft: 'auto', color: '#768471' }}>
-        {['Dashboard', 'Client List', 'Nanny List', 'Child Activity', 'User Profile'].map(
-          (text, index) => (
-            <ListItem
-              button
-              key={text}
-              sx={{ height: '3.4375rem', borderRadius: '0.75rem', marginBottom: '1rem' }}
-            >
-              <ListItem sx={{ width: 'fit-content' }}>
-                {index % 5 === 0 ? (
-                  <DashboardIcon />
-                ) : index % 4 === 0 ? (
-                  <UserProfileIcon />
-                ) : index % 3 === 0 ? (
-                  <ChildActivityIcon />
-                ) : index % 2 === 0 ? (
-                  <NannyListIcon />
-                ) : index % 1 === 0 ? (
-                  <ClientListIcon />
-                ) : null}
-              </ListItem>
-              <ListItemText primary={text} />
-              <ArrowForwardIosIcon />
-            </ListItem>
-          )
-        )}
-      </List>
-    </div>
-  );
+  const drawerComponent = [
+    {
+      label: 'Dashboard',
+      icon: <DashboardIcon />,
+      iconOnclick: <DashboardOnClickIcon />,
+      path: '/dashboard/nannydashboard',
+    },
+    {
+      label: 'Client List',
+      icon: <ClientListIcon />,
+      iconOnclick: <ClientListOnClickIcon />,
+      path: '/dashboard/clientlist',
+    },
+    {
+      label: 'Nanny List',
+      icon: <NannyListIcon />,
+      iconOnclick: <NannyListOnClickIcon />,
+      path: '/dashboard/nannylist',
+    },
+    {
+      label: 'Child Activity',
+      icon: <ChildActivityIcon />,
+      iconOnclick: <ChildActivityOnClickIcon />,
+      path: '/dashboard/childactivity',
+    },
+    {
+      label: 'User Profile',
+      icon: <UserProfileIcon />,
+      iconOnclick: <UserProfileOnClickIcon />,
+      path: '/dashboard/userprofile',
+    },
+  ];
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -81,10 +63,10 @@ function Layout(props) {
     <Box sx={{ display: 'flex', backgroundColor: '#FCFCFC' }}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          height: '4rem',
+          height: '5rem',
           ml: { sm: `${drawerWidth}px` },
           background: 'white',
           boxShadow: 'none',
@@ -94,19 +76,28 @@ function Layout(props) {
       >
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton
-            color='default'
-            aria-label='open drawer'
-            edge='start'
+            color="default"
+            aria-label="open drawer"
+            edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: '0.125rem', display: { sm: 'none' } }}
+            sx={{
+              mr: '0.125rem',
+              display: { sm: 'none' },
+            }}
           >
             <MenuIcon />
           </IconButton>
           <SearchInput />
-          <Box sx={{ display: 'flex', flexDirection: 'row', paddingRight: '2rem' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingRight: '2rem',
+            }}
+          >
             <IconButton
-              aria-label='notification'
-              size='large'
+              aria-label="notification"
+              size="large"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -114,32 +105,36 @@ function Layout(props) {
                 color: '#F77979',
               }}
             >
-              <Badge overlap='circular' variant='dot' badgeContent={5} color='warning'>
-                <NotificationsIcon fontSize='inherit' />
+              <Badge overlap="circular" variant="dot" badgeContent={5} color="warning">
+                <NotificationsIcon fontSize="inherit" />
               </Badge>
             </IconButton>
             <span
-              className='divider'
-              style={{ borderWidth: '0.0625rem', borderStyle: 'solid', borderColor: '#768471' }}
+              className="divider"
+              style={{
+                borderWidth: '0.0625rem',
+                borderStyle: 'solid',
+                borderColor: '#768471',
+              }}
             ></span>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>
-                Super Sayan Vegeta
-              </Typography>
-              <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>Super Sayan Vegeta</Typography>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             </Box>
           </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        component='nav'
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label='mailbox folders'
-      >
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
-          variant='permanent'
+          variant="permanent"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
@@ -154,27 +149,45 @@ function Layout(props) {
         >
           <img
             src={mainLogo}
-            alt='icons'
+            alt="icons"
             style={{
               height: '2.6125rem',
               width: '12.1875rem',
               marginTop: '2.5rem',
               marginLeft: 'auto',
               marginRight: 'auto',
+              marginBottom: '2.5rem',
             }}
           />
-
-          {drawer}
+          <List sx={{ width: '15.6875rem', marginRight: 'auto', marginLeft: 'auto', color: '#768471' }}>
+            {drawerComponent.map((item) => (
+              <ListItem
+                button
+                key={item.label}
+                onClick={() => navigate(item.path)}
+                sx={
+                  location.pathname === item.path
+                    ? {
+                        color: 'white',
+                        backgroundColor: '#F67979',
+                        height: '3.4375rem',
+                        borderRadius: '0.75rem',
+                        marginBottom: '1rem',
+                      }
+                    : {
+                        height: '3.4375rem',
+                        borderRadius: '0.75rem',
+                        marginBottom: '1rem',
+                      }
+                }
+              >
+                <ListItem sx={{ width: 'fit-content' }}>{location.pathname === item.path ? item.iconOnclick : item.icon}</ListItem>
+                <ListItemText primary={item.label} />
+                <ArrowForwardIosIcon />
+              </ListItem>
+            ))}
+          </List>
         </Drawer>
-      </Box>
-      <Box
-        component='main'
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
-        <DashboardRouter params={param} />
-
-        {/* <Toolbar />
-        <NannyList /> */}
       </Box>
     </Box>
   );
