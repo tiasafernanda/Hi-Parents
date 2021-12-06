@@ -1,4 +1,10 @@
 .dashboard {
+  margin-top: 9rem;
+  position: relative;
+  left: 18rem;
+  h1 {
+    margin-left: 6rem;
+  }
   .cardGroup {
     display: flex;
     justify-content: space-evenly;

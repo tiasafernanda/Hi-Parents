@@ -38,7 +38,7 @@ export default function ClientList() {
 
   return (
     <div className={styles.dashboard}>
-      <h3>Client List</h3>
+      <h1>Client List</h1>
       <div className={styles.table}>
         <table>
           <tr>
@@ -98,6 +98,32 @@ export default function ClientList() {
               </td>
               <td>
                 <button className={styles.actionButton}>&bull;&bull;&bull;</button>
+                {item.status === 0 && (
+                    <div className={styles.dropdownContent}>
+                      <a
+                        href='#'
+                        className={styles.accept}
+                        onClick={() => handleClick(item.clientId)}
+                      >
+                        <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
+                          <BsCheck2Circle />
+                        </span>{' '}
+                        Accept Client
+                      </a>
+                      <a href='x'>
+                        <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                          <BiXCircle />
+                        </span>{' '}
+                        Reject Client
+                      </a>
+                      <Link to='#'>
+                        <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                          <AiOutlineInfoCircle />
+                        </span>{' '}
+                        View Details
+                      </Link>
+                    </div>
+                  )}
               </td>
             </tr>
           ))}

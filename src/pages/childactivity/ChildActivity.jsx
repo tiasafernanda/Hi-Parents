@@ -7,7 +7,7 @@ import { HiOutlineAdjustments } from 'react-icons/hi';
 export default function ChildActivity() {
   return (
     <div className={styles.containers}>
-      <h3>Child Activity</h3>
+      <h1>Child Activity</h1>
       <div className={styles.adjust}>
         <h5>Saturday, 3 November 2021</h5>
         <div className={styles.sortFilter}>

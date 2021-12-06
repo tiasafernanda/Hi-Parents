@@ -11,32 +11,32 @@ import { Link } from 'react-router-dom';
 export default function NannyDashboard() {
   return (
     <div className={styles.dashboard}>
-      <h3>Dashboard</h3>
+      <h1>Dashboard</h1>
       <div className={styles.cardGroup}>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>New Appointment</h5>
-            <h1>11</h1>
+            <h2>11</h2>
           </div>
           <img src={appointment} alt='' />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Client</h5>
-            <h1>11</h1>
+            <h2>11</h2>
           </div>
           <img src={client} alt='' />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Nanny</h5>
-            <h1>8</h1>
+            <h2>8</h2>
           </div>
           <img src={nanny} alt='' />
         </div>
       </div>
       <div className={styles.table}>
-        <h3>Client List</h3>
+        <h1>Client List</h1>
         <table>
           <tr>
             <th>Date Request</th>
