@@ -2,40 +2,68 @@ import React from 'react';
 import styles from './assets/ActivityDetail.module.scss';
 import { useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import folder from './assets/img/folder_5.svg';
 
 export default function ActivityDetail() {
   const [image, setImage] = useState();
-  const [preview, setPreview] = useState();
-  console.log('preview', preview);
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-    reader.onerror = () => {
-      console.log('error on loading image');
-    };
-  };
-  console.log('image', image);
+  const [isUpload, setIsUpload] = useState(false);
+  function handleImageChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage(e.target.result);
+        setIsUpload(true);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
   const [image1, setImage1] = useState();
-  const [preview1, setPreview1] = useState();
-  console.log('preview', preview1);
-  const handleImage1 = (e) => {
-    const file = e.target.files[0];
-    setImage1(file);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreview1(reader.result);
-    };
-    reader.onerror = () => {
-      console.log('error on loading image');
-    };
-  };
-  console.log('image', image1);
+  const [isUpload1, setIsUpload1] = useState(false);
+  function handleImageChange1(e) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage1(e.target.result);
+        setIsUpload1(true);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
+  // const [image, setImage] = useState();
+  // const [preview, setPreview] = useState();
+  // console.log('preview', preview);
+  // const handleImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setImage(file);
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     setPreview(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.log('error on loading image');
+  //   };
+  // };
+  // console.log('image', image);
+  // const [image1, setImage1] = useState();
+  // const [preview1, setPreview1] = useState();
+  // console.log('preview', preview1);
+  // const handleImage1 = (e) => {
+  //   const file = e.target.files[0];
+  //   setImage1(file);
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     setPreview1(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.log('error on loading image');
+  //   };
+  // };
+  // console.log('image', image1);
 
   return (
     <div className={styles.containers}>
@@ -61,8 +89,42 @@ export default function ActivityDetail() {
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
-                <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
-                {preview ? <img src={preview} alt='preview' /> : null}
+                {/* <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
+                {preview ? <img src={preview} alt='preview' /> : null} */}
+                <div className={styles.image}>
+                  <div className={styles.imageUpload}>
+                    {!isUpload ? (
+                      <>
+                        <label htmlFor='upload-input'>
+                          <img
+                            src={folder}
+                            draggable={'false'}
+                            alt='placeholder'
+                            style={{ width: '2rem' }}
+                          />
+                        </label>
+                        <input
+                          id='upload-input'
+                          type='file'
+                          accept='image/*'
+                          onChange={handleImageChange}
+                        />
+                      </>
+                    ) : (
+                      <div className={styles.ImagePreview}>
+                        <img
+                          id={styles.uploadedImage}
+                          src={image}
+                          alt='uploaded-img'
+                          onClick={() => {
+                            setIsUpload(false);
+                            setImage(null);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </fieldset>
             </div>
           </div>
@@ -89,8 +151,42 @@ export default function ActivityDetail() {
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
-                <input type='file' accept='image/*' onChange={(e) => handleImage1(e)} />
-                {preview1 ? <img src={preview1} alt='preview' /> : null}
+                {/* <input type='file' accept='image/*' onChange={(e) => handleImage1(e)} />
+                {preview1 ? <img src={preview1} alt='preview' /> : null} */}
+                <div className={styles.image}>
+                  <div className={styles.imageUpload}>
+                    {!isUpload1 ? (
+                      <>
+                        <label htmlFor='upload-input'>
+                          <img
+                            src={folder}
+                            draggable={'false'}
+                            alt='placeholder'
+                            style={{ width: '2rem' }}
+                          />
+                        </label>
+                        <input
+                          id='upload-input'
+                          type='file'
+                          accept='image/*'
+                          onChange={handleImageChange1}
+                        />
+                      </>
+                    ) : (
+                      <div className={styles.ImagePreview}>
+                        <img
+                          id={styles.uploadedImage}
+                          src={image1}
+                          alt='uploaded-img'
+                          onClick={() => {
+                            setIsUpload1(false);
+                            setImage1(null);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </fieldset>
             </div>
           </div>

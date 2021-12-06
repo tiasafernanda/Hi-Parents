@@ -6,7 +6,7 @@ import ClientDetail from '../pages/clientdetail/ClientDetail';
 import ChildActivity from '../pages/childactivity/ChildActivity';
 import ActivityDetail from '../pages/activitydetail/ActivityDetail';
 import ClientList from '../pages/clientList/ClientList';
-import ProfileParents from '../components/DashbordParent/profileParents';
+import ProfileParents from '../pages/dashboardParents/DashboardParent';
 import NannyList from '../pages/nannyList/NannyList';
 import ManageChild from '../pages/nannyList/ManageChild';
 import UserProfile from '../pages/userProfile/UserProfile';

@@ -57,22 +57,36 @@ export default function ClientList() {
               <td>{item.childrenName}</td>
               <td>
                 <div className={styles.dropdown}>
-                  <button className={item.status === 1 ? styles.statusActive : item.status === 2 ? styles.statusReject : styles.statusPending}>{item.status === 1 ? 'Active' : item.status === 2 ? 'Reject' : 'Pending'}</button>
+                  <button
+                    className={
+                      item.status === 1
+                        ? styles.statusActive
+                        : item.status === 2
+                        ? styles.statusReject
+                        : styles.statusPending
+                    }
+                  >
+                    {item.status === 1 ? 'Active' : item.status === 2 ? 'Reject' : 'Pending'}
+                  </button>
                   {item.status === 0 && (
                     <div className={styles.dropdownContent}>
-                      <a className={styles.accept} onClick={() => handleClick(item.clientId)}>
+                      <a
+                        href='#'
+                        className={styles.accept}
+                        onClick={() => handleClick(item.clientId)}
+                      >
                         <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
                           <BsCheck2Circle />
                         </span>{' '}
                         Accept Client
                       </a>
-                      <a href="x">
+                      <a href='x'>
                         <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                           <BiXCircle />
                         </span>{' '}
                         Reject Client
                       </a>
-                      <Link to="#">
+                      <Link to='#'>
                         <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                           <AiOutlineInfoCircle />
                         </span>{' '}
@@ -92,18 +106,22 @@ export default function ClientList() {
           <p>Showing 10 of {clientDetail.length}</p>
           <div>
             <button>
-              <img src={previousIcon} />
+              <img src={previousIcon} alt='' />
               Previous
             </button>
             <button style={{ marginLeft: '1.5rem' }}>
               Next
-              <img src={nextIcon} />
+              <img src={nextIcon} alt='' />
             </button>
           </div>
         </div>
         {open && (
           <div onClick={(e) => handleCLose(e)}>
-            <Modal clientId={modalValue.clientId} dateRequest={modalValue.dateRequest} parentName={modalValue.parentName} />
+            <Modal
+              clientId={modalValue.clientId}
+              dateRequest={modalValue.dateRequest}
+              parentName={modalValue.parentName}
+            />
           </div>
         )}
       </div>

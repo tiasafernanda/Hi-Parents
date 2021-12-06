@@ -8,9 +8,9 @@ import Auth from '../components/Auth';
 // import ChildActivity from '../pages/childactivity/ChildActivity';
 // import ActivityDetail from '../pages/activitydetail/ActivityDetail';
 // import DashboardParent from '../pages/dashboardParents/DashboardParent';
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/layout/Layout';
 // import ActifityParent from '../pages/dashboardParents/ActifityParent';
-import DashboardRouter from './DashboardRouter';
+// import DashboardRouter from './DashboardRouter';
 
 export default function Router() {
   return (
