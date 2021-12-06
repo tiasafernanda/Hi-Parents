@@ -72,7 +72,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='#'>
+                  <Link to='/dashboard/client-detail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -108,7 +108,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='#'>
+                  <Link to='/dashboard/client-detail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -144,7 +144,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='#'>
+                  <Link to='/dashboard/client-detail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -180,7 +180,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='#'>
+                  <Link to='/dashboard/client-detail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -216,7 +216,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='#'>
+                  <Link to='/dashboard/client-detail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
