@@ -7,10 +7,11 @@ import UserProfile from './userProfile/UserProfile';
 import Layout from '../components/layout/Layout';
 
 const Dashboard = () => {
+  const drawerWidth = 290;
   return (
     <>
       <Layout />
-      <div>
+      <div style={{ width: `calc(100% - ${drawerWidth}px)` }}>
         <Routes>
           <Route path="/nannydashboard" element={<NannyDashboard />} />
           <Route path="/clientlist" element={<ClientList />} />
