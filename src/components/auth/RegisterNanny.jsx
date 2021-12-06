@@ -97,8 +97,8 @@ export default function RegisterNanny() {
               }}
             />
             {isFullName !== true ? (
-              <span className={SignUpNannyStyle.signupnannyInputError}>
-                This field is required
+              <span className={SignUpNannyStyle.signupNameError}>
+                Your name has to be at least 5 characters!
               </span>
             ) : null}
 
@@ -117,8 +117,8 @@ export default function RegisterNanny() {
               }}
             />
             {isEmail !== true ? (
-              <span className={SignUpNannyStyle.signupnannyInputError}>
-                Email is invalid
+              <span className={SignUpNannyStyle.signupEmailError}>
+                Please, insert with correct format email!
               </span>
             ) : null}
 
@@ -126,7 +126,7 @@ export default function RegisterNanny() {
               className={
                 isPassword === true
                   ? SignUpNannyStyle.signupnannyInput
-                  : SignUpNannyStyle.signupnannyInputError
+                  : SignUpNannyStyle.signupInputPasswordError
               }
               type={showPass === false ? "text" : "password"}
               placeholder="Password"
@@ -149,8 +149,10 @@ export default function RegisterNanny() {
               />
             )}
             {isPassword !== true ? (
-              <span className={SignUpNannyStyle.signupSpanError}>
-                Password must be at least 6 characters
+              <span className={SignUpNannyStyle.signupPasswordError}>
+                Please, fill at least 10 characters and max 20 characters,
+                <br />
+                 1 uppercase, 1 lowercase, 1 number, and 1 symbol!
               </span>
             ) : null}
 

@@ -78,18 +78,17 @@
       @include media("<=phone") {
       }
 
-     
-        @include media("<=phone") {
-           .nativeNanny{
-             width: 16rem;
-             margin-left: 4rem;
+      @include media("<=phone") {
+        .nativeNanny {
+          width: 16rem;
+          margin-left: 4rem;
         }
       }
 
       .signupnannyIcon {
-        position: relative;
-        left: 10rem;
-        bottom: 4rem;
+        position: absolute;
+        left: 50rem;
+        bottom: 6rem;
 
         @include media("<=phone") {
           left: 7rem;
@@ -132,6 +131,43 @@
       font-size: 1.8rem;
     }
   }
+  .signupnannyInputError {
+    @extend %inputbuttonStyle;
+    margin-bottom: 0.5rem;
+    outline: red;
+    border: none;
+    border-bottom: 2px base.$red-color solid;
+    width: 24rem;
+  }
+
+  .signupInputPasswordError{
+    @extend %inputbuttonStyle;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    outline: red;
+    border: none;
+    border-bottom: 2px base.$red-color solid;
+    width: 24rem;
+  }
+
+  .signupNameError {
+    color: base.$red-color;
+    font-size: 0.7rem;
+    margin-right: 9rem;
+  }
+
+  .signupEmailError {
+    color: base.$red-color;
+    font-size: 0.7rem;
+    margin-right: 9.5rem;
+  }
+
+  .signupPasswordError {
+    color: base.$red-color;
+    font-size: 0.7rem;
+    margin-right: 4.5rem;
+    
+  }
 
   .signupnannyInput {
     @extend %inputbuttonStyle;
@@ -165,9 +201,6 @@
       height: 2.5rem;
       margin-bottom: 0.5rem;
       font-size: 15px;
-
     }
   }
-
-  
 }
