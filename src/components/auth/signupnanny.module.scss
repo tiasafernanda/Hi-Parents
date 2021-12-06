@@ -78,6 +78,14 @@
       @include media("<=phone") {
       }
 
+     
+        @include media("<=phone") {
+           .nativeNanny{
+             width: 16rem;
+             margin-left: 4rem;
+        }
+      }
+
       .signupnannyIcon {
         position: relative;
         left: 10rem;
@@ -160,4 +168,6 @@
 
     }
   }
+
+  
 }

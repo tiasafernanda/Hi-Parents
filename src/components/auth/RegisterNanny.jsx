@@ -156,10 +156,15 @@ export default function RegisterNanny() {
 
             <Box sx={{ minWidth: 382 }}>
               <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                <InputLabel
+                  className={SignUpNannyStyle.nativeNanny}
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                >
                   Role
                 </InputLabel>
                 <NativeSelect
+                  className={SignUpNannyStyle.nativeNanny}
                   defaultValue={"Select Role"}
                   inputProps={{
                     name: "role",

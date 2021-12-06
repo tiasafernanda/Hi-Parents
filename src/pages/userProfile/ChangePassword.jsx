@@ -13,8 +13,8 @@ export default function ChangePassword() {
             placeholder="Old Password"
             id="outlined-required"
           />
-          <input type="text" name="Old Password" placeholder="Old Password" />
-          <input type="text" name="Old Password" placeholder="Old Password" />
+          <input type="text" name="Old Password" placeholder="New Password" />
+          <input type="text" name="Old Password" placeholder="Confirm Password" />
         </form>
       </div>
       <div className={style.saveButton}>
@@ -26,6 +26,7 @@ export default function ChangePassword() {
             backgroundColor: "#F67979",
             borderRadius: "2rem",
             border: "none",
+            color: "#FFFFFF",
           }}
         >
           Cancel
@@ -38,6 +39,7 @@ export default function ChangePassword() {
             backgroundColor: "#10B278",
             borderRadius: "2rem",
             border: "none",
+            color: "#FFFFFF", 
           }}
         >
           Save

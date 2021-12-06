@@ -1,3 +1,14 @@
-.containers {
+.container {
+    .formPhoto{
+        border: 1px solid black;
+        width: 26rem;
+        height: 5rem;
+        img {
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+        width: 4rem;
+      }
 
+    }
+    
 }
