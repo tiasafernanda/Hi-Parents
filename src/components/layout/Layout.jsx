@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
+import { AppBar, Box, IconButton, Badge, Avatar, Typography, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline, Popover } from '@mui/material';
 import SearchInput from './SearchInput';
+import MyAvatar from './MyAvatar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -24,7 +25,10 @@ function Layout(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawerComponent = [
+  const role = localStorage.getItem('role');
+  console.log(role);
+
+  const drawerNanny = [
     {
       label: 'Dashboard',
       icon: <DashboardIcon />,
@@ -53,7 +57,22 @@ function Layout(props) {
       label: 'User Profile',
       icon: <UserProfileIcon />,
       iconOnclick: <UserProfileOnClickIcon />,
-      path: '/dashboard/userprofile',
+      path: '/dashboard/userprofilenanny',
+    },
+  ];
+
+  const drawerParent = [
+    {
+      label: 'Child Activity',
+      icon: <ChildActivityIcon />,
+      iconOnclick: <ChildActivityOnClickIcon />,
+      path: '/dashboard/childactivity',
+    },
+    {
+      label: 'User Profile',
+      icon: <UserProfileIcon />,
+      iconOnclick: <UserProfileOnClickIcon />,
+      path: '/dashboard/userprofileparent',
     },
   ];
 
@@ -117,7 +136,8 @@ function Layout(props) {
                 borderColor: '#768471',
               }}
             ></span>
-            <Box
+            <MyAvatar />
+            {/*<Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -126,7 +146,20 @@ function Layout(props) {
             >
               <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>Super Sayan Vegeta</Typography>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-            </Box>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+              >
+                <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+              </Popover>
+              </Box>*/}
           </Box>
         </Toolbar>
       </AppBar>
@@ -160,7 +193,7 @@ function Layout(props) {
             }}
           />
           <List sx={{ width: '15.6875rem', marginRight: 'auto', marginLeft: 'auto', color: '#768471' }}>
-            {drawerComponent.map((item) => (
+            {(role !== 'Nanny' ? drawerParent : drawerNanny).map((item) => (
               <ListItem
                 button
                 key={item.label}
