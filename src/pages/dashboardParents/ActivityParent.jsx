@@ -8,7 +8,7 @@ import family from "./assets/img/family.png";
 import Empty from "../../components/empty/Empty";
 
 export default function ActivityParent() {
-  const dummyClient = [];
+  const dummyClient = ["ok"];
   return (
     <div className={styles.containers}>
       <h3>Child Activity</h3>
