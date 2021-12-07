@@ -27,6 +27,18 @@
       //   width: 4rem;
       // }
 
+      img {
+        width: 4rem;
+        height: 3rem;
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+      }
+
+      img:hover {
+        cursor: zoom-in;
+      }
+
       button:hover {
         cursor: pointer;
       }

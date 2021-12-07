@@ -3,6 +3,8 @@ import styles from './assets/ActivityDetail.module.scss';
 import { useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import folder from './assets/img/folder_5.svg';
+import { Link } from 'react-router-dom';
+import { BiLeftArrowAlt } from 'react-icons/bi';
 
 export default function ActivityDetail() {
   const [image, setImage] = useState();
@@ -32,41 +34,12 @@ export default function ActivityDetail() {
     }
   }
 
-  // const [image, setImage] = useState();
-  // const [preview, setPreview] = useState();
-  // console.log('preview', preview);
-  // const handleImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     setPreview(reader.result);
-  //   };
-  //   reader.onerror = () => {
-  //     console.log('error on loading image');
-  //   };
-  // };
-  // console.log('image', image);
-  // const [image1, setImage1] = useState();
-  // const [preview1, setPreview1] = useState();
-  // console.log('preview', preview1);
-  // const handleImage1 = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage1(file);
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     setPreview1(reader.result);
-  //   };
-  //   reader.onerror = () => {
-  //     console.log('error on loading image');
-  //   };
-  // };
-  // console.log('image', image1);
-
   return (
     <div className={styles.containers}>
+      <Link to='/nanny'>
+        <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
+        Child Activity Detail
+      </Link>
       <div className={styles.container}>
         <h3>Child Information</h3>
         <hr />
