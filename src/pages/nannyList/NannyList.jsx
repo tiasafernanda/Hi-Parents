@@ -30,7 +30,9 @@ export default function NannyList() {
   return (
     <div className={styles.container}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant='h4'>Nanny List</Typography>
+        <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
+          Nanny List
+        </Typography>
         <Box
           sx={{ display: 'flex', justifyContent: 'right', marginTop: '1rem', marginBottom: '1rem' }}
         >
@@ -94,7 +96,7 @@ export default function NannyList() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: row.status ? '#078658' : '#F77979',
+                        backgroundColor: row.status ? '#10B278' : '#F67979',
                         color: 'white',
                         width: 'fitContent',
                         height: '35px',

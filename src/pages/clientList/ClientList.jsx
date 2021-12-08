@@ -70,22 +70,18 @@ export default function ClientList() {
                   </button>
                   {item.status === 0 && (
                     <div className={styles.dropdownContent}>
-                      <a
-                        href='#'
-                        className={styles.accept}
-                        onClick={() => handleClick(item.clientId)}
-                      >
+                      <button className={styles.accept} onClick={() => handleClick(item.clientId)}>
                         <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
                           <BsCheck2Circle />
                         </span>{' '}
                         Accept Client
-                      </a>
-                      <a href='x'>
+                      </button>
+                      <button>
                         <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                           <BiXCircle />
                         </span>{' '}
                         Reject Client
-                      </a>
+                      </button>
                       <Link to='#'>
                         <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                           <AiOutlineInfoCircle />
@@ -99,31 +95,27 @@ export default function ClientList() {
               <td>
                 <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 {item.status === 0 && (
-                    <div className={styles.dropdownContent}>
-                      <a
-                        href='#'
-                        className={styles.accept}
-                        onClick={() => handleClick(item.clientId)}
-                      >
+                  <div className={styles.dropdownContent}>
+                    <button className={styles.accept} onClick={() => handleClick(item.clientId)}>
                         <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
                           <BsCheck2Circle />
                         </span>{' '}
                         Accept Client
-                      </a>
-                      <a href='x'>
+                      </button>
+                      <button>
                         <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                           <BiXCircle />
                         </span>{' '}
                         Reject Client
-                      </a>
+                      </button>
                       <Link to='#'>
                         <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                           <AiOutlineInfoCircle />
                         </span>{' '}
                         View Details
                       </Link>
-                    </div>
-                  )}
+                  </div>
+                )}
               </td>
             </tr>
           ))}

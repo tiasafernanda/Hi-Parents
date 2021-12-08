@@ -6,7 +6,7 @@
 
   h1 {
     margin: 1rem 6rem;
-    font-size: 24px;
+    font-size: 33px;
   }
 
   .cardGroup {
@@ -33,7 +33,7 @@
   .table {
     h1 {
       margin: 1rem 6rem;
-      font-size: 20px;
+      font-size: 24px;
     }
     table {
       // margin-top: 3rem;
@@ -116,7 +116,8 @@
     justify-content: flex-end;
     margin-bottom: 1rem;
 
-    button {
+    a {
+      text-decoration: none;
       padding: 0.5rem 5rem;
       color: #10b278;
       border: 1px solid #10b278;

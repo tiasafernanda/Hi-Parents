@@ -11,24 +11,23 @@ import ActivityParent from './dashboardParents/ActivityParent';
 import ParentActivityDetail from './dashboardParents/ParentActivityDetail';
 import ProfileParent from './dashboardParents/DashboardParent';
 import Layout from '../components/layout/Layout';
-import ClientDetail from '../pages/clientdetail/ClientDetail';
 
 const Dashboard = () => {
   return (
     <>
       <Layout />
       <Routes>
-        <Route path="/nannydashboard" element={<NannyDashboard />} />
-        <Route path="/nannydashboard/clientdetail" element={<ClientDetail />} />
-        <Route path="/clientlist" element={<ClientList />} />
-        <Route path="/nannylist" element={<NannyList />} />
-        <Route path="/nannylist/managenanny" element={<ManageNanny />} />
-        <Route path="/childactivity" element={<ChildActivity />} />
-        <Route path="/userprofilenanny" element={<UserProfile />} />
-        <Route path="/userprofilenanny/changepassword" element={<ChangePassword />} />
-        <Route path="/activityparent" element={<ActivityParent />} />
-        <Route path="/activityparent/parentactivitydetail" element={<ParentActivityDetail />} />
-        <Route path="/profileparent" element={<ProfileParent />} />
+        <Route path='/nannydashboard' element={<NannyDashboard />} />
+        <Route path='/nannydashboard/clientdetail' element={<ClientDetail />} />
+        <Route path='/clientlist' element={<ClientList />} />
+        <Route path='/nannylist' element={<NannyList />} />
+        <Route path='/nannylist/managenanny' element={<ManageNanny />} />
+        <Route path='/childactivity' element={<ChildActivity />} />
+        <Route path='/userprofilenanny' element={<UserProfile />} />
+        <Route path='/userprofilenanny/changepassword' element={<ChangePassword />} />
+        <Route path='/activityparent' element={<ActivityParent />} />
+        <Route path='/activityparent/parentactivitydetail' element={<ParentActivityDetail />} />
+        <Route path='/profileparent' element={<ProfileParent />} />
       </Routes>
     </>
   );

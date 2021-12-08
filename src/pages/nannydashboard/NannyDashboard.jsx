@@ -72,7 +72,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </a>
-                  <Link to='/client-detail'>
+                  <Link to='clientdetail'>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -228,7 +228,7 @@ export default function NannyDashboard() {
           </tr>
         </table>
         <div className={styles.add}>
-          <button>{''} See All Client List</button>
+          <Link to='/dashboard/clientlist'>{''} See All Client List</Link>
         </div>
       </div>
     </div>

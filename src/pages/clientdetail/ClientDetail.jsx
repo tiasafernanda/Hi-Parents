@@ -40,6 +40,9 @@ export default function ClientDetail() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
 
   return (
     <div
@@ -48,7 +51,7 @@ export default function ClientDetail() {
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
     >
-      <Link to='/nanny'>
+      <Link to='/dashboard/nannydashboard'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Client Detail
       </Link>
@@ -211,6 +214,40 @@ export default function ClientDetail() {
           <Fade in={open}>
             <Box sx={style}>
               <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
+            </Box>
+          </Fade>
+        </Modal>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
+            </Box>
+          </Fade>
+        </Modal>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open1}
+          onClose={handleClose1}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open1}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen1} style={{ borderRadius: '8px' }} />
             </Box>
           </Fade>
         </Modal>
