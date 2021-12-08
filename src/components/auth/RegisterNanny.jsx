@@ -11,6 +11,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { RegisterNannyAction } from "../../store/actions/auth";
+import validator from "validator";
 
 export default function RegisterNanny() {
   const [showPass, setShowPass] = useState(false);
@@ -75,6 +76,17 @@ export default function RegisterNanny() {
     changeInput(e);
   };
 
+  const [emailError, setEmailError] = useState("");
+  const validateEmail = (e) => {
+    var email = e.target.value;
+
+    if (validator.isEmail(email)) {
+      setEmailError("");
+    } else {
+      setEmailError("Please, insert with correct format email!");
+    }
+  };
+
   return (
     <div className={SignUpNannyStyle.signupnannyContainer}>
       <div className={SignUpNannyStyle.signupnannyWrapper}>
@@ -96,7 +108,7 @@ export default function RegisterNanny() {
                 changeInput(e);
               }}
             />
-            {isFullName !== true ? (
+            {registerNanny.name.length < 5 && registerNanny.name.length > 0 ? (
               <span className={SignUpNannyStyle.signupNameError}>
                 Your name has to be at least 5 characters!
               </span>
@@ -108,17 +120,18 @@ export default function RegisterNanny() {
                   ? SignUpNannyStyle.signupnannyInput
                   : SignUpNannyStyle.signupnannyInputError
               }
-              type="text"
+              type="email"
               placeholder="Email Addres"
               name="email"
               onChange={(e) => {
                 validasiInputEmail(e.target.value);
                 changeInput(e);
+                validateEmail(e);
               }}
             />
-            {isEmail !== true ? (
+            {validator.isEmail(emailError) !== true ? (
               <span className={SignUpNannyStyle.signupEmailError}>
-                Please, insert with correct format email!
+                {emailError}
               </span>
             ) : null}
 
@@ -137,22 +150,30 @@ export default function RegisterNanny() {
               }}
             />
 
-            {showPass ? (
+            {!showPass ? (
               <VisibilityIcon
-                className={SignUpNannyStyle.signupnannyIcon}
+                className={`${SignUpNannyStyle.signupnannyIcon} ${
+                  isPassword !== true
+                    ? SignUpNannyStyle.iconShowPasswordError
+                    : null
+                }`}
                 onClick={() => setShowPass(!showPass)}
               />
             ) : (
               <VisibilityOffIcon
-                className={SignUpNannyStyle.signupnannyIcon}
+                className={`${SignUpNannyStyle.signupnannyIcon} ${
+                  isPassword !== true
+                    ? SignUpNannyStyle.iconShowPasswordError
+                    : null
+                }`}
                 onClick={() => setShowPass(!showPass)}
               />
             )}
-            {isPassword !== true ? (
+            {registerNanny.password.length > 0 &&
+            registerNanny.password.length < 10 ? (
               <span className={SignUpNannyStyle.signupPasswordError}>
                 Please, fill at least 10 characters and max 20 characters,
-                <br />
-                 1 uppercase, 1 lowercase, 1 number, and 1 symbol!
+                <br />1 uppercase, 1 lowercase, 1 number, and 1 symbol!
               </span>
             ) : null}
 
@@ -174,12 +195,23 @@ export default function RegisterNanny() {
                   }}
                   onChange={handleRole}
                 >
+                  <option value={""}></option>
                   <option value={"Nanny"}>Nanny</option>
                   <option value={"Parent"}>Parent</option>
                 </NativeSelect>
               </FormControl>
             </Box>
             <button
+              disabled={
+                !(
+                  registerNanny.name &&
+                  registerNanny.email &&
+                  registerNanny.password &&
+                  registerNanny.role
+                ) &&
+                registerNanny.name.length < 5 &&
+                registerNanny.password.length < 10
+              }
               onClick={(e) => submitRegisterNanny(e)}
               type="submit"
               className={SignUpNannyStyle.signupnannyButton}

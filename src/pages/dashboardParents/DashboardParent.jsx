@@ -165,7 +165,7 @@ export default function ProfileParent() {
         <div
           style={{
             marginTop: "4rem",
-            marginLeft: "30rem",
+            // marginLeft: "30rem",
             display: "flex",
             justifyContent: "right",
             height: "3rem",
@@ -173,9 +173,21 @@ export default function ProfileParent() {
         >
           <button
             style={{
-              width: "20rem",
+              width: "10rem",
+              backgroundColor: "blue",
+              borderRadius: "2rem",
+              color: "white",
+              borderStyle: "none",
+            }}
+          >
+            Submit
+          </button>
+          <button
+            style={{
+              width: "10rem",
               backgroundColor: "#F67979",
               borderRadius: "2rem",
+              marginLeft: "30rem",
               color: "white",
               borderStyle: "none",
             }}
@@ -184,7 +196,7 @@ export default function ProfileParent() {
           </button>
           <button
             style={{
-              width: "20rem",
+              width: "10rem",
               backgroundColor: "#10B278",
               borderRadius: "2rem",
               marginLeft: "1rem",

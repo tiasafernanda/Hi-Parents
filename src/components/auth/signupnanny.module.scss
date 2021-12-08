@@ -86,15 +86,18 @@
       }
 
       .signupnannyIcon {
-        position: absolute;
-        left: 50rem;
-        bottom: 6rem;
+        position: relative;
+        left: 10rem;
+        bottom: 3rem;
 
         @include media("<=phone") {
           left: 7rem;
           bottom: 3rem;
           font-size: 1.25rem;
         }
+      }
+      .iconShowPasswordError {
+        bottom: 4rem;
       }
 
       .signupnannySignin {
@@ -138,9 +141,10 @@
     border: none;
     border-bottom: 2px base.$red-color solid;
     width: 24rem;
+    
   }
 
-  .signupInputPasswordError{
+  .signupInputPasswordError {
     @extend %inputbuttonStyle;
     margin-bottom: 2rem;
     margin-top: 1rem;
@@ -148,25 +152,41 @@
     border: none;
     border-bottom: 2px base.$red-color solid;
     width: 24rem;
+    @include media("<=phone") {
+      width: 16rem;
+    }
   }
 
   .signupNameError {
     color: base.$red-color;
     font-size: 0.7rem;
     margin-right: 9rem;
+    @include media("<=phone") {
+      margin-right: 1.5rem;
+    }
   }
 
   .signupEmailError {
     color: base.$red-color;
     font-size: 0.7rem;
     margin-right: 9.5rem;
+    @include media("<=phone") {
+      margin-right: 1.5rem;
+    }
+
   }
 
   .signupPasswordError {
     color: base.$red-color;
     font-size: 0.7rem;
     margin-right: 4.5rem;
-    
+    margin-top: -23px;
+
+    @include media("<=phone") {
+      margin-right: 2rem;
+      margin-left: 2rem;
+      font-size: 10px;
+    }
   }
 
   .signupnannyInput {
@@ -175,6 +195,8 @@
     border: none;
     border-bottom: 2px base.$gray-color solid;
     width: 24rem;
+    margin-bottom: 10px;
+
     @include media("<=phone") {
       width: 16rem;
       height: 1rem;
