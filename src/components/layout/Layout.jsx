@@ -88,13 +88,13 @@ function Layout(props) {
       label: 'Child Activity',
       icon: <ChildActivityIcon />,
       iconOnclick: <ChildActivityOnClickIcon />,
-      path: '/dashboard/childactivity',
+      path: '/dashboard/activityparent',
     },
     {
       label: 'User Profile',
       icon: <UserProfileIcon />,
       iconOnclick: <UserProfileOnClickIcon />,
-      path: '/dashboard/userprofileparent',
+      path: '/dashboard/profileparent',
     },
   ];
 

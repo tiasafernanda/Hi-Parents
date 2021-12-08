@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from 'react';
-import styles from './assets/ParentForm.module.scss';
+import styles from './assets/DashboardParent.module.scss';
 import MenuItem from '@mui/material/MenuItem';
 import folder from './assets/img/folder_5.svg';
 
@@ -296,39 +296,33 @@ export default function ProfileParent() {
           </button>
         </Box>
       </div>
-      <div
-        style={{
-          marginTop: '2rem',
-          marginLeft: '30rem',
-          marginRight: '2rem',
-          display: 'flex',
-          justifyContent: 'right',
-          height: '3rem',
-        }}
-      >
-        <button
-          style={{
-            padding: '0.5rem 4rem',
-            backgroundColor: '#F67979',
-            borderRadius: '2rem',
-            color: 'white',
-            borderStyle: 'none',
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          style={{
-            padding: '0.5rem 4rem',
-            backgroundColor: '#10B278',
-            borderRadius: '2rem',
-            marginLeft: '1rem',
-            color: 'white',
-            borderStyle: 'none',
-          }}
-        >
-          Save
-        </button>
+      <div className={styles.btn}>
+        <div className={styles.submitbtn}>
+          <button
+            style={{
+              backgroundColor: '#F1B722',
+            }}
+          >
+            Submit
+          </button>
+        </div>
+        <div className={styles.savebtn}>
+          <button
+            style={{
+              backgroundColor: '#F67979',
+              marginRight: '1rem',
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            style={{
+              backgroundColor: '#10B278',
+            }}
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );

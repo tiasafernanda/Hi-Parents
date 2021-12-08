@@ -10,7 +10,7 @@ export default function MyAvatar() {
   };
 
   const handleChangePass = () => {
-    window.location.href = '/dashboard/userprofile';
+    window.location.href = '/dashboard/changepassword';
   };
 
   const handleClick = (event) => {
@@ -33,8 +33,10 @@ export default function MyAvatar() {
         justifyContent: 'center',
       }}
     >
-      <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>Super Sayan Vegeta</Typography>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>
+        Super Sayan Vegeta
+      </Typography>
+      <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
       <Popover
         id={id}
         open={open}
@@ -47,12 +49,25 @@ export default function MyAvatar() {
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
       >
         <Box>
-          <Button sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }} onClick={handleChangePass}>
+          <Button
+            sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }}
+            onClick={handleChangePass}
+          >
             Change Password
           </Button>
         </Box>
         <Box>
-          <Button fullWidth sx={{ p: 2, color: '#2F2F33', textTransform: 'unset', display: 'flex', justifyContent: 'start' }} onClick={handleLogOut}>
+          <Button
+            fullWidth
+            sx={{
+              p: 2,
+              color: '#2F2F33',
+              textTransform: 'unset',
+              display: 'flex',
+              justifyContent: 'start',
+            }}
+            onClick={handleLogOut}
+          >
             Sign Out
           </Button>
         </Box>

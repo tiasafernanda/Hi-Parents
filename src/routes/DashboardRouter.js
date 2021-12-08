@@ -14,6 +14,7 @@ import StateDashboard from '../pages/emptyStates/StateDashboard';
 import ChangePassword from '../pages/userProfile/ChangePassword';
 // import { DashboardIcon } from '../components/Layout/DashboardIcons';
 // import { Routes, Route } from 'react-router-dom';
+import ModalParent from '../pages/dashboardParents/ModalParent';
 
 export default function DashboardRouter(props) {
   const { params } = props;
@@ -45,5 +46,7 @@ export default function DashboardRouter(props) {
       return <ChangePassword />;
     case 'user':
       return <UserProfile />;
+    case 'modal':
+      return <ModalParent />;
   }
 }

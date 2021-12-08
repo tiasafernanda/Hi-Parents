@@ -13,7 +13,7 @@ export default function Auth() {
       ) : type === 'signup' ? (
         <RegisterNanny />
       ) : (
-        'Halaman tidak di temukan ini'
+        'opss anda salah link'
       )}
     </div>
   );

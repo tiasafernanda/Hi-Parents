@@ -50,7 +50,7 @@ export default function LoginNanny() {
               onChange={(e) => changeInput(e)}
             />
 
-            {showPass ? (
+            {!showPass ? (
               <VisibilityIcon
                 className={SignInNannyStyle.signinnannyIcon}
                 onClick={() => setShowPass(!showPass)}

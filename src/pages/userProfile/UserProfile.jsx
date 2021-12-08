@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import styles from './assets/UserProfile.module.scss';
 import MenuItem from '@mui/material/MenuItem';
+import folder from './assets/img/folder_5.svg';
 
 export default function UserProfile() {
   const genders = [
@@ -23,21 +24,18 @@ export default function UserProfile() {
   };
 
   const [image, setImage] = useState();
-  const [preview, setPreview] = useState();
-  console.log('preview', preview);
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-    reader.onerror = () => {
-      console.log('error on loading image');
-    };
-  };
-  console.log('image', image);
+  const [isUpload, setIsUpload] = useState(false);
+  function handleImageChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage(e.target.result);
+        setIsUpload(true);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
 
   return (
     <div className={styles.containers}>
@@ -71,8 +69,42 @@ export default function UserProfile() {
               <div className={styles.photo}>
                 <fieldset>
                   <legend className={styles.legend}>Photo</legend>
-                  <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
-                  {preview ? <img src={preview} alt='preview' /> : null}
+                  {/* <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
+                  {preview ? <img src={preview} alt='preview' /> : null} */}
+                  <div className={styles.image}>
+                    <div className={styles.imageUpload}>
+                      {!isUpload ? (
+                        <>
+                          <label htmlFor='upload-input'>
+                            <img
+                              src={folder}
+                              draggable={'false'}
+                              alt='placeholder'
+                              style={{ width: '2rem' }}
+                            />
+                          </label>
+                          <input
+                            id='upload-input'
+                            type='file'
+                            accept='image/*'
+                            onChange={handleImageChange}
+                          />
+                        </>
+                      ) : (
+                        <div className={styles.ImagePreview}>
+                          <img
+                            id={styles.uploadedImage}
+                            src={image}
+                            alt='uploaded-img'
+                            onClick={() => {
+                              setIsUpload(false);
+                              setImage(null);
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </fieldset>
               </div>
             </Box>

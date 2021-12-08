@@ -3,6 +3,8 @@ import styles from './assets/ChildActivity.module.scss';
 import datas from './data';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export default function ChildActivity() {
   return (
@@ -37,7 +39,17 @@ export default function ChildActivity() {
             <td>{data.activity}</td>
 
             <td>
-              <button className={styles.actionButton}>&bull;&bull;&bull;</button>
+              <div className={styles.dropdown}>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
+                <div className={styles.dropdownContent}>
+                  <Link to='#'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
           </tr>
         ))}

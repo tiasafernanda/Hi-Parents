@@ -18,6 +18,10 @@ const ActionButton = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+
+  const handleManageChild = () => {
+    window.location.href = '/dashboard/managenanny';
+  };
   return (
     <div>
       <IconButton onClick={handleClick}>
@@ -37,10 +41,28 @@ const ActionButton = () => {
           horizontal: 'right',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '13.25rem', height: '4rem' }}>
-          <Box sx={{ backgroundColor: '#FCFCFC', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '13.25rem', height: '3.5rem' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '13.25rem',
+            height: '4rem',
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: '#FCFCFC',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '13.25rem',
+              height: '3.5rem',
+            }}
+          >
             <InfoOutlinedIcon sx={{ marginRight: '0.5rem' }} />
-            <Typography>Manage Child</Typography>
+            <Typography onClick={handleManageChild}>Manage Child</Typography>
           </Box>
         </Box>
       </Popover>

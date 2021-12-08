@@ -1,6 +1,7 @@
 $primary-color: #214457;
 $white-color: #ffffff;
 $pink-color: #f67979;
+$red-color: red;
 $gray-color: #CCC;
 $green-color: #10b278;
 
@@ -9,3 +10,11 @@ $green-color: #10b278;
   padding: 1rem;
   margin: 1.25rem 0;
 }
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+-webkit-box-shadow: 0 0 0 30px white inset !important;
+} 

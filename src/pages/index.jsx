@@ -11,6 +11,8 @@ import ActivityParent from './dashboardParents/ActivityParent';
 import ParentActivityDetail from './dashboardParents/ParentActivityDetail';
 import ProfileParent from './dashboardParents/DashboardParent';
 import Layout from '../components/layout/Layout';
+import ActivityDetail from './activitydetail/ActivityDetail';
+import DashboardParent from './dashboardParents/DashboardParent';
 
 const Dashboard = () => {
   return (
@@ -18,15 +20,17 @@ const Dashboard = () => {
       <Layout />
       <Routes>
         <Route path='/nannydashboard' element={<NannyDashboard />} />
-        <Route path='/nannydashboard/clientdetail' element={<ClientDetail />} />
+        <Route path='/clientdetail' element={<ClientDetail />} />
         <Route path='/clientlist' element={<ClientList />} />
+        <Route path='/activitydetail' element={<ActivityDetail />} />
         <Route path='/nannylist' element={<NannyList />} />
-        <Route path='/nannylist/managenanny' element={<ManageNanny />} />
+        <Route path='/managenanny' element={<ManageNanny />} />
         <Route path='/childactivity' element={<ChildActivity />} />
         <Route path='/userprofilenanny' element={<UserProfile />} />
-        <Route path='/userprofilenanny/changepassword' element={<ChangePassword />} />
+        <Route path='/changepassword' element={<ChangePassword />} />
         <Route path='/activityparent' element={<ActivityParent />} />
-        <Route path='/activityparent/parentactivitydetail' element={<ParentActivityDetail />} />
+        <Route path='/parentdashboard' element={<DashboardParent />} />
+        <Route path='/parentactivitydetail' element={<ParentActivityDetail />} />
         <Route path='/profileparent' element={<ProfileParent />} />
       </Routes>
     </>

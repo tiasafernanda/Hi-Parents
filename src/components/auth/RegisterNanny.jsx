@@ -10,9 +10,11 @@ import NativeSelect from '@mui/material/NativeSelect';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { RegisterNannyAction } from '../../store/actions/auth';
+import validator from 'validator';
+import { Link } from 'react-router-dom';
+import InputLabel from '@mui/material/InputLabel';
 
 export default function RegisterNanny() {
   // const [role, setRole] = React.useState('');
@@ -82,6 +84,17 @@ export default function RegisterNanny() {
     changeInput(e);
   };
 
+  const [emailError, setEmailError] = useState('');
+  const validateEmail = (e) => {
+    var email = e.target.value;
+
+    if (validator.isEmail(email)) {
+      setEmailError('');
+    } else {
+      setEmailError('Please, insert with correct format email!');
+    }
+  };
+
   return (
     <div className={SignUpNannyStyle.signupnannyContainer}>
       <div className={SignUpNannyStyle.signupnannyWrapper}>
@@ -103,8 +116,10 @@ export default function RegisterNanny() {
                 changeInput(e);
               }}
             />
-            {isFullName !== true ? (
-              <span className={SignUpNannyStyle.signupnannyInputError}>This field is required</span>
+            {registerNanny.name.length < 5 && registerNanny.name.length > 0 ? (
+              <span className={SignUpNannyStyle.signupNameError}>
+                Your name has to be at least 5 characters!
+              </span>
             ) : null}
 
             <input
@@ -113,23 +128,24 @@ export default function RegisterNanny() {
                   ? SignUpNannyStyle.signupnannyInput
                   : SignUpNannyStyle.signupnannyInputError
               }
-              type='text'
-              placeholder='Email Addres'
+              type='email'
+              placeholder='Email Address'
               name='email'
               onChange={(e) => {
                 validasiInputEmail(e.target.value);
                 changeInput(e);
+                validateEmail(e);
               }}
             />
-            {isEmail !== true ? (
-              <span className={SignUpNannyStyle.signupnannyInputError}>Email is invalid</span>
+            {validator.isEmail(emailError) !== true ? (
+              <span className={SignUpNannyStyle.signupEmailError}>{emailError}</span>
             ) : null}
 
             <input
               className={
                 isPassword === true
                   ? SignUpNannyStyle.signupnannyInput
-                  : SignUpNannyStyle.signupnannyInputError
+                  : SignUpNannyStyle.signupInputPasswordError
               }
               type={showPass === false ? 'text' : 'password'}
               placeholder='Password'
@@ -140,27 +156,39 @@ export default function RegisterNanny() {
               }}
             />
 
-            {showPass ? (
+            {!showPass ? (
               <VisibilityIcon
-                className={SignUpNannyStyle.signupnannyIcon}
+                className={`${SignUpNannyStyle.signupnannyIcon} ${
+                  isPassword !== true ? SignUpNannyStyle.iconShowPasswordError : null
+                }`}
                 onClick={() => setShowPass(!showPass)}
               />
             ) : (
               <VisibilityOffIcon
-                className={SignUpNannyStyle.signupnannyIcon}
+                className={`${SignUpNannyStyle.signupnannyIcon} ${
+                  isPassword !== true ? SignUpNannyStyle.iconShowPasswordError : null
+                }`}
                 onClick={() => setShowPass(!showPass)}
               />
             )}
-            {isPassword !== true ? (
-              <span className={SignUpNannyStyle.signupSpanError}>
-                Password must be at least 6 characters
+            {registerNanny.password.length > 0 && registerNanny.password.length < 10 ? (
+              <span className={SignUpNannyStyle.signupPasswordError}>
+                Please, fill at least 10 characters and max 20 characters,
+                <br />1 uppercase, 1 lowercase, 1 number, and 1 symbol!
               </span>
             ) : null}
 
             <Box sx={{ minWidth: 382 }}>
               <FormControl fullWidth>
-                {/* <InputLabel variant='standard' htmlFor='uncontrolled-native'></InputLabel> */}
+                <InputLabel
+                  className={SignUpNannyStyle.nativeNanny}
+                  variant='standard'
+                  htmlFor='uncontrolled-native'
+                >
+                  Role
+                </InputLabel>
                 <NativeSelect
+                  className={SignUpNannyStyle.nativeNanny}
                   defaultValue={'Select Role'}
                   inputProps={{
                     name: 'role',
@@ -168,13 +196,23 @@ export default function RegisterNanny() {
                   }}
                   onChange={handleRole}
                 >
-                  <option value={''}>Select Role</option>
+                  <option value={''}></option>
                   <option value={'Nanny'}>Nanny</option>
                   <option value={'Parent'}>Parent</option>
                 </NativeSelect>
               </FormControl>
             </Box>
             <button
+              disabled={
+                !(
+                  registerNanny.name &&
+                  registerNanny.email &&
+                  registerNanny.password &&
+                  registerNanny.role
+                ) &&
+                registerNanny.name.length < 5 &&
+                registerNanny.password.length < 10
+              }
               onClick={(e) => submitRegisterNanny(e)}
               type='submit'
               className={SignUpNannyStyle.signupnannyButton}

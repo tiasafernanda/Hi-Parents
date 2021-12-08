@@ -1,27 +1,27 @@
-import React from "react";
-import styles from "./assets/ActivityParent.module.scss";
+import React from 'react';
+import styles from './assets/ActivityParent.module.scss';
 // import datas from "./ActivityParentData";
-import { BiSortUp } from "react-icons/bi";
-import { HiOutlineAdjustments } from "react-icons/hi";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { BiSortUp } from 'react-icons/bi';
+import { HiOutlineAdjustments } from 'react-icons/hi';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 // import family from "./assets/img/family.png";
-import Empty from "../../components/empty/Empty";
+import Empty from '../../components/empty/Empty';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export default function ActivityParent() {
-  const dummyClient = [];
+  const dummyClient = ['ok'];
   return (
     <div className={styles.containers}>
-      <h3>Child Activity</h3>
+      <h1>Child Activity</h1>
       <div className={styles.adjust}>
         <div className={styles.sortFilter}>
           <button>
-            <BiSortUp style={{ position: "relative", top: "1px" }} />
+            <BiSortUp style={{ position: 'relative', top: '1px' }} />
             Sort
           </button>
           <button>
-            <HiOutlineAdjustments
-              style={{ position: "relative", top: "1px" }}
-            />
+            <HiOutlineAdjustments style={{ position: 'relative', top: '1px' }} />
             Filter
           </button>
         </div>
@@ -42,9 +42,17 @@ export default function ActivityParent() {
             <td>Play Bubble</td>
 
             <td>
-              <button className={styles.actionButton}>
-                &bull;&bull;&bull;
-              </button>
+              <div className={styles.dropdown}>
+                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
+                <div className={styles.dropdownContent}>
+                  <Link to='/dashboard/parentactivitydetail'>
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Link>
+                </div>
+              </div>
             </td>
           </tr>
         ) : (
@@ -63,12 +71,12 @@ export default function ActivityParent() {
         <h5>Showing 1 of 1</h5>
         <div className={styles.nextButton}>
           <button>
-            <AiOutlineLeft style={{ position: "relative", top: "1px" }} />
+            <AiOutlineLeft style={{ position: 'relative', top: '1px' }} />
             Previous
           </button>
           <button>
             Next
-            <AiOutlineRight style={{ position: "relative", top: "1px" }} />
+            <AiOutlineRight style={{ position: 'relative', top: '1px' }} />
           </button>
         </div>
       </div>
