@@ -2,18 +2,22 @@
   margin-top: 8rem;
   position: relative;
   left: 18rem;
+  width: fit-content;
 
   h1 {
     margin: 1rem 6rem;
+    font-size: 24px;
   }
+
   .cardGroup {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 2rem;
+    margin-left: 10rem;
 
     .card {
       display: flex;
-      padding: 1rem 2rem;
+      padding: 2rem;
       border-radius: 12px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
       .cardText {
@@ -27,17 +31,21 @@
   }
 
   .table {
+    h1 {
+      margin: 1rem 6rem;
+      font-size: 20px;
+    }
     table {
       // margin-top: 3rem;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: 10rem;
+      // margin-right: auto;
       margin-bottom: 2rem;
       border-radius: 12px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
       th,
       td {
         padding: 0.9rem 2rem;
-        text-align: justify;
+        text-align: center;
       }
 
       td {
