@@ -111,4 +111,18 @@
       }
     }
   }
+  .add {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+
+    button {
+      padding: 0.5rem 5rem;
+      color: #10b278;
+      border: 1px solid #10b278;
+      border-radius: 40px;
+      background-color: transparent;
+      font-weight: 700;
+    }
+  }
 }

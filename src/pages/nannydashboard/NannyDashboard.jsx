@@ -227,6 +227,9 @@ export default function NannyDashboard() {
             </td>
           </tr>
         </table>
+        <div className={styles.add}>
+          <button>{''} See All Client List</button>
+        </div>
       </div>
     </div>
   );
