@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styles from './assets/NannyDashboard.module.scss';
 import appointment from './assets/img/new.png';
 import client from './assets/img/client.png';
@@ -7,8 +7,22 @@ import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function NannyDashboard() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClientDetail = () => {
+    window.location.href = '/dashboard/clientdetail';
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div className={styles.dashboard}>
       <h1>Dashboard</h1>
@@ -55,7 +69,7 @@ export default function NannyDashboard() {
               <button className={styles.statusButton}>Active</button>
             </td>
             <td>
-              <div className={styles.dropdown}>
+              {/* <div className={styles.dropdown}>
                 <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
                   <a href='x'>
@@ -79,6 +93,67 @@ export default function NannyDashboard() {
                     View Details
                   </Link>
                 </div>
+              </div> */}
+              <div className={styles.menu}>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black', boxShadow: 0 }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  sx={{
+                    boxShadow: 0,
+                  }}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem
+                    onClick={handleClose}
+                    sx={{
+                      boxShadow: 0,
+                    }}
+                  >
+                    <span>
+                      <BsCheck2Circle
+                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                      />
+                    </span>{' '}
+                    Accept Client
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    sx={{
+                      boxShadow: 0,
+                    }}
+                  >
+                    <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                      <BiXCircle />
+                    </span>{' '}
+                    Reject Client
+                  </MenuItem>
+                  <Button
+                    // onClick={handleClientDetail}
+                    onClick={handleClientDetail}
+                    sX={{
+                      boxShadow: 0,
+                    }}
+                  >
+                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <AiOutlineInfoCircle />
+                    </span>{' '}
+                    View Details
+                  </Button>
+                </Menu>
               </div>
             </td>
           </tr>
@@ -91,30 +166,47 @@ export default function NannyDashboard() {
               <button className={styles.statusButton}>Active</button>
             </td>
             <td>
-              <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                <div className={styles.dropdownContent}>
-                  <a href='x'>
+              <div>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black' }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>
                     <span>
                       <BsCheck2Circle
                         style={{ color: '#10B278', position: 'relative', top: '2px' }}
                       />
                     </span>{' '}
                     Accept Client
-                  </a>
-                  <a href='x'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                       <BiXCircle />
                     </span>{' '}
                     Reject Client
-                  </a>
-                  <Link to='/dashboard/client-detail'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Link>
-                </div>
+                  </MenuItem>
+                </Menu>
               </div>
             </td>
           </tr>
@@ -127,30 +219,47 @@ export default function NannyDashboard() {
               <button className={styles.statusButton}>Active</button>
             </td>
             <td>
-              <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                <div className={styles.dropdownContent}>
-                  <a href='x'>
+              <div>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black' }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>
                     <span>
                       <BsCheck2Circle
                         style={{ color: '#10B278', position: 'relative', top: '2px' }}
                       />
                     </span>{' '}
                     Accept Client
-                  </a>
-                  <a href='x'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                       <BiXCircle />
                     </span>{' '}
                     Reject Client
-                  </a>
-                  <Link to='/dashboard/client-detail'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Link>
-                </div>
+                  </MenuItem>
+                </Menu>
               </div>
             </td>
           </tr>
@@ -163,30 +272,47 @@ export default function NannyDashboard() {
               <button className={styles.statusButton}>Active</button>
             </td>
             <td>
-              <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                <div className={styles.dropdownContent}>
-                  <a href='x'>
+              <div>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black' }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>
                     <span>
                       <BsCheck2Circle
                         style={{ color: '#10B278', position: 'relative', top: '2px' }}
                       />
                     </span>{' '}
                     Accept Client
-                  </a>
-                  <a href='x'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                       <BiXCircle />
                     </span>{' '}
                     Reject Client
-                  </a>
-                  <Link to='/dashboard/client-detail'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Link>
-                </div>
+                  </MenuItem>
+                </Menu>
               </div>
             </td>
           </tr>
@@ -199,30 +325,47 @@ export default function NannyDashboard() {
               <button className={styles.statusButton}>Active</button>
             </td>
             <td className={styles.noBorder}>
-              <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                <div className={styles.dropdownContent}>
-                  <a href='x'>
+              <div>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black' }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>
                     <span>
                       <BsCheck2Circle
                         style={{ color: '#10B278', position: 'relative', top: '2px' }}
                       />
                     </span>{' '}
                     Accept Client
-                  </a>
-                  <a href='x'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                       <BiXCircle />
                     </span>{' '}
                     Reject Client
-                  </a>
-                  <Link to='/dashboard/client-detail'>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Link>
-                </div>
+                  </MenuItem>
+                </Menu>
               </div>
             </td>
           </tr>

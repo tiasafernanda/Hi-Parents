@@ -47,16 +47,12 @@ export default function ActivityDetail() {
           <div className={styles.form1}>
             <fieldset>
               <legend className={styles.legend}>Children Name</legend>
-              <input type='text' />
+              <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
             </fieldset>
             <br></br>
             <fieldset>
               <legend className={styles.legend}>Gender </legend>
-              <select name='gender'>
-                <option value=''>Select Gender</option>
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
-              </select>
+              <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
             </fieldset>
             <br></br>
             <div>
