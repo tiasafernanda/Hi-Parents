@@ -11,6 +11,7 @@ import ActivityParent from './dashboardParents/ActivityParent';
 import ParentActivityDetail from './dashboardParents/ParentActivityDetail';
 import ProfileParent from './dashboardParents/DashboardParent';
 import Layout from '../components/layout/Layout';
+import ClientDetail from '../pages/clientdetail/ClientDetail';
 
 const Dashboard = () => {
   return (
