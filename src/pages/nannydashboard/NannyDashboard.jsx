@@ -17,6 +17,9 @@ export default function NannyDashboard() {
   const handleClientDetail = () => {
     window.location.href = '/dashboard/clientdetail';
   };
+  // function handleClientDetail() {
+  //   window.location.href = '/dashboard/clientdetail';
+  // }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -142,7 +145,6 @@ export default function NannyDashboard() {
                     Reject Client
                   </MenuItem>
                   <Button
-                    // onClick={handleClientDetail}
                     onClick={handleClientDetail}
                     sX={{
                       boxShadow: 0,
@@ -200,7 +202,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClientDetail}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -253,7 +255,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClientDetail}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -306,7 +308,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClientDetail}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -359,7 +361,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClientDetail}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
