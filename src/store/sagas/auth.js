@@ -1,9 +1,9 @@
-import { put, takeEvery } from "@redux-saga/core/effects";
-import { LOGINNANNY_BEGIN, LOGINNANNY_SUCCESS, LOGINNANNY_FAIL } from "../actions/types";
-import { REGISTERNANNY_BEGIN, REGISTERNANNY_SUCCESS, REGISTERNANNY_FAIL } from "../actions/types";
-import axios from "axios";
+import { put, takeEvery } from '@redux-saga/core/effects';
+import { LOGINNANNY_BEGIN, LOGINNANNY_SUCCESS, LOGINNANNY_FAIL } from '../actions/types';
+import { REGISTERNANNY_BEGIN, REGISTERNANNY_SUCCESS, REGISTERNANNY_FAIL } from '../actions/types';
+import axios from 'axios';
 
-const baseUrl = "https://hi-parent-be.herokuapp.com";
+const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 function* loginNanny(action) {
   const { body } = action;
@@ -14,8 +14,9 @@ function* loginNanny(action) {
       {
         type: LOGINNANNY_SUCCESS,
       },
-      localStorage.setItem("token", res.data.token),
-      window.location.href="/" // setup token on local storage
+      localStorage.setItem('token', res.data.token),
+      localStorage.setItem('role', res.data.role),
+      (window.location.href = localStorage.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/childactivity') // setup token on local storage
     );
   } catch (err) {
     console.log(err);
@@ -39,7 +40,7 @@ function* registerNanny(action) {
       {
         type: REGISTERNANNY_SUCCESS,
       },
-     window.location.href="/auth/signin"// setup token on local storage
+      (window.location.href = '/auth/signin') // setup token on local storage
     );
   } catch (err) {
     console.log(err);

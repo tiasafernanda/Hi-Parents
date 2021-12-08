@@ -1,78 +1,76 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import styles from './assets/ClientDetail.module.scss';
 import client from './assets/img/clientphoto.jpg';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+// import TextField from '@mui/material/TextField';
+import Swal from 'sweetalert2';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  outline: 'none',
+};
 
 export default function ClientDetail() {
-  // Image expansion
-
-  function imageExpansionHandler() {
-    var expandableImages = document.querySelectorAll('.expandable-image');
-
-    function imgExpansionEvent(e) {
-      function createImg(url) {
-        var img = document.createElement('img');
-        img.setAttribute('src', url);
-
-        img.addEventListener('click', (_) => img.classNameList.toggle('image--enlarged'));
-
-        return img;
-      }
-
-      function createBackdrop() {
-        var span = document.createElement('span');
-        span.addEventListener('click', (_) =>
-          expansionContainer.parentNode.removeChild(expansionContainer)
-        );
-
-        return span;
-      }
-
-      if (!document.querySelector('.expansion-container')) {
-        // create enclosing container
-        var expansionContainer = document.createElement('div');
-        expansionContainer.classNameList.add('expansion-container');
-
-        // create children and append them to enclosing container
-        expansionContainer.appendChild(createImg(e.src));
-        expansionContainer.appendChild(createBackdrop());
-
-        // add container to DOM
-        document.body.appendChild(expansionContainer);
-      }
-    }
-
-    expandableImages.forEach((e) => {
-      e.addEventListener('click', (_) => {
-        console.log('click');
-
-        imgExpansionEvent(e);
-      });
+  const showAlert = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
     });
-  }
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Accept Client Success!',
+    });
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
 
   return (
-    <div className={styles.containers}>
-      <Link to='/nanny'>
+    <div
+      className={styles.containers}
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+    >
+      <Link to='/dashboard/nannydashboard'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Client Detail
       </Link>
 
-      <div className={styles.success}>
+      {/* <div className={styles.success}>
         <p>Accept Client Success!</p>
         <button>
           <b> X</b>
         </button>
-      </div>
+      </div> */}
 
       <div className={styles.container}>
         <h3>Parent Information</h3>
         <hr />
+
         <form>
           <div className={styles.form1}>
-            <div className={styles.inputParent}>
-              <label>Parent Name</label>
+            <fieldset>
+              <legend className={styles.legend}>Children Name</legend>
               <input
                 type='text'
                 id='parent'
@@ -80,9 +78,9 @@ export default function ClientDetail() {
                 value='Vegeta Super'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputEmail}>
-              <label>Email</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Email</legend>
               <input
                 type='text'
                 id='email'
@@ -90,13 +88,13 @@ export default function ClientDetail() {
                 value='vegeta@goku.com'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputPhone}>
-              <label>Phone Number</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Phone Number</legend>
               <input type='number' id='phone' name='phone' value='0823102492' readonly='readonly' />
-            </div>
-            <div className={styles.inputAddress}>
-              <label>Address</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Address</legend>
               <input
                 type='text'
                 id='address'
@@ -104,30 +102,25 @@ export default function ClientDetail() {
                 value='Jl. Namek'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputPhoto}>
-              <p>Photo</p>
-              <div className={styles.image}>
-                <img
-                  src={client}
-                  alt=''
-                  className='expandable-image'
-                  onClick={imageExpansionHandler()}
-                />
-              </div>
+            </fieldset>
+            <div>
+              <fieldset>
+                <legend className={styles.legend}>Photo</legend>
+                <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
+              </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
-            <div className={styles.inputJob}>
-              <label>Job</label>
+            <fieldset>
+              <legend className={styles.legend}>Job</legend>
               <input type='text' id='job' name='job' value='Warrior of Light' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirth}>
-              <label>Place Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Place</legend>
               <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirthDate}>
-              <label>Date Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Date</legend>
               <input
                 type='text'
                 id='birthplace'
@@ -135,58 +128,48 @@ export default function ClientDetail() {
                 value='16 November 1992'
                 readonly='readonly'
               />
-            </div>
-            <div className={styles.inputGender}>
-              <label>Gender</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Gender</legend>
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
-            </div>
+            </fieldset>
           </div>
         </form>
         <h3>Children Information 1</h3>
         <hr />
+
         <form>
           <div className={styles.form1}>
-            <div className={styles.inputParent}>
-              <label>Parent Name</label>
-              <input
-                type='text'
-                id='parent'
-                name='parent'
-                value='Vegeta Super'
-                readonly='readonly'
-              />
-            </div>
-            <div className={styles.inputGender}>
-              <label>Gender</label>
+            <fieldset>
+              <legend className={styles.legend}>Children Name</legend>
+              <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Gender </legend>
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
-            </div>
-            <div className={styles.inputPhoto}>
-              <p>Photo</p>
-              <div className={styles.image}>
-                <img
-                  src={client}
-                  alt=''
-                  className='expandable-image'
-                  onClick={imageExpansionHandler()}
-                />
-              </div>
+            </fieldset>
+            <div>
+              <fieldset>
+                <legend className={styles.legend}>Photo</legend>
+                <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
+              </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
-            <div className={styles.inputBirthPlace}>
-              <label>Place Birth</label>
+            <fieldset>
+              <legend className={styles.legend}>Birth Place</legend>
               <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
-            </div>
-            <div className={styles.inputBirthDate}>
-              <label>Date Birth</label>
+            </fieldset>
+            <fieldset>
+              <legend className={styles.legend}>Birth Date</legend>
               <input
                 type='text'
-                id='birthplace'
-                name='birthplace'
+                id='birthdate'
+                name='birthdate'
                 value='16 November 1992'
                 readonly='readonly'
               />
-            </div>
+            </fieldset>
           </div>
         </form>
       </div>
@@ -211,9 +194,63 @@ export default function ClientDetail() {
             borderRadius: '40px',
             color: 'white',
           }}
+          onClick={showAlert}
         >
           Accept
         </button>
+      </div>
+      <div className={styles.modal}>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
+            </Box>
+          </Fade>
+        </Modal>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
+            </Box>
+          </Fade>
+        </Modal>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open1}
+          onClose={handleClose1}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open1}>
+            <Box sx={style}>
+              <img src={client} alt='' onClick={handleOpen1} style={{ borderRadius: '8px' }} />
+            </Box>
+          </Fade>
+        </Modal>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 
 const Search = styled('div')(({ theme }) => ({
@@ -22,6 +22,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   color: '#787885',
+  zIndex: '-10',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -45,7 +46,10 @@ const SearchInput = () => {
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
-        <StyledInputBase placeholder="Search something here..." inputProps={{ 'aria-label': 'search' }} />
+        <StyledInputBase
+          placeholder='Search something here...'
+          inputProps={{ 'aria-label': 'search' }}
+        />
       </Search>
     </>
   );

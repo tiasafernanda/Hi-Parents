@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./assets/ActivityParent.module.scss";
-import datas from "./ActivityParentData";
+// import datas from "./ActivityParentData";
 import { BiSortUp } from "react-icons/bi";
 import { HiOutlineAdjustments } from "react-icons/hi";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import family from "./assets/img/family.png";
+// import family from "./assets/img/family.png";
 import Empty from "../../components/empty/Empty";
 
 export default function ActivityParent() {

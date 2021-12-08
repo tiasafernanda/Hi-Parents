@@ -1,0 +1,53 @@
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  .header {
+    margin: auto;
+    background-color: white;
+    width: 390px;
+    height: 262px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 12px;
+
+    h4 {
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-bottom: 32px;
+    }
+
+    button {
+      width: 159px;
+      height: 48px;
+    }
+
+    .cancel {
+      color: #10b278;
+      background: white;
+      box-shadow: none;
+      border: #10b278;
+      border-style: solid;
+      border-radius: 12px;
+      margin-right: 18px;
+    }
+
+    .yes {
+      color: white;
+      background: #10b278;
+      border: none;
+      border-radius: 12px;
+    }
+  }
+}
