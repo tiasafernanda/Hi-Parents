@@ -36,7 +36,7 @@ export default function ActivityDetail() {
 
   return (
     <div className={styles.containers}>
-      <Link to='/nanny'>
+      <Link to='/dashboard/childactivity'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Child Activity Detail
       </Link>
@@ -49,12 +49,12 @@ export default function ActivityDetail() {
               <legend className={styles.legend}>Children Name</legend>
               <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
             </fieldset>
-            <br></br>
+
             <fieldset>
               <legend className={styles.legend}>Gender </legend>
               <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
             </fieldset>
-            <br></br>
+
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
@@ -100,12 +100,18 @@ export default function ActivityDetail() {
           <div className={styles.form2}>
             <fieldset>
               <legend className={styles.legend}>Birth Place</legend>
-              <input type='text' />
+              <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
             </fieldset>
 
             <fieldset>
               <legend className={styles.legend}>Birth Date</legend>
-              <input type='text' />
+              <input
+                type='text'
+                id='birthdate'
+                name='birthdate'
+                value='16 November 1992'
+                readonly='readonly'
+              />
             </fieldset>
           </div>
         </form>

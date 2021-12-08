@@ -17,15 +17,15 @@ export default function NannyDashboard() {
   const handleClientDetail = () => {
     window.location.href = '/dashboard/clientdetail';
   };
-  // function handleClientDetail() {
-  //   window.location.href = '/dashboard/clientdetail';
-  // }
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <div className={styles.dashboard}>
       <h1>Dashboard</h1>
@@ -99,26 +99,25 @@ export default function NannyDashboard() {
               </div> */}
               <div className={styles.menu}>
                 <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
+                  // id='basic-button'
+                  // aria-controls='basic-menu'
                   aria-haspopup='true'
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
-                  sx={{ color: 'black', boxShadow: 0 }}
+                  sx={{ color: 'black' }}
                 >
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  // id='basic-menu'
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
-                  sx={{
-                    boxShadow: 0,
-                  }}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
+                  elevation={1}
+
+                  // MenuListProps={{
+                  //   'aria-labelledby': 'basic-button',
+                  // }}
                 >
                   <MenuItem
                     onClick={handleClose}
@@ -184,6 +183,7 @@ export default function NannyDashboard() {
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  elevation={1}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
@@ -237,6 +237,7 @@ export default function NannyDashboard() {
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  elevation={1}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
@@ -290,6 +291,7 @@ export default function NannyDashboard() {
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  elevation={1}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
@@ -343,6 +345,7 @@ export default function NannyDashboard() {
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  elevation={1}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}

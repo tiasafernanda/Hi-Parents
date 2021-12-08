@@ -4,9 +4,32 @@ import datas from './data';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import { makeStyles } from '@mui/styles';
 
+const useStyles = makeStyles({
+  root: {
+    boxShadow: 0,
+  },
+});
 export default function ChildActivity() {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClientDetail = () => {
+    window.location.href = '/dashboard/activitydetail';
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className={styles.containers}>
       <h1>Child Activity</h1>
@@ -39,16 +62,50 @@ export default function ChildActivity() {
             <td>{data.activity}</td>
 
             <td>
-              <div className={styles.dropdown}>
+              {/* <div className={styles.dropdown}>
                 <button className={styles.actionButton}>&bull;&bull;&bull;</button>
                 <div className={styles.dropdownContent}>
-                  <Link to='#'>
+                  
+                </div>
+              </div> */}
+              <div className={styles.menu}>
+                <Button
+                  id='basic-button'
+                  aria-controls='basic-menu'
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  sx={{ color: 'black', boxShadow: 'none' }}
+                >
+                  &bull;&bull;&bull;
+                </Button>
+                <Menu
+                  // id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  // sx={{
+                  //   boxShadow: 'none',
+                  // }}
+                  elevation={1}
+                  className={classes.root}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <Button
+                    onClick={handleClientDetail}
+                    sx={{
+                      boxShadow: 0,
+                      color: 'black',
+                    }}
+                  >
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Link>
-                </div>
+                  </Button>
+                </Menu>
               </div>
             </td>
           </tr>
