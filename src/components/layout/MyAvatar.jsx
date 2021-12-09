@@ -56,7 +56,7 @@ export default function MyAvatar() {
       >
         <Box>
           <Button
-            sx={{ p: 2, color: "#2F2F33", textTransform: "unset" }}
+            sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }}
             onClick={handleChangePass}
           >
             Change Password
@@ -67,10 +67,10 @@ export default function MyAvatar() {
             fullWidth
             sx={{
               p: 2,
-              color: "#2F2F33",
-              textTransform: "unset",
-              display: "flex",
-              justifyContent: "start",
+              color: '#2F2F33',
+              textTransform: 'unset',
+              display: 'flex',
+              justifyContent: 'start',
             }}
             onClick={handleLogOut}
           >

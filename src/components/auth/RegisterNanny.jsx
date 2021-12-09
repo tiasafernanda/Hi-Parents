@@ -7,13 +7,13 @@ import NativeSelect from '@mui/material/NativeSelect';
 // import MenuItem from '@mui/material/MenuItem';
 // import Select from '@mui/material/Select';
 // import { Select } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { RegisterNannyAction } from "../../store/actions/auth";
-import validator from "validator";
-import { Link } from "react-router-dom";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { RegisterNannyAction } from '../../store/actions/auth';
+import validator from 'validator';
+import { Link } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 
 export default function RegisterNanny() {
@@ -84,14 +84,14 @@ export default function RegisterNanny() {
     changeInput(e);
   };
 
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState('');
   const validateEmail = (e) => {
     var email = e.target.value;
 
     if (validator.isEmail(email)) {
-      setEmailError("");
+      setEmailError('');
     } else {
-      setEmailError("Please, insert with correct format email!");
+      setEmailError('Please, insert with correct format email!');
     }
   };
 
@@ -161,24 +161,19 @@ export default function RegisterNanny() {
             {!showPass ? (
               <VisibilityIcon
                 className={`${SignUpNannyStyle.signupnannyIcon} ${
-                  isPassword !== true
-                    ? SignUpNannyStyle.iconShowPasswordError
-                    : null
+                  isPassword !== true ? SignUpNannyStyle.iconShowPasswordError : null
                 }`}
                 onClick={() => setShowPass(!showPass)}
               />
             ) : (
               <VisibilityOffIcon
                 className={`${SignUpNannyStyle.signupnannyIcon} ${
-                  isPassword !== true
-                    ? SignUpNannyStyle.iconShowPasswordError
-                    : null
+                  isPassword !== true ? SignUpNannyStyle.iconShowPasswordError : null
                 }`}
                 onClick={() => setShowPass(!showPass)}
               />
             )}
-            {registerNanny.password.length > 0 &&
-            registerNanny.password.length < 10 ? (
+            {registerNanny.password.length > 0 && registerNanny.password.length < 10 ? (
               <span className={SignUpNannyStyle.signupPasswordError}>
                 Please, fill at least 10 characters and max 20 characters,
                 <br />1 uppercase, 1 lowercase, 1 number, and 1 symbol!
@@ -189,8 +184,8 @@ export default function RegisterNanny() {
               <FormControl fullWidth>
                 <InputLabel
                   className={SignUpNannyStyle.nativeNanny}
-                  variant="standard"
-                  htmlFor="uncontrolled-native"
+                  variant='standard'
+                  htmlFor='uncontrolled-native'
                 >
                   Role
                 </InputLabel>

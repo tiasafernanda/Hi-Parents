@@ -1,9 +1,13 @@
 .containers {
+  margin-left: 25rem;
+  width: fit-content;
+  margin-top: 7rem;
   .container {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin: 2rem 2rem;
+    // margin: 2rem 2rem;
     padding: 2rem 2rem;
+    width: 62rem;
   }
 
   .photo {
@@ -82,16 +86,35 @@
           }
         }
       }
-      // img {
-      //   margin-left: 1rem;
-      //   margin-bottom: 0.5rem;
-      //   width: 4rem;
-      // }
     }
 
     .legend {
       margin: 0.1rem 0.9rem;
       padding: 0.3rem;
+    }
+  }
+  .btn {
+    margin-top: 2rem;
+    // margin-left: 30rem;
+    // margin-right: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 0.5rem 4rem;
+      border-radius: 2rem;
+      color: white;
+      border-style: none;
+    }
+
+    .submitbtn {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .savebtn {
+      display: flex;
     }
   }
 }
