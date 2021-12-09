@@ -24,7 +24,7 @@ const Dashboard = () => {
         <Route path='/nannylist/managenanny' element={<ManageNanny />} />
         <Route path='/childactivity' element={<ChildActivity />} />
         <Route path='/userprofilenanny' element={<UserProfile />} />
-        <Route path='/userprofilenanny/changepassword' element={<ChangePassword />} />
+        <Route path='/changepassword' element={<ChangePassword />} />
         <Route path='/activityparent' element={<ActivityParent />} />
         <Route path='/activityparent/parentactivitydetail' element={<ParentActivityDetail />} />
         <Route path='/profileparent' element={<ProfileParent />} />
