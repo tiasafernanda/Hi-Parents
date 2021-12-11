@@ -16,7 +16,8 @@ function* loginNanny(action) {
       },
       localStorage.setItem('token', res.data.token),
       localStorage.setItem('role', res.data.role),
-      (window.location.href = localStorage.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/childactivity') // setup token on local storage
+      (window.location.href =
+        localStorage.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/activityparent') // setup token on local storage
     );
   } catch (err) {
     console.log(err);

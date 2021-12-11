@@ -62,12 +62,6 @@ export default function ChildActivity() {
             <td>{data.activity}</td>
 
             <td>
-              {/* <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                <div className={styles.dropdownContent}>
-                  
-                </div>
-              </div> */}
               <div className={styles.menu}>
                 <Button
                   id='basic-button'
@@ -80,13 +74,9 @@ export default function ChildActivity() {
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  // id='basic-menu'
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
-                  // sx={{
-                  //   boxShadow: 'none',
-                  // }}
                   elevation={1}
                   className={classes.root}
                   MenuListProps={{
