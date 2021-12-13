@@ -13,6 +13,9 @@ import ProfileParent from './dashboardParents/DashboardParent';
 import Layout from '../components/layout/Layout';
 import ActivityDetail from './activitydetail/ActivityDetail';
 import DashboardParent from './dashboardParents/DashboardParent';
+import Empty from '../components/empty/Empty';
+import StateDashboard from './emptyStates/StateDashboard';
+
 
 const Dashboard = () => {
   return (
@@ -32,6 +35,9 @@ const Dashboard = () => {
         <Route path='/parentdashboard' element={<DashboardParent />} />
         <Route path='/parentactivitydetail' element={<ParentActivityDetail />} />
         <Route path='/profileparent' element={<ProfileParent />} />
+        <Route path='/empty' element={<Empty />} />
+        <Route path='/statedashboard' element={<StateDashboard />} />
+       
       </Routes>
     </>
   );
