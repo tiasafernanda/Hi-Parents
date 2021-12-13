@@ -305,7 +305,8 @@ export default function ProfileParent() {
             })}
           </div>
           <button
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
               setForm([
                 ...form,
                 {
@@ -315,8 +316,8 @@ export default function ProfileParent() {
                   birth_place: '',
                   birth_date: '',
                 },
-              ])
-            }
+              ]);
+            }}
             style={{
               marginTop: '2rem',
               width: '10rem',

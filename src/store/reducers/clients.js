@@ -5,6 +5,9 @@ import {
   GET_ACTIVE_CLIENTS_BEGIN,
   GET_ACTIVE_CLIENTS_FAIL,
   GET_ACTIVE_CLIENTS_SUCCESS,
+  GET_CLIENT_DETAIL_BEGIN,
+  GET_CLIENT_DETAIL_FAIL,
+  GET_CLIENT_DETAIL_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -12,6 +15,11 @@ const initialState = {
   loading: false,
   error: null,
   activeClient: [],
+  clientDetail: {
+    loading: false,
+    error: null,
+    details: {},
+  },
   // detailClient: {
   //   loading: false,
   //   error: null,
@@ -45,6 +53,32 @@ const clients = (state = initialState, action) => {
         loading: false,
         error: error,
         clients: [],
+      };
+    case GET_CLIENT_DETAIL_BEGIN:
+      return {
+        ...state,
+        clientDetail: {
+          loading: true,
+          error: null,
+        },
+      };
+    case GET_CLIENT_DETAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        clientDetail: {
+          loading: false,
+          error: null,
+          details: payload,
+        },
+      };
+    case GET_CLIENT_DETAIL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        clients: {},
       };
     case GET_ACTIVE_CLIENTS_BEGIN:
       return {

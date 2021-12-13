@@ -32,7 +32,7 @@ function* getNannies() {
 
 function* getActiveNannies() {
   try {
-    const res = yield axios.get(`${baseUrl}nannies/activeNannies`);
+    const res = yield axios.get(`${baseUrl}nannies/active-nannies`);
     console.log(res);
     yield put({
       type: GET_ACTIVE_NANNIES_SUCCESS,
