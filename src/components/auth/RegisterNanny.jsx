@@ -128,9 +128,9 @@ export default function RegisterNanny() {
                   ? SignUpNannyStyle.signupnannyInput
                   : SignUpNannyStyle.signupnannyInputError
               }
-              type='email'
-              placeholder='Email Address'
-              name='email'
+              type="email"
+              placeholder="Email Addres"
+              name="email"
               onChange={(e) => {
                 validasiInputEmail(e.target.value);
                 changeInput(e);
@@ -138,7 +138,9 @@ export default function RegisterNanny() {
               }}
             />
             {validator.isEmail(emailError) !== true ? (
-              <span className={SignUpNannyStyle.signupEmailError}>{emailError}</span>
+              <span className={SignUpNannyStyle.signupEmailError}>
+                {emailError}
+              </span>
             ) : null}
 
             <input
@@ -189,16 +191,16 @@ export default function RegisterNanny() {
                 </InputLabel>
                 <NativeSelect
                   className={SignUpNannyStyle.nativeNanny}
-                  defaultValue={'Select Role'}
+                  defaultValue={"Select Role"}
                   inputProps={{
                     name: 'role',
                     id: 'uncontrolled-native',
                   }}
                   onChange={handleRole}
                 >
-                  <option value={''}></option>
-                  <option value={'Nanny'}>Nanny</option>
-                  <option value={'Parent'}>Parent</option>
+                  <option value={""}></option>
+                  <option value={"Nanny"}>Nanny</option>
+                  <option value={"Parent"}>Parent</option>
                 </NativeSelect>
               </FormControl>
             </Box>
