@@ -2,7 +2,7 @@ import { all } from 'redux-saga/effects';
 import { watchLoginNanny } from './auth';
 import { watchRegisterNanny } from './auth';
 import { watchChangePassword } from './changePassword';
-import { watchGetActiveClients, watchGetClients } from './clients';
+import { watchGetActiveClients, watchGetClientDetail, watchGetClients } from './clients';
 import { watchGetActiveNannies, watchGetAppointment, watchGetNannies } from './nannies';
 
 export default function* rootSaga() {
@@ -11,6 +11,7 @@ export default function* rootSaga() {
     watchRegisterNanny(),
     watchChangePassword(),
     watchGetClients(),
+    watchGetClientDetail(),
     watchGetActiveClients(),
     watchGetNannies(),
     watchGetActiveNannies(),

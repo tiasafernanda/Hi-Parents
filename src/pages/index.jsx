@@ -16,14 +16,13 @@ import DashboardParent from './dashboardParents/DashboardParent';
 import Empty from '../components/empty/Empty';
 import StateDashboard from './emptyStates/StateDashboard';
 
-
 const Dashboard = () => {
   return (
     <>
       <Layout />
       <Routes>
         <Route path='/nannydashboard' element={<NannyDashboard />} />
-        <Route path='/clientdetail' element={<ClientDetail />} />
+        <Route path='/clientdetail/:appointment_id' element={<ClientDetail />} />
         <Route path='/clientlist' element={<ClientList />} />
         <Route path='/activitydetail' element={<ActivityDetail />} />
         <Route path='/nannylist' element={<NannyList />} />
@@ -37,7 +36,6 @@ const Dashboard = () => {
         <Route path='/profileparent' element={<ProfileParent />} />
         <Route path='/empty' element={<Empty />} />
         <Route path='/statedashboard' element={<StateDashboard />} />
-       
       </Routes>
     </>
   );

@@ -1,19 +1,19 @@
-import { put, takeEvery } from "@redux-saga/core/effects";
+import { put, takeEvery } from '@redux-saga/core/effects';
 import {
   CHANGEPASSWORD_BEGIN,
   CHANGEPASSWORD_SUCCESS,
   CHANGEPASSWORD_FAIL,
-} from "../actions/types";
+} from '../actions/types';
 
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = "https://hi-parent-be.herokuapp.com";
+const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 function* changePassword(action) {
   const { body } = action;
   try {
     const res = yield axios.put(`${baseUrl}/users/change-password`, body, {
-      headers: { Token: `Bearer ${localStorage.getItem("token")}` },
+      headers: { Token: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
     yield put(

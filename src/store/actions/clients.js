@@ -6,9 +6,10 @@ export const getClients = () => {
   };
 };
 
-export const getClientDetail = () => {
+export const getClientDetail = (appointment_id) => {
   return {
     type: GET_CLIENT_DETAIL_BEGIN,
+    appointment_id,
   };
 };
 

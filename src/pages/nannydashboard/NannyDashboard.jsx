@@ -90,7 +90,7 @@ export default function NannyDashboard() {
             ? 'wait a minute'
             : clients?.map((item, index) => {
                 return (
-                  <tr key={index}>
+                  <tr key={index} id={item.appointment_id}>
                     <td>{item?.date_request}</td>
                     <td>{item?.child?.parent?.name}</td>
                     <td>{item?.child?.parent?.client_id}</td>
@@ -144,7 +144,7 @@ export default function NannyDashboard() {
                             </span>{' '}
                             Reject Client
                           </MenuItem>
-                          <MenuItem onClick={handleClientDetail}>
+                          <MenuItem onClick={handleClientDetail} id={item.appointment_id}>
                             <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                               <AiOutlineInfoCircle />
                             </span>{' '}

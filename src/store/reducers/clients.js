@@ -65,8 +65,6 @@ const clients = (state = initialState, action) => {
     case GET_CLIENT_DETAIL_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: null,
         clientDetail: {
           loading: false,
           error: null,
@@ -76,9 +74,11 @@ const clients = (state = initialState, action) => {
     case GET_CLIENT_DETAIL_FAIL:
       return {
         ...state,
-        loading: false,
-        error: error,
-        clients: {},
+        clientDetail: {
+          loading: false,
+          error: null,
+          details: [],
+        },
       };
     case GET_ACTIVE_CLIENTS_BEGIN:
       return {
