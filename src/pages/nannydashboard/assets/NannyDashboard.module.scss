@@ -1,17 +1,17 @@
 .dashboard {
   margin-top: 8rem;
   position: relative;
-  left: 18rem;
+  left: 16rem;
   width: fit-content;
 
   h1 {
-    margin: 1rem 6rem;
+    margin: 1rem 10rem;
     font-size: 33px;
   }
 
   .cardGroup {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-bottom: 2rem;
     margin-left: 10rem;
 
@@ -32,7 +32,7 @@
 
   .table {
     h1 {
-      margin: 1rem 6rem;
+      margin: 1rem 10rem;
       font-size: 24px;
     }
     table {
@@ -97,10 +97,24 @@
         background-color: transparent;
       }
 
-      .statusButton {
-        padding: 0.4rem 1rem;
+      .pending {
+        padding: 0.4rem 2rem;
+        border: none;
+        background-color: #f1b722;
+        border-radius: 20px;
+        color: white;
+      }
+      .active {
+        padding: 0.4rem 2.3rem;
         border: none;
         background-color: #10b278;
+        border-radius: 20px;
+        color: white;
+      }
+      .reject {
+        padding: 0.4rem 2rem;
+        border: none;
+        background-color: #f67979;
         border-radius: 20px;
         color: white;
       }

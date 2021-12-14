@@ -1,13 +1,13 @@
-import { put, takeEvery } from "@redux-saga/core/effects";
+import { put, takeEvery } from '@redux-saga/core/effects';
 import {
   CHANGEPASSWORD_BEGIN,
   CHANGEPASSWORD_SUCCESS,
   CHANGEPASSWORD_FAIL,
-} from "../actions/types";
+} from '../actions/types';
 
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = "https://hi-parent-be.herokuapp.com";
+const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 function* changePassword(action) {
   const { body } = action;
