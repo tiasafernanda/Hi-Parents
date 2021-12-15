@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Avatar, Popover, Typography, Button } from '@mui/material';
 
-export default function MyAvatar() {
+export default function MyAvatar({ userName }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleLogOut = () => {
@@ -33,10 +33,8 @@ export default function MyAvatar() {
         justifyContent: 'center',
       }}
     >
-      <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>
-        Super Sayan Vegeta
-      </Typography>
-      <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+      <Typography sx={{ color: '#2F2F33', marginLeft: '1.5rem', marginRight: '1.5rem' }}>{userName}</Typography>
+      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       <Popover
         id={id}
         open={open}
@@ -49,10 +47,7 @@ export default function MyAvatar() {
         sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
       >
         <Box>
-          <Button
-            sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }}
-            onClick={handleChangePass}
-          >
+          <Button sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }} onClick={handleChangePass}>
             Change Password
           </Button>
         </Box>

@@ -21,17 +21,26 @@ const clientDetail = [
 ];
 
 export default function ClientList() {
-  const [open, setOpen] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
   const modalValue = clientDetail.find((data) => data.clientId === selectedItem);
 
-  const handleClick = (clientId) => {
-    setSelectedItem(clientId);
-    setOpen(true);
+  const handleClick = (e) => {
+    setOpenPopup(true);
   };
 
-  const handleCLose = (e) => {
-    setOpen(false);
+  const handleClose = () => {
+    setOpenPopup(false);
+  };
+
+  const handleModal = (clientId) => {
+    setSelectedItem(clientId);
+    setOpenModal(true);
+  };
+
+  const handleModalCLose = (e) => {
+    setOpenModal(false);
   };
 
   console.log(modalValue);
@@ -57,18 +66,8 @@ export default function ClientList() {
               <td>{item.childrenName}</td>
               <td>
                 <div className={styles.dropdown}>
-                  <button
-                    className={
-                      item.status === 1
-                        ? styles.statusActive
-                        : item.status === 2
-                        ? styles.statusReject
-                        : styles.statusPending
-                    }
-                  >
-                    {item.status === 1 ? 'Active' : item.status === 2 ? 'Reject' : 'Pending'}
-                  </button>
-                  {item.status === 0 && (
+                  <button className={item.status === 1 ? styles.statusActive : item.status === 2 ? styles.statusReject : styles.statusPending}>{item.status === 1 ? 'Active' : item.status === 2 ? 'Reject' : 'Pending'}</button>
+                  {/*item.status === 0 && (
                     <div className={styles.dropdownContent}>
                       <button className={styles.accept} onClick={() => handleClick(item.clientId)}>
                         <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
@@ -82,64 +81,62 @@ export default function ClientList() {
                         </span>{' '}
                         Reject Client
                       </button>
-                      <Link to='#'>
+                      <Link to="#">
                         <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                           <AiOutlineInfoCircle />
                         </span>{' '}
                         View Details
                       </Link>
                     </div>
-                  )}
+                  )*/}
                 </div>
               </td>
               <td>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
-                {item.status === 0 && (
-                  <div className={styles.dropdownContent}>
-                    <button className={styles.accept} onClick={() => handleClick(item.clientId)}>
-                        <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
-                          <BsCheck2Circle />
-                        </span>{' '}
-                        Accept Client
-                      </button>
-                      <button>
-                        <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-                          <BiXCircle />
-                        </span>{' '}
-                        Reject Client
-                      </button>
-                      <Link to='#'>
-                        <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                          <AiOutlineInfoCircle />
-                        </span>{' '}
-                        View Details
-                      </Link>
-                  </div>
-                )}
+                <button className={styles.actionButton} onClick={(e) => handleClick(e)}>
+                  &bull;&bull;&bull;
+                </button>
               </td>
             </tr>
           ))}
         </table>
         <div className={styles.footer}>
-          <p>Showing 10 of {clientDetail.length}</p>
+          <p>Showing {clientDetail.length} of 10</p>
           <div>
             <button>
-              <img src={previousIcon} alt='' />
+              <img src={previousIcon} alt="" />
               Previous
             </button>
             <button style={{ marginLeft: '1.5rem' }}>
               Next
-              <img src={nextIcon} alt='' />
+              <img src={nextIcon} alt="" />
             </button>
           </div>
         </div>
-        {open && (
-          <div onClick={(e) => handleCLose(e)}>
-            <Modal
-              clientId={modalValue.clientId}
-              dateRequest={modalValue.dateRequest}
-              parentName={modalValue.parentName}
-            />
+        {openPopup && (
+          <div className={styles.dropdownContent} onClick={() => handleClose()}>
+            <button className={styles.accept} onClick={() => handleModal(1)}>
+              <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
+                <BsCheck2Circle />
+              </span>
+              Accept Client 1
+            </button>
+            <button>
+              <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                <BiXCircle />
+              </span>{' '}
+              Reject Client
+            </button>
+            <Link to="#">
+              <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                <AiOutlineInfoCircle />
+              </span>{' '}
+              View Details
+            </Link>
+          </div>
+        )}
+        {openModal && (
+          <div onClick={(e) => handleModalCLose(e)}>
+            <Modal clientId={modalValue.clientId} dateRequest={modalValue.dateRequest} parentName={modalValue.parentName} />
           </div>
         )}
       </div>

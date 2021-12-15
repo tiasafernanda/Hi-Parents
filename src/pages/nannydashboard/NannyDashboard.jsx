@@ -32,21 +32,21 @@ export default function NannyDashboard() {
             <h5>New Appointment</h5>
             <h2>11</h2>
           </div>
-          <img src={appointment} alt='' />
+          <img src={appointment} alt="" />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Client</h5>
             <h2>11</h2>
           </div>
-          <img src={client} alt='' />
+          <img src={client} alt="" />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Nanny</h5>
             <h2>8</h2>
           </div>
-          <img src={nanny} alt='' />
+          <img src={nanny} alt="" />
         </div>
       </div>
       <div className={styles.table}>
@@ -95,18 +95,11 @@ export default function NannyDashboard() {
                 </div>
               </div> */}
               <div className={styles.menu}>
-                <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  sx={{ color: 'black', boxShadow: 0 }}
-                >
+                <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black', boxShadow: 0 }}>
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
@@ -124,9 +117,7 @@ export default function NannyDashboard() {
                     }}
                   >
                     <span>
-                      <BsCheck2Circle
-                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                      />
+                      <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                     </span>{' '}
                     Accept Client
                   </MenuItem>
@@ -167,18 +158,11 @@ export default function NannyDashboard() {
             </td>
             <td>
               <div>
-                <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  sx={{ color: 'black' }}
-                >
+                <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black' }}>
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
@@ -188,9 +172,7 @@ export default function NannyDashboard() {
                 >
                   <MenuItem onClick={handleClose}>
                     <span>
-                      <BsCheck2Circle
-                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                      />
+                      <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                     </span>{' '}
                     Accept Client
                   </MenuItem>
@@ -200,7 +182,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClick}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -220,18 +202,11 @@ export default function NannyDashboard() {
             </td>
             <td>
               <div>
-                <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  sx={{ color: 'black' }}
-                >
+                <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black' }}>
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
@@ -241,9 +216,7 @@ export default function NannyDashboard() {
                 >
                   <MenuItem onClick={handleClose}>
                     <span>
-                      <BsCheck2Circle
-                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                      />
+                      <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                     </span>{' '}
                     Accept Client
                   </MenuItem>
@@ -273,18 +246,11 @@ export default function NannyDashboard() {
             </td>
             <td>
               <div>
-                <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  sx={{ color: 'black' }}
-                >
+                <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black' }}>
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
@@ -294,9 +260,7 @@ export default function NannyDashboard() {
                 >
                   <MenuItem onClick={handleClose}>
                     <span>
-                      <BsCheck2Circle
-                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                      />
+                      <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                     </span>{' '}
                     Accept Client
                   </MenuItem>
@@ -306,7 +270,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClick}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -326,18 +290,11 @@ export default function NannyDashboard() {
             </td>
             <td className={styles.noBorder}>
               <div>
-                <Button
-                  id='basic-button'
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  sx={{ color: 'black' }}
-                >
+                <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black' }}>
                   &bull;&bull;&bull;
                 </Button>
                 <Menu
-                  id='basic-menu'
+                  id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
@@ -347,9 +304,7 @@ export default function NannyDashboard() {
                 >
                   <MenuItem onClick={handleClose}>
                     <span>
-                      <BsCheck2Circle
-                        style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                      />
+                      <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                     </span>{' '}
                     Accept Client
                   </MenuItem>
@@ -359,7 +314,7 @@ export default function NannyDashboard() {
                     </span>{' '}
                     Reject Client
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleClientDetail}>
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
@@ -371,7 +326,7 @@ export default function NannyDashboard() {
           </tr>
         </table>
         <div className={styles.add}>
-          <Link to='/dashboard/clientlist'>{''} See All Client List</Link>
+          <Link to="/dashboard/clientlist">{''} See All Client List</Link>
         </div>
       </div>
     </div>
