@@ -1,15 +1,14 @@
-import React from "react";
-import style from "./assets/ChangePassword.module.scss";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { ChangePasswordAction } from "../../store/actions/changePassword";
+import React from 'react';
+import style from './assets/ChangePassword.module.scss';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ChangePasswordAction } from '../../store/actions/changePassword';
 
 export default function ChangePassword() {
-  const [showPass, setShowPass] = useState(false);
   const dispatch = useDispatch();
   const [inputChangePassword, setInputChangePassword] = useState({
-    oldPassword: "",
-    newPassword: "",
+    oldPassword: '',
+    newPassword: '',
   });
 
   console.log(inputChangePassword);
@@ -30,23 +29,23 @@ export default function ChangePassword() {
       <div className={style.password}>
         <form>
           <input
-            type="password"
-            label="Old Password"
-            name="oldPassword"
-            placeholder="Old Password"
-            id="outlined-required"
+            type='password'
+            label='Old Password'
+            name='oldPassword'
+            placeholder='Old Password'
+            id='outlined-required'
             onChange={(e) => changeInput(e)}
           />
           <input
-            type="password"
-            name="newPassword"
-            placeholder="New Password"
+            type='password'
+            name='newPassword'
+            placeholder='New Password'
             onChange={(e) => changeInput(e)}
           />
           <input
-            type="password"
-            name="Old Password"
-            placeholder="Confirm Password"
+            type='password'
+            name='Old Password'
+            placeholder='Confirm Password'
             // onChange={(e) => changeInput(e)}
           />
         </form>
@@ -54,29 +53,29 @@ export default function ChangePassword() {
       <div className={style.saveButton}>
         <button
           style={{
-            width: "10rem",
-            height: "2rem",
-            marginLeft: "1rem",
-            backgroundColor: "#F67979",
-            borderRadius: "2rem",
-            border: "none",
-            color: "#FFFFFF",
+            width: '10rem',
+            height: '2rem',
+            marginLeft: '1rem',
+            backgroundColor: '#F67979',
+            borderRadius: '2rem',
+            border: 'none',
+            color: '#FFFFFF',
           }}
         >
           Cancel
         </button>
         <button
           style={{
-            width: "10rem",
-            height: "2rem",
-            marginLeft: "1rem",
-            backgroundColor: "#10B278",
-            borderRadius: "2rem",
-            border: "none",
-            color: "#FFFFFF",
+            width: '10rem',
+            height: '2rem',
+            marginLeft: '1rem',
+            backgroundColor: '#10B278',
+            borderRadius: '2rem',
+            border: 'none',
+            color: '#FFFFFF',
           }}
           onClick={submitChangePassword}
-          type="submit"
+          type='submit'
         >
           Save
         </button>

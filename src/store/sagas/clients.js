@@ -16,7 +16,7 @@ const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 
 function* getClients() {
   try {
-    const res = yield axios.get(`${baseUrl}appointments/`);
+    const res = yield axios.get(`${baseUrl}appointments/dashboard`);
     console.log(res);
     yield put({
       type: GET_CLIENTS_SUCCESS,
@@ -33,7 +33,7 @@ function* getClients() {
 function* getClientDetail(actions) {
   const { appointment_id } = actions;
   try {
-    const res = yield axios.get(`${baseUrl}appointments/${appointment_id}`);
+    const res = yield axios.get(`${baseUrl}appointments/detail/${appointment_id}`);
     console.log(res);
     yield put({
       type: GET_CLIENT_DETAIL_SUCCESS,

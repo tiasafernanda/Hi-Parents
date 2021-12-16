@@ -8,17 +8,19 @@ import {
   GET_APPOINTMENT_BEGIN,
   GET_APPOINTMENT_FAIL,
   GET_APPOINTMENT_SUCCESS,
+  GET_CHILD_ACTIVITY_BEGIN,
+  GET_CHILD_ACTIVITY_FAIL,
+  GET_CHILD_ACTIVITY_SUCCESS,
+  UPDATE_STATUS_APPOINTMENT_BEGIN,
+  UPDATE_STATUS_APPOINTMENT_FAIL,
+  UPDATE_STATUS_APPOINTMENT_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
   nannies: [],
   loading: false,
   error: null,
-  // detailNanny: {
-  //   loading: false,
-  //   error: null,
-  //   details: {},
-  // },
+  activity: [],
 };
 
 const nannies = (state = initialState, action) => {
@@ -87,6 +89,46 @@ const nannies = (state = initialState, action) => {
         loading: false,
         error: error,
         appointment: [],
+      };
+    case UPDATE_STATUS_APPOINTMENT_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_STATUS_APPOINTMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        appointmentUpdate: payload,
+      };
+    case UPDATE_STATUS_APPOINTMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        appointmentUpdate: [],
+      };
+    case GET_CHILD_ACTIVITY_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_CHILD_ACTIVITY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        activity: payload,
+      };
+    case GET_CHILD_ACTIVITY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        activity: [],
       };
   }
 };

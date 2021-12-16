@@ -3,7 +3,12 @@ import { watchLoginNanny } from './auth';
 import { watchRegisterNanny } from './auth';
 import { watchChangePassword } from './changePassword';
 import { watchGetActiveClients, watchGetClientDetail, watchGetClients } from './clients';
-import { watchGetActiveNannies, watchGetAppointment, watchGetNannies } from './nannies';
+import {
+  watchGetActiveNannies,
+  watchGetAppointment,
+  watchGetChildActivity,
+  watchGetNannies,
+} from './nannies';
 
 export default function* rootSaga() {
   yield all([
@@ -16,5 +21,6 @@ export default function* rootSaga() {
     watchGetNannies(),
     watchGetActiveNannies(),
     watchGetAppointment(),
+    watchGetChildActivity(),
   ]);
 }
