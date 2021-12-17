@@ -33,7 +33,7 @@ function* getClients() {
 function* getClientDetail(actions) {
   const { appointment_id } = actions;
   try {
-    const res = yield axios.get(`${baseUrl}appointments/fe/detail/${appointment_id}`);
+    const res = yield axios.get(`${baseUrl}appointments/detail/${appointment_id}`);
     console.log(res);
     yield put({
       type: GET_CLIENT_DETAIL_SUCCESS,

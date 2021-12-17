@@ -9,8 +9,11 @@ import { getActiveNannies, getAppointment } from '../../store/actions/nannies';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
-import previousIcon from './assets/svg/previousicon.svg';
-import nextIcon from './assets/svg/nexticon.svg';
+import previousIcon from './assets/previousicon.svg';
+import nextIcon from './assets/nexticon.svg';
+import closeIcon from './assets/close.png';
+import sortIcon from './assets/sortIcon.svg';
+import filterIcon from './assets/filterIcon.svg';
 
 export default function ClientList() {
   const dispatch = useDispatch();
@@ -42,6 +45,12 @@ export default function ClientList() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  //Reject Message
+  const [openMessage, setOpenMessage] = useState(false);
+  const handleMessage = () => {
+    setOpenMessage(!openMessage ? true : false);
   };
 
   //Table Map & Pagination
@@ -83,7 +92,23 @@ export default function ClientList() {
 
   return (
     <div className={styles.dashboard}>
+      {openMessage && (
+        <div className={styles.rejectMessege}>
+          <p>Reject Client Success!</p>
+          <img src={closeIcon} alt="close" />
+        </div>
+      )}
       <h1>Client List</h1>
+      <div className={styles.buttonTable}>
+        <button>
+          <img src={sortIcon} />
+          Sort
+        </button>
+        <button style={{ marginLeft: '0.75rem' }}>
+          <img src={filterIcon} />
+          Filter
+        </button>
+      </div>
       <div className={styles.table}>
         <table>
           <tr>
@@ -94,46 +119,6 @@ export default function ClientList() {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {/* {clientDetail.map((item) => (
-            <tr className={styles.row}>
-              <td>{item.dateRequest}</td>
-              <td>{item.parentName}</td>
-              <td>{item.clientId}</td>
-              <td>{item.childrenName}</td>
-              <td>
-                <div className={styles.dropdown}>
-                  <button className={item.status === 1 ? styles.statusActive : item.status === 2 ? styles.statusReject : styles.statusPending}>{item.status === 1 ? 'Active' : item.status === 2 ? 'Reject' : 'Pending'}</button>
-                  {item.status === 0 && (
-                    <div className={styles.dropdownContent}>
-                      <button className={styles.accept} onClick={() => handleClick(item.clientId)}>
-                        <span style={{ color: '#10B278', position: 'relative', top: '2px' }}>
-                          <BsCheck2Circle />
-                        </span>{' '}
-                        Accept Client
-                      </button>
-                      <button>
-                        <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-                          <BiXCircle />
-                        </span>{' '}
-                        Reject Client
-                      </button>
-                      <Link to="#">
-                        <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                          <AiOutlineInfoCircle />
-                        </span>{' '}
-                        View Details
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </td>
-              <td>
-                <button className={styles.actionButton} onClick={(e) => handleClick(e)}>
-                  &bull;&bull;&bull;
-                </button>
-              </td>
-            </tr>
-          ))} */}
           {loading
             ? 'wait a minute'
             : clients?.slice(firstIndex, lastIndex).map((item, index) => {
@@ -148,7 +133,14 @@ export default function ClientList() {
                     </td>
                     <td>
                       <div>
-                        <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={clients.appointment_status === 'Pending' ? handleClick : null} sx={{ color: 'black' }}>
+                        <Button
+                          id="basic-button"
+                          aria-controls="basic-menu"
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          /*onClick={clients.appointment_status === 'Pending' ? handleClick : null}*/ onClick={handleClick}
+                          sx={{ color: 'black' }}
+                        >
                           &bull;&bull;&bull;
                         </Button>
                         <Menu
@@ -161,13 +153,13 @@ export default function ClientList() {
                             'aria-labelledby': 'basic-button',
                           }}
                         >
-                          <MenuItem onClick={handleClose}>
-                            <span onClick={() => handleModal(item.client_Id)}>
+                          <MenuItem onClick={() => handleModal(item.client_Id)} disabled={item?.appointment_status === 'Accept' ? true : false}>
+                            <span>
                               <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                             </span>{' '}
                             Accept Client
                           </MenuItem>
-                          <MenuItem onClick={handleClose}>
+                          <MenuItem onClick={handleMessage}>
                             <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                               <BiXCircle />
                             </span>{' '}
