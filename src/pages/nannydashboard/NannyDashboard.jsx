@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClients, getActiveClients } from '../../store/actions/clients';
+import { getMainClients, getActiveClients } from '../../store/actions/clients';
 import {
   getActiveNannies,
   getAppointment,
@@ -25,10 +25,10 @@ export default function NannyDashboard() {
   // const { data } = props;
   // console.log(data);
   const dispatch = useDispatch();
-  const { loading, clients } = useSelector((state) => state.clients);
+  const { loading, mainClients } = useSelector((state) => state.clients);
   const activeClient = useSelector((state) => state.clients.activeClient);
   const nannies = useSelector((state) => state.nannies);
-  console.log('clients list', clients);
+  console.log('main clients', mainClients);
   useEffect(() => {
     dispatch(getActiveNannies());
   }, [dispatch]);
@@ -39,7 +39,7 @@ export default function NannyDashboard() {
     dispatch(getAppointment());
   }, [dispatch]);
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(getMainClients());
   }, [dispatch]);
   const [acceptStatus, setAcceptStatus] = useState({
     appointment_id: '',
@@ -92,21 +92,21 @@ export default function NannyDashboard() {
             <h5>New Appointment</h5>
             <h2>{nannies?.appointment?.count}</h2>
           </div>
-          <img src={appointment} alt="" />
+          <img src={appointment} alt='' />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Client</h5>
             <h2>{activeClient?.data?.count}</h2>
           </div>
-          <img src={client} alt="" />
+          <img src={client} alt='' />
         </div>
         <div className={styles.card}>
           <div className={styles.cardText}>
             <h5>Active Nanny</h5>
             <h2>{nannies?.activeNanny?.activeNanny}</h2>
           </div>
-          <img src={nanny} alt="" />
+          <img src={nanny} alt='' />
         </div>
       </div>
       <div className={styles.table}>
@@ -122,7 +122,7 @@ export default function NannyDashboard() {
           </tr>
           {loading
             ? 'wait a minute'
-            : clients?.map((item, index) => {
+            : mainClients?.map((item, index) => {
                 return (
                   <tr id={item.appointment_id} key={index}>
                     <td>{item?.date_request}</td>
@@ -198,7 +198,7 @@ export default function NannyDashboard() {
               })}
         </table>
         <div className={styles.add}>
-          <Link to="/dashboard/clientlist">{''} See All Client List</Link>
+          <Link to='/dashboard/clientlist'>{''} See All Client List</Link>
         </div>
       </div>
     </div>

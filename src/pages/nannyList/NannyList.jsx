@@ -3,7 +3,18 @@ import { getNannies } from '../../store/actions/nannies';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { SortIcon, FilterIcon } from './NannyListIcons';
-import { Box, Button, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ActionButton from '../../components/actionButton/ActionButton';
@@ -47,12 +58,14 @@ export default function NannyList() {
   return (
     <div className={styles.container}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography sx={{ fontFamily: 'Nunito' }} variant="h4">
+        <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
           Nanny List
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'right', marginTop: '1rem', marginBottom: '1rem' }}>
+        <Box
+          sx={{ display: 'flex', justifyContent: 'right', marginTop: '1rem', marginBottom: '1rem' }}
+        >
           <Button
-            variant="outlined"
+            variant='outlined'
             startIcon={<SortIcon />}
             sx={{
               color: 'black',
@@ -66,7 +79,7 @@ export default function NannyList() {
             Sort
           </Button>
           <Button
-            variant="outlined"
+            variant='outlined'
             startIcon={<FilterIcon />}
             sx={{
               color: 'black',
@@ -82,27 +95,27 @@ export default function NannyList() {
           </Button>
         </Box>
         <TableContainer component={Paper} sx={{ borderRadius: '12px' }}>
-          <Table aria-label="simple table">
+          <Table aria-label='simple table'>
             <TableHead>
               <TableRow>
                 <TableCell>Nanny's Name</TableCell>
                 <TableCell>Nanny ID</TableCell>
                 <TableCell>Phone Number</TableCell>
-                <TableCell align="center">Number of Child</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell align='center'>Number of Child</TableCell>
+                <TableCell align='center'>Status</TableCell>
+                <TableCell align='center'>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {nannyList.nannies?.map((item, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component='th' scope='row'>
                     {item.name}
                   </TableCell>
                   <TableCell>{item.nanny_id}</TableCell>
                   <TableCell>{item.phone_number}</TableCell>
-                  <TableCell align="center">{item.numberOfChild}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align='center'>{item.numberOfChild}</TableCell>
+                  <TableCell align='center'>
                     <Typography
                       sx={{
                         display: 'flex',
@@ -118,7 +131,7 @@ export default function NannyList() {
                       {item.status}
                     </Typography>
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align='center'>
                     <ActionButton />
                   </TableCell>
                 </TableRow>
@@ -133,6 +146,7 @@ export default function NannyList() {
             alignItems: 'center',
             justifyContent: 'end',
             marginTop: '1rem',
+            marginBottom: '1rem',
           }}
         >
           <Box

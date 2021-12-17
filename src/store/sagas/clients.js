@@ -9,10 +9,29 @@ import {
   GET_CLIENT_DETAIL_BEGIN,
   GET_CLIENT_DETAIL_FAIL,
   GET_CLIENT_DETAIL_SUCCESS,
+  GET_MAIN_CLIENTS_BEGIN,
+  GET_MAIN_CLIENTS_FAIL,
+  GET_MAIN_CLIENTS_SUCCESS,
 } from '../actions/types';
 import axios from 'axios';
 
 const baseUrl = 'https://hi-parent-be.herokuapp.com/';
+
+function* getMainClients() {
+  try {
+    const res = yield axios.get(`${baseUrl}appointments/dashboard`);
+    console.log(res);
+    yield put({
+      type: GET_MAIN_CLIENTS_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: GET_MAIN_CLIENTS_FAIL,
+      error: err,
+    });
+  }
+}
 
 function* getClients() {
   try {
@@ -33,7 +52,7 @@ function* getClients() {
 function* getClientDetail(actions) {
   const { appointment_id } = actions;
   try {
-    const res = yield axios.get(`${baseUrl}appointments/fe/detail/${appointment_id}`);
+    const res = yield axios.get(`${baseUrl}appointments/detail/${appointment_id}`);
     console.log(res);
     yield put({
       type: GET_CLIENT_DETAIL_SUCCESS,
@@ -61,6 +80,10 @@ function* getActiveClients() {
       error: err,
     });
   }
+}
+
+export function* watchGetMainClients() {
+  yield takeEvery(GET_MAIN_CLIENTS_BEGIN, getMainClients);
 }
 
 export function* watchGetClients() {

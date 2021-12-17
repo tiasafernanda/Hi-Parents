@@ -8,9 +8,13 @@ import {
   GET_CLIENT_DETAIL_BEGIN,
   GET_CLIENT_DETAIL_FAIL,
   GET_CLIENT_DETAIL_SUCCESS,
+  GET_MAIN_CLIENTS_BEGIN,
+  GET_MAIN_CLIENTS_FAIL,
+  GET_MAIN_CLIENTS_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
+  mainClients: [],
   clients: [],
   loading: false,
   error: null,
@@ -33,6 +37,26 @@ const clients = (state = initialState, action) => {
     default:
       return {
         ...state,
+      };
+    case GET_MAIN_CLIENTS_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_MAIN_CLIENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        mainClients: payload,
+      };
+    case GET_MAIN_CLIENTS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        mainClients: [],
       };
     case GET_CLIENTS_BEGIN:
       return {

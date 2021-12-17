@@ -1,4 +1,15 @@
-import { GET_CLIENTS_BEGIN, GET_ACTIVE_CLIENTS_BEGIN, GET_CLIENT_DETAIL_BEGIN } from './types';
+import {
+  GET_CLIENTS_BEGIN,
+  GET_ACTIVE_CLIENTS_BEGIN,
+  GET_CLIENT_DETAIL_BEGIN,
+  GET_MAIN_CLIENTS_BEGIN,
+} from './types';
+
+export const getMainClients = () => {
+  return {
+    type: GET_MAIN_CLIENTS_BEGIN,
+  };
+};
 
 export const getClients = () => {
   return {
