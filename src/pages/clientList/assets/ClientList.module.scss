@@ -30,27 +30,108 @@
   .table {
     margin-top: 3rem;
 
-    table {
-      margin-top: 3rem;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 12px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-      border-collapse: collapse;
+    // table {
+    //   margin-top: 3rem;
+    //   margin-left: auto;
+    //   margin-right: auto;
+    //   border-radius: 12px;
+    //   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    //   border-collapse: collapse;
 
+    //   th,
+    //   td {
+    //     padding: 0.9rem 2rem;
+    //     text-align: justify;
+    //     text-align: center;
+    //   }
+
+    //   .row {
+    //     border-bottom: 1px solid #d9d9d9;
+    //   }
+
+    //   .row:last-child {
+    //     border-bottom: 0px;
+    //   }
+
+    //   .dropdown {
+    //     position: relative;
+    //     display: inline-block;
+    //   }
+
+    //   .dropdownContent {
+    //   }
+
+    //   .dropdown:hover .dropdownContent {
+    //     display: block;
+    //     border-radius: 10px;
+    //     -webkit-border-radius: 10px;
+    //     -moz-border-radius: 10px;
+    //     -ms-border-radius: 10px;
+    //     -o-border-radius: 10px;
+    //   }
+
+    //   .dropdown:hover {
+    //     background-color: transparent;
+    //   }
+
+    //   .statusPending {
+    //     width: 6rem;
+    //     height: 2rem;
+    //     border: none;
+    //     background-color: #f1b722;
+    //     border-radius: 20px;
+    //     color: white;
+    //   }
+
+    //   .statusActive {
+    //     width: 6rem;
+    //     height: 2rem;
+    //     border: none;
+    //     background-color: #10b278;
+    //     border-radius: 20px;
+    //     color: white;
+    //   }
+
+    //   .statusReject {
+    //     width: 6rem;
+    //     height: 2rem;
+    //     border: none;
+    //     background-color: #f67979;
+    //     border-radius: 20px;
+    //     color: white;
+    //   }
+
+    //   .actionButton {
+    //     border: none;
+    //     background-color: transparent;
+    //     position: relative;
+    //     display: inline-block;
+    //   }
+
+    //   .noBorder {
+    //     border-bottom: none;
+    //   }
+    // }
+
+    table {
+      // margin-top: 3rem;
+      margin-left: 10rem;
+      // margin-right: auto;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
       th,
       td {
         padding: 0.9rem 2rem;
-        text-align: justify;
         text-align: center;
       }
 
-      .row {
+      td {
         border-bottom: 1px solid #d9d9d9;
       }
 
-      .row:last-child {
-        border-bottom: 0px;
+      .menu {
+        box-shadow: none;
       }
 
       .dropdown {
@@ -59,34 +140,26 @@
       }
 
       .dropdownContent {
-        text-align: justify;
-        display: block;
-        border-radius: 10px;
+        display: none;
         position: absolute;
-        background-color: white;
+        // background-color: white;
+        top: 20px;
+        right: -68px;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        // box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
       }
 
-      .dropdownContent {
-        button {
-          border: none;
-          background-color: white;
-          padding: 12px 16px;
-          font-size: 16px;
-        }
-        button:hover {
-          // background-color: #f6f6f6;
-          border-radius: 10px;
-          cursor: pointer;
-        }
-        a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
+      .dropdownContent a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdownContent a:hover {
+        background-color: #f6f6f6;
+        border-radius: 10px;
       }
 
       .dropdown:hover .dropdownContent {
@@ -102,27 +175,22 @@
         background-color: transparent;
       }
 
-      .statusPending {
-        width: 6rem;
-        height: 2rem;
+      .pending {
+        padding: 0.4rem 2rem;
         border: none;
         background-color: #f1b722;
         border-radius: 20px;
         color: white;
       }
-
-      .statusActive {
-        width: 6rem;
-        height: 2rem;
+      .active {
+        padding: 0.4rem 2.3rem;
         border: none;
         background-color: #10b278;
         border-radius: 20px;
         color: white;
       }
-
-      .statusReject {
-        width: 6rem;
-        height: 2rem;
+      .reject {
+        padding: 0.4rem 2rem;
         border: none;
         background-color: #f67979;
         border-radius: 20px;
@@ -136,6 +204,30 @@
 
       .noBorder {
         border-bottom: none;
+      }
+    }
+
+    .dropdownContent {
+      text-align: justify;
+      display: block;
+      border-radius: 10px;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+
+      button {
+        border: none;
+        background-color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+      }
+
+      button:hover {
+        // background-color: #f6f6f6;
+        border-radius: 10px;
+        cursor: pointer;
       }
     }
 

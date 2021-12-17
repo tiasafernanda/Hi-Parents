@@ -1,20 +1,54 @@
 import React from "react";
 import style from "./assets/ChangePassword.module.scss";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { ChangePasswordAction } from "../../store/actions/changePassword";
 
 export default function ChangePassword() {
+  const [showPass, setShowPass] = useState(false);
+  const dispatch = useDispatch();
+  const [inputChangePassword, setInputChangePassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+  });
+
+  console.log(inputChangePassword);
+
+  const changeInput = (e) => {
+    setInputChangePassword({
+      ...inputChangePassword,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitChangePassword = () => {
+    dispatch(ChangePasswordAction(inputChangePassword));
+  };
   return (
     <div className={style.container}>
       <h1>Change Password</h1>
       <div className={style.password}>
         <form>
           <input
-            type="text"
+            type="password"
             label="Old Password"
+            name="oldPassword"
             placeholder="Old Password"
             id="outlined-required"
+            onChange={(e) => changeInput(e)}
           />
-          <input type="text" name="Old Password" placeholder="New Password" />
-          <input type="text" name="Old Password" placeholder="Confirm Password" />
+          <input
+            type="password"
+            name="newPassword"
+            placeholder="New Password"
+            onChange={(e) => changeInput(e)}
+          />
+          <input
+            type="password"
+            name="Old Password"
+            placeholder="Confirm Password"
+            // onChange={(e) => changeInput(e)}
+          />
         </form>
       </div>
       <div className={style.saveButton}>
@@ -39,8 +73,10 @@ export default function ChangePassword() {
             backgroundColor: "#10B278",
             borderRadius: "2rem",
             border: "none",
-            color: "#FFFFFF", 
+            color: "#FFFFFF",
           }}
+          onClick={submitChangePassword}
+          type="submit"
         >
           Save
         </button>

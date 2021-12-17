@@ -141,7 +141,7 @@ function Layout(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, boxShadow: 3 }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
@@ -154,7 +154,7 @@ function Layout(props) {
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            boxShadow: 'initial',
+            boxShadow: '50rem, 50rem',
           }}
           // open
         >

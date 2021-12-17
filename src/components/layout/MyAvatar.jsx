@@ -44,7 +44,11 @@ export default function MyAvatar({ userName }) {
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'start',
+        }}
       >
         <Box>
           <Button sx={{ p: 2, color: '#2F2F33', textTransform: 'unset' }} onClick={handleChangePass}>

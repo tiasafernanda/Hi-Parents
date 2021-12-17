@@ -1,4 +1,6 @@
 .containers {
+  margin-top: 7rem;
+  margin-left: 20rem;
   a {
     text-decoration: none;
     color: #2f2f33;
@@ -61,7 +63,7 @@
               }
             }
 
-            > input {
+            input {
               display: none;
             }
 
@@ -78,6 +80,9 @@
                 width: 5rem;
                 object-fit: cover;
                 border-radius: 20px;
+                position: relative;
+                bottom: 1px;
+                right: 1px;
               }
 
               .closeIcon {
@@ -145,6 +150,17 @@
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
+
+        .deletebtn {
+          padding: 0.5rem 1rem;
+          font-weight: 600;
+          width: fit-content;
+          background-color: transparent;
+          border-radius: 20px;
+          border: 1px solid #2586d7;
+          color: #2586d7;
+          position: relative;
+        }
       }
     }
   }

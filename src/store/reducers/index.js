@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
 import authNanny from './auth';
-import nannyListReducer from './nannyList';
+import clients from './clients';
+import nannies from './nannies';
+import updatePassword from './changePassword';
 
 const rootReducer = combineReducers({
   auth: authNanny,
-  nannyListReducer,
+  changePassword: updatePassword,
+  clients,
+  nannies,
 });
 
 export default rootReducer;

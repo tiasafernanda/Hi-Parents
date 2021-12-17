@@ -1,5 +1,5 @@
 import * as React from 'react';
-import nannyListAction from '../../store/actions';
+import { getNannies } from '../../store/actions/nannies';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { SortIcon, FilterIcon } from './NannyListIcons';
@@ -10,39 +10,39 @@ import ActionButton from '../../components/actionButton/ActionButton';
 import styles from './assets/NannyList.module.scss';
 import { useSelector } from 'react-redux';
 
-function createData(data1, data2, data3, data4, status) {
+/*function createData(data1, data2, data3, data4, status) {
   return { data1, data2, data3, data4, status };
 }
 
-const rows = [createData('Yugi Muto', '#000123', '08123912120', 0, false), createData('Yugi Muto', '#000123', '08123912120', 0, true)];
+const rows = [createData('Yugi Muto', '#000123', '08123912120', 0, false), createData('Yugi Muto', '#000123', '08123912120', 0, true)];*/
 
 export default function NannyList() {
-  const dispatch = useDispatch(
-    useEffect(() => {
-      dispatch(nannyListAction);
-    })
-  );
-
-  const nannyList = useSelector((state) => state.nannyListReducer.nannyList());
-  console.log(nannyList, 'nannyList');
-
-  const [nanny, setNannyList] = useState({
-    nanny_id: '',
-    name: '',
-    phone_number: '',
-    numberOfChild: '',
-    status: '',
-  });
-
   useEffect(() => {
-    setNannyList({
-      nanny_id: nannyList.nanny_id,
-      name: nannyList.name,
-      phone_number: nannyList.phone_number,
-      numberOfChild: nannyList.numberOfChild,
-      status: nannyList.status,
-    });
-  });
+    dispatch(getNannies());
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const nannyList = useSelector((state) => state.nannies.nannies);
+  console.log(nannyList.nannies, 'nannyList');
+
+  // const [nanny, setNannyList] = useState({
+  //   nanny_id: '',
+  //   name: '',
+  //   phone_number: '',
+  //   numberOfChild: '',
+  //   status: '',
+  // });
+
+  // useEffect(() => {
+  //   setNannyList({
+  //     nanny_id: nannyList.nanny_id,
+  //     name: nannyList.name,
+  //     phone_number: nannyList.phone_number,
+  //     numberOfChild: nannyList.numberOfChild,
+  //     status: nannyList.status,
+  //   });
+  // }, []);
 
   return (
     <div className={styles.container}>
@@ -94,28 +94,28 @@ export default function NannyList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.data1} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              {nannyList.nannies?.map((item, index) => (
+                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {row.data1}
+                    {item.name}
                   </TableCell>
-                  <TableCell>{row.data2}</TableCell>
-                  <TableCell>{row.data3}</TableCell>
-                  <TableCell align="center">{row.data4}</TableCell>
+                  <TableCell>{item.nanny_id}</TableCell>
+                  <TableCell>{item.phone_number}</TableCell>
+                  <TableCell align="center">{item.numberOfChild}</TableCell>
                   <TableCell align="center">
                     <Typography
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: row.status ? '#10B278' : '#F67979',
+                        backgroundColor: item.status === 'Active' ? '#10B278' : '#F67979',
                         color: 'white',
                         width: 'fitContent',
                         height: '35px',
                         borderRadius: '50px',
                       }}
                     >
-                      {row.status ? 'Active' : 'Inactive'}
+                      {item.status}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">

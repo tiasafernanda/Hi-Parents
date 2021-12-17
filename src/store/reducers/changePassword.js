@@ -1,39 +1,48 @@
-import { GETNANNYLIST_BEGIN, GETNANNYLIST_SUCCES, GETNANNYLIST_FAIL } from '../actions/types';
+import {
+  CHANGEPASSWORD_BEGIN,
+  CHANGEPASSWORD_SUCCESS,
+  CHANGEPASSWORD_FAIL,
+} from "../actions/types";
 
 const initialState = {
-  nannyList: [],
+  login: [],
   loading: false,
   error: null,
+  detailChangePassword: {
+    loading: false,
+    error: null,
+    details: {},
+  },
 };
 
-const nannyListReducer = (state = initialState, action) => {
+const updatePassword = (state = initialState, action) => {
   const { type, payload, error } = action;
   switch (type) {
     default:
       return {
         ...state,
       };
-    case GETNANNYLIST_BEGIN:
+    case CHANGEPASSWORD_BEGIN:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case GETNANNYLIST_SUCCES:
+    case CHANGEPASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        nannyList: payload,
+        login: payload,
       };
-    case GETNANNYLIST_FAIL:
+    case CHANGEPASSWORD_FAIL:
       return {
         ...state,
         loading: false,
         error: error,
-        nannyList: [],
+        login: [],
       };
   }
 };
 
-export default nannyListReducer;
+export default updatePassword;

@@ -77,7 +77,7 @@ export default function StateDashboard() {
             borderStyle: 'none',
             height: '3rem',
             marginTop: '1rem',
-            marginLeft: '42rem',
+            marginLeft: '51rem',
           }}
         >
           See All Client List
