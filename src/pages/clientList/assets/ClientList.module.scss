@@ -1,5 +1,6 @@
 .dashboard {
   margin-top: 7rem;
+  margin-bottom: 4.5rem;
   position: relative;
   left: 24rem;
   width: fit-content;
@@ -7,6 +8,54 @@
     // margin-left: 1rem;
     font-size: 33px;
   }
+
+  .rejectMessege {
+    position: absolute;
+    z-index: 1;
+    width: 21rem;
+    height: 4.75rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: #50efb6;
+    border-radius: 1.875rem;
+    margin: 0rem 20vw;
+
+    p {
+      padding-left: 5rem;
+    }
+
+    img {
+      height: 0.875rem;
+      padding-left: 4rem;
+    }
+  }
+
+  .buttonTable {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    button {
+      width: 6.5rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      background: #ffffff;
+      border: 1px solid #c1c1c2;
+      box-sizing: border-box;
+      border-radius: 12px;
+
+      img {
+        height: 13.75px;
+        margin-right: 7.25px;
+      }
+    }
+  }
+
   .cardGroup {
     display: flex;
     justify-content: space-evenly;
@@ -28,92 +77,10 @@
   }
 
   .table {
-    margin-top: 3rem;
-
-    // table {
-    //   margin-top: 3rem;
-    //   margin-left: auto;
-    //   margin-right: auto;
-    //   border-radius: 12px;
-    //   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    //   border-collapse: collapse;
-
-    //   th,
-    //   td {
-    //     padding: 0.9rem 2rem;
-    //     text-align: justify;
-    //     text-align: center;
-    //   }
-
-    //   .row {
-    //     border-bottom: 1px solid #d9d9d9;
-    //   }
-
-    //   .row:last-child {
-    //     border-bottom: 0px;
-    //   }
-
-    //   .dropdown {
-    //     position: relative;
-    //     display: inline-block;
-    //   }
-
-    //   .dropdownContent {
-    //   }
-
-    //   .dropdown:hover .dropdownContent {
-    //     display: block;
-    //     border-radius: 10px;
-    //     -webkit-border-radius: 10px;
-    //     -moz-border-radius: 10px;
-    //     -ms-border-radius: 10px;
-    //     -o-border-radius: 10px;
-    //   }
-
-    //   .dropdown:hover {
-    //     background-color: transparent;
-    //   }
-
-    //   .statusPending {
-    //     width: 6rem;
-    //     height: 2rem;
-    //     border: none;
-    //     background-color: #f1b722;
-    //     border-radius: 20px;
-    //     color: white;
-    //   }
-
-    //   .statusActive {
-    //     width: 6rem;
-    //     height: 2rem;
-    //     border: none;
-    //     background-color: #10b278;
-    //     border-radius: 20px;
-    //     color: white;
-    //   }
-
-    //   .statusReject {
-    //     width: 6rem;
-    //     height: 2rem;
-    //     border: none;
-    //     background-color: #f67979;
-    //     border-radius: 20px;
-    //     color: white;
-    //   }
-
-    //   .actionButton {
-    //     border: none;
-    //     background-color: transparent;
-    //     position: relative;
-    //     display: inline-block;
-    //   }
-
-    //   .noBorder {
-    //     border-bottom: none;
-    //   }
-    // }
+    margin-top: 1rem;
 
     table {
+      width: 70vw;
       margin-bottom: 2rem;
       border-radius: 12px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
@@ -229,10 +196,9 @@
     }
 
     .footer {
-      max-width: 62.5rem;
       display: flex;
       justify-content: space-between;
-      margin: 1rem auto;
+      margin-top: 1rem;
 
       div {
         display: flex;

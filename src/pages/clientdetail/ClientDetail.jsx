@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import styles from './assets/ClientDetail.module.scss';
 import Backdrop from '@mui/material/Backdrop';
@@ -23,6 +23,7 @@ const style = {
 
 export default function ClientDetail() {
   const { appointment_id } = useParams();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClientDetail(appointment_id));
@@ -57,6 +58,16 @@ export default function ClientDetail() {
   const handleOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
 
+  // function BackButton() {
+  //   let history = useNavigate();
+
+  //   function handleBack() {
+  //     history.goBack();
+  //   }
+  // }
+
+  const navigate = useNavigate();
+
   return (
     <div
       className={styles.containers}
@@ -64,10 +75,14 @@ export default function ClientDetail() {
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
     >
-      <Link to='/dashboard/nannydashboard'>
+      {/* <Link to='/dashboard/nannydashboard'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Client Detail
-      </Link>
+      </Link> */}
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
+        Client Detail
+      </button>
       <div className={styles.container}>
         <h3>Parent Information</h3>
         <hr />
@@ -233,7 +248,7 @@ export default function ClientDetail() {
           </div>
         </form>
       </div>
-      <div className={styles.btn}>
+      <div className={detailClient.appointment_status === 'accept' ? styles.accepted : styles.btn}>
         <button
           style={{
             padding: '0.5rem 4rem',

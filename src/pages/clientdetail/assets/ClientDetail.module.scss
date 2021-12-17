@@ -3,13 +3,18 @@
   position: relative;
   left: 23rem;
   width: fit-content;
-  a {
-    text-decoration: none;
+  .backButton {
+    background-color: transparent;
+    border: none;
     color: #2f2f33;
     font-size: 24px;
     position: relative;
     top: 11px;
     margin-left: 1.7rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .container {
@@ -87,5 +92,9 @@
     button:hover {
       cursor: pointer;
     }
+  }
+
+  .accepted {
+    display: none;
   }
 }
