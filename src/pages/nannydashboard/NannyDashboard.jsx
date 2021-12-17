@@ -130,44 +130,6 @@ export default function NannyDashboard() {
                     <td>{item?.child?.parent?.client_id}</td>
                     <td>{item?.child?.name}</td>
                     <td>
-<<<<<<< HEAD
-                      <button className={item?.appointment_status === 'Pending' ? styles.pending : item?.appointment_status === 'Accept' ? styles.active : styles.reject}>{item?.appointment_status}</button>
-                    </td>
-                    <td>
-                      <div>
-                        <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} sx={{ color: 'black' }}>
-                          &bull;&bull;&bull;
-                        </Button>
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          elevation={1}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
-                        >
-                          <MenuItem onClick={handleClose}>
-                            <span>
-                              <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
-                            </span>{' '}
-                            Accept Client
-                          </MenuItem>
-                          <MenuItem onClick={handleClose}>
-                            <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-                              <BiXCircle />
-                            </span>{' '}
-                            Reject Client
-                          </MenuItem>
-                          <MenuItem onClick={handleClientDetail} id={item.appointment_id}>
-                            <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                              <AiOutlineInfoCircle />
-                            </span>{' '}
-                            View Details
-                          </MenuItem>
-                        </Menu>
-=======
                       <p
                         className={
                           item?.appointment_status === 'Pending'
@@ -229,7 +191,6 @@ export default function NannyDashboard() {
                             </div>
                           )}
                         </div>
->>>>>>> 1ff5de4d7ad735f75446f666aa22388190915132
                       </div>
                     </td>
                   </tr>

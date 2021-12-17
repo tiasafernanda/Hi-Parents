@@ -15,11 +15,8 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
-<<<<<<< HEAD
     "jwt-decode": "^3.1.2",
-=======
     "dayjs": "^1.10.7",
->>>>>>> 1ff5de4d7ad735f75446f666aa22388190915132
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
