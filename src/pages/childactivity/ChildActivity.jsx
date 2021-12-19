@@ -4,7 +4,9 @@ import styles from './assets/ChildActivity.module.scss';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { FaChild } from 'react-icons/fa';
 // import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
@@ -81,6 +83,9 @@ export default function ChildActivity() {
       <div className={styles.adjust}>
         <h5>{dayjs().format('dddd, DD MMMM YYYY')}</h5>
         <div className={styles.sortFilter}>
+          <Link to='/dashboard/createactivity'>
+            <FaChild style={{ position: 'relative', top: '1px' }} /> Create New Activity
+          </Link>
           <button>
             <BiSortUp style={{ position: 'relative', top: '1px' }} />
             Sort

@@ -248,7 +248,13 @@ export default function ClientDetail() {
           </div>
         </form>
       </div>
-      <div className={detailClient.appointment_status === 'accept' ? styles.accepted : styles.btn}>
+      <div
+        className={
+          detailClient && detailClient[0]?.appointment_status === 'Accept'
+            ? styles.accepted
+            : styles.btn
+        }
+      >
         <button
           style={{
             padding: '0.5rem 4rem',
@@ -292,7 +298,7 @@ export default function ClientDetail() {
                 src={detailClient && detailClient[0]?.child?.parent?.photo}
                 alt=''
                 onClick={handleOpen}
-                style={{ borderRadius: '8px' }}
+                style={{ borderRadius: '8px', width: '20rem' }}
               />
             </Box>
           </Fade>
@@ -314,7 +320,7 @@ export default function ClientDetail() {
                 src={detailClient && detailClient[0]?.child?.photo}
                 alt=''
                 onClick={handleOpen1}
-                style={{ borderRadius: '8px' }}
+                style={{ borderRadius: '8px', width: '20rem' }}
               />
             </Box>
           </Fade>

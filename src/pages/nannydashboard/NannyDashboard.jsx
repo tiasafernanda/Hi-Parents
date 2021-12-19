@@ -147,6 +147,8 @@ export default function NannyDashboard() {
                         <button
                           className={styles.dropbtn}
                           onClick={(e) => setOpen(index + 1)}
+                          // onClick={(e) => if(true){setOpen(index+1)}else{setOpen(0)})}
+
                           // onMouseOut={(e) => setOpen(0)}
                         >
                           &bull;&bull;&bull;

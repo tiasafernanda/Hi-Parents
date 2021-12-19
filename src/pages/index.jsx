@@ -15,6 +15,7 @@ import ActivityDetail from './activitydetail/ActivityDetail';
 import DashboardParent from './dashboardParents/DashboardParent';
 import Empty from '../components/empty/Empty';
 import StateDashboard from './emptyStates/StateDashboard';
+import CreateActivity from './createactivity/CreateActivity';
 
 const Dashboard = () => {
   return (
@@ -24,10 +25,11 @@ const Dashboard = () => {
         <Route path='/nannydashboard' element={<NannyDashboard />} />
         <Route path='/clientdetail/:appointment_id' element={<ClientDetail />} />
         <Route path='/clientlist' element={<ClientList />} />
+        <Route path='/childactivity' element={<ChildActivity />} />
+        <Route path='/createactivity' element={<CreateActivity />} />
         <Route path='/activitydetail' element={<ActivityDetail />} />
         <Route path='/nannylist' element={<NannyList />} />
         <Route path='/managenanny' element={<ManageNanny />} />
-        <Route path='/childactivity' element={<ChildActivity />} />
         <Route path='/userprofilenanny' element={<UserProfile />} />
         <Route path='/changepassword' element={<ChangePassword />} />
         <Route path='/activityparent' element={<ActivityParent />} />
