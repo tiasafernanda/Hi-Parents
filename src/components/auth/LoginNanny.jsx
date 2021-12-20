@@ -7,14 +7,14 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 
 export default function LoginNanny() {
-  const [showPass, setShowPass] = useState(false);
+  const [showPass, setShowPass] = useState(true);
   const dispatch = useDispatch();
   const [inputLoginNanny, setInputLoginNanny] = useState({
     email: '',
     password: '',
   });
 
-  console.log (inputLoginNanny)
+  console.log(inputLoginNanny);
 
   const changeInput = (e) => {
     setInputLoginNanny({
@@ -24,7 +24,6 @@ export default function LoginNanny() {
   };
 
   const submitLoginNanny = () => {
-    
     dispatch(LoginNannyAction(inputLoginNanny));
   };
   return (
@@ -36,9 +35,9 @@ export default function LoginNanny() {
           <div className={SignInNannyStyle.signinnannyLoginForm}>
             <input
               className={SignInNannyStyle.signinnannyInput}
-              type="text"
-              placeholder="Email Addres"
-              name="email"
+              type='text'
+              placeholder='Email Addres'
+              name='email'
               onChange={(e) => changeInput(e)}
             />
 

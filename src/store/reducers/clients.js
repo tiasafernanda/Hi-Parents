@@ -77,7 +77,7 @@ const clients = (state = initialState, action) => {
         clientDetail: {
           loading: false,
           error: null,
-          details: [],
+          details: {},
         },
       };
     case GET_ACTIVE_CLIENTS_BEGIN:

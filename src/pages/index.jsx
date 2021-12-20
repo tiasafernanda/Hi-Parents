@@ -36,6 +36,7 @@ const Dashboard = () => {
         <Route path='/profileparent' element={<ProfileParent />} />
         <Route path='/empty' element={<Empty />} />
         <Route path='/statedashboard' element={<StateDashboard />} />
+        <Route path='*' element={<div>Not Found</div>} />
       </Routes>
     </>
   );
