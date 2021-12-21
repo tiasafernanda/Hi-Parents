@@ -4,6 +4,8 @@ import {
   GET_APPOINTMENT_BEGIN,
   GET_CHILD_ACTIVITY_BEGIN,
   UPDATE_STATUS_APPOINTMENT_BEGIN,
+  GET_CHILD_ACTIVITIES_BEGIN,
+  POST_CHILD_ACTIVITIES_BEGIN,
 } from './types';
 
 export const getNannies = () => {
@@ -33,5 +35,18 @@ export const getAppointment = () => {
 export const getChildActivity = () => {
   return {
     type: GET_CHILD_ACTIVITY_BEGIN,
+  };
+};
+
+export const getChildActivities = (appointment_id) => {
+  return {
+    type: GET_CHILD_ACTIVITIES_BEGIN,
+    appointment_id,
+  };
+};
+
+export const postChildActivities = () => {
+  return {
+    type: POST_CHILD_ACTIVITIES_BEGIN,
   };
 };

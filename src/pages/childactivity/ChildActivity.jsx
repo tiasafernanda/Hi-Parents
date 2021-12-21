@@ -6,7 +6,6 @@ import { HiOutlineAdjustments } from 'react-icons/hi';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaChild } from 'react-icons/fa';
 // import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
@@ -30,8 +29,8 @@ export default function ChildActivity() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClientDetail = () => {
-    window.location.href = '/dashboard/activitydetail';
+  const handleClientDetail = (appointment_id) => {
+    window.location.href = `/dashboard/activitydetail/${appointment_id}`;
   };
 
   const handleClick = (event) => {
@@ -49,21 +48,21 @@ export default function ChildActivity() {
   //   /*Make a loop that will continue until
   //   no switching has been done:*/
   //   while (switching) {
-  //     //start by saying: no switching is done:
+
   //     switching = true;
   //     rows = table.rows;
   //     /*Loop through all table rows (except the
   //     first, which contains table headers):*/
   //     for (i = 1; i < rows.length - 1; i++) {
-  //       //start by saying there should be no switching:
+
   //       shouldSwitch = true;
   //       /*Get the two elements you want to compare,
   //       one from current row and one from the next:*/
   //       x = rows[i].getElementsByTagName('TD')[0];
   //       y = rows[i + 1].getElementsByTagName('TD')[0];
-  //       //check if the two rows should switch place:
+
   //       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-  //         //if so, mark as a switch and break the loop:
+
   //         shouldSwitch = true;
   //         break;
   //       }
@@ -83,9 +82,9 @@ export default function ChildActivity() {
       <div className={styles.adjust}>
         <h5>{dayjs().format('dddd, DD MMMM YYYY')}</h5>
         <div className={styles.sortFilter}>
-          <Link to='/dashboard/createactivity'>
+          {/* <Link to='/dashboard/createactivity'>
             <FaChild style={{ position: 'relative', top: '1px' }} /> Create New Activity
-          </Link>
+          </Link> */}
           <button>
             <BiSortUp style={{ position: 'relative', top: '1px' }} />
             Sort
@@ -105,16 +104,16 @@ export default function ChildActivity() {
           <th>Action</th>
         </tr>
         {activity?.map((item, index) => (
-          <tr key={index}>
+          <tr key={index} id={item.appointment_id}>
             <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
             <td>{item?.appointment?.child?.name}</td>
             <td>{item?.appointment?.nanny?.name}</td>
             <td>{item?.activity_detail}</td>
 
             <td>
-              <div className={styles.menu}>
+              <div className={styles.menu} id={item.appointment_id}>
                 <Button
-                  id='basic-button'
+                  id={item.appointment_id}
                   aria-controls='basic-menu'
                   aria-haspopup='true'
                   aria-expanded={open ? 'true' : undefined}
@@ -125,6 +124,7 @@ export default function ChildActivity() {
                 </Button>
                 <Menu
                   anchorEl={anchorEl}
+                  id={item.appointment_id}
                   open={open}
                   onClose={handleClose}
                   elevation={1}
@@ -135,6 +135,7 @@ export default function ChildActivity() {
                 >
                   <Button
                     onClick={handleClientDetail}
+                    id={item.appointment_id}
                     sx={{
                       boxShadow: 0,
                       color: 'black',

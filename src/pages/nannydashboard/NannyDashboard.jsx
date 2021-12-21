@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import styles from './assets/NannyDashboard.module.scss';
+import Modal from '../../components/modal/Modal';
 import appointment from './assets/img/new.png';
 import client from './assets/img/client.png';
 import nanny from './assets/img/nanny.png';
@@ -82,6 +83,20 @@ export default function NannyDashboard() {
   //     document.removeEventListener('click', handleClick);
   //   };
   // }, []);
+  const [openModal, setOpenModal] = useState(false);
+  console.log(openModal, 'modal');
+  const [selectedItem, setSelectedItem] = useState('');
+  const modalValue = mainClients.find((data) => data.client_id === selectedItem);
+  console.log(modalValue, 'modalValue');
+
+  const handleModal = (clientId) => {
+    setSelectedItem(clientId);
+    setOpenModal(true);
+  };
+
+  const handleModalCLose = (e) => {
+    setOpenModal(false);
+  };
 
   return (
     <div className={styles.dashboard}>
@@ -157,10 +172,12 @@ export default function NannyDashboard() {
                           {open === index + 1 && (
                             <div>
                               <button
-                              // onClick={
-                              //   (() => getIdAccept(item.appointment_id),
-                              //   setInterval(dispatch(getUpdateAppointment(acceptStatus)), 500))
-                              // }
+                                // onClick={
+                                //   (() => getIdAccept(item.appointment_id),
+                                //   setInterval(dispatch(getUpdateAppointment(acceptStatus)), 500))
+                                // }
+                                onClick={() => handleModal(item.client_Id)}
+                                disabled={item?.appointment_status === 'Accept' ? true : false}
                               >
                                 <span>
                                   <BsCheck2Circle
@@ -202,6 +219,16 @@ export default function NannyDashboard() {
         <div className={styles.add}>
           <Link to='/dashboard/clientlist'>{''} See All Client List</Link>
         </div>
+        {openModal && (
+          <div onClick={(e) => handleModalCLose(e)}>
+            <Modal
+              id={mainClients.appointment_id}
+              clientId={modalValue.child?.parent?.client_id}
+              dateRequest={modalValue.date_request}
+              parentName={modalValue.child?.parent?.name}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

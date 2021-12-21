@@ -11,9 +11,10 @@ const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 function* changePassword(action) {
   const { body } = action;
+  console.log(body);
   try {
     const res = yield axios.put(`${baseUrl}/users/change-password`, body, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` },
     });
     console.log(res);
     yield put({

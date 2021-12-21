@@ -11,15 +11,23 @@ import {
 import {
   watchGetActiveNannies,
   watchGetAppointment,
+  watchGetChildActivities,
   watchGetChildActivity,
+  watchPostChildActivities,
   watchGetNannies,
 } from './nannies';
+import { watchDashboarChild, watchDashboarParentChild } from './childParent';
+
+import { watchDashboarParent } from './parent';
 
 export default function* rootSaga() {
   yield all([
     watchLoginNanny(),
     watchRegisterNanny(),
     watchChangePassword(),
+    watchDashboarChild(),
+    watchDashboarParentChild(),
+    watchDashboarParent(),
     watchGetMainClients(),
     watchGetClients(),
     watchGetClientDetail(),
@@ -28,5 +36,7 @@ export default function* rootSaga() {
     watchGetActiveNannies(),
     watchGetAppointment(),
     watchGetChildActivity(),
+    watchGetChildActivities(),
+    watchPostChildActivities(),
   ]);
 }

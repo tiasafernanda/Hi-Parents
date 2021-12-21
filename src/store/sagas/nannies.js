@@ -15,6 +15,12 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_FAIL,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
+  GET_CHILD_ACTIVITIES_BEGIN,
+  GET_CHILD_ACTIVITIES_FAIL,
+  GET_CHILD_ACTIVITIES_SUCCESS,
+  POST_CHILD_ACTIVITIES_BEGIN,
+  POST_CHILD_ACTIVITIES_FAIL,
+  POST_CHILD_ACTIVITIES_SUCCESS,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -102,6 +108,41 @@ function* getChildActivity() {
   }
 }
 
+function* getChildActivities(actions) {
+  const { appointment_id } = actions;
+  try {
+    const res = yield axios.get(`${baseUrl}activity/${appointment_id}`);
+    console.log(res);
+    yield put({
+      type: GET_CHILD_ACTIVITIES_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: GET_CHILD_ACTIVITIES_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* postChildActivities(actions) {
+  const { body } = actions;
+  try {
+    const res = yield axios.post(`${baseUrl}activity`, body, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: POST_CHILD_ACTIVITIES_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: POST_CHILD_ACTIVITIES_FAIL,
+      error: err,
+    });
+  }
+}
+
 export function* watchGetNannies() {
   yield takeEvery(GET_NANNIES_BEGIN, getNannies);
 }
@@ -120,4 +161,12 @@ export function* watchUpdateAppointmentStatus() {
 
 export function* watchGetChildActivity() {
   yield takeEvery(GET_CHILD_ACTIVITY_BEGIN, getChildActivity);
+}
+
+export function* watchGetChildActivities() {
+  yield takeEvery(GET_CHILD_ACTIVITIES_BEGIN, getChildActivities);
+}
+
+export function* watchPostChildActivities() {
+  yield takeEvery(POST_CHILD_ACTIVITIES_BEGIN, postChildActivities);
 }

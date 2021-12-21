@@ -11,6 +11,12 @@ import {
   GET_CHILD_ACTIVITY_BEGIN,
   GET_CHILD_ACTIVITY_FAIL,
   GET_CHILD_ACTIVITY_SUCCESS,
+  GET_CHILD_ACTIVITIES_BEGIN,
+  GET_CHILD_ACTIVITIES_FAIL,
+  GET_CHILD_ACTIVITIES_SUCCESS,
+  POST_CHILD_ACTIVITIES_BEGIN,
+  POST_CHILD_ACTIVITIES_FAIL,
+  POST_CHILD_ACTIVITIES_SUCCESS,
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_FAIL,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
@@ -21,6 +27,11 @@ const initialState = {
   loading: false,
   error: null,
   activity: [],
+  childDetail: {
+    loading: false,
+    error: null,
+    activities: {},
+  },
 };
 
 const nannies = (state = initialState, action) => {
@@ -124,6 +135,52 @@ const nannies = (state = initialState, action) => {
         activity: payload,
       };
     case GET_CHILD_ACTIVITY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        activity: [],
+      };
+    case GET_CHILD_ACTIVITIES_BEGIN:
+      return {
+        ...state,
+        childDetail: {
+          loading: true,
+          error: null,
+        },
+      };
+    case GET_CHILD_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        childDetail: {
+          loading: false,
+          error: null,
+          activities: payload,
+        },
+      };
+    case GET_CHILD_ACTIVITIES_FAIL:
+      return {
+        ...state,
+        childDetail: {
+          loading: false,
+          error: error,
+          activities: {},
+        },
+      };
+    case POST_CHILD_ACTIVITIES_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case POST_CHILD_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        activity: payload,
+      };
+    case POST_CHILD_ACTIVITIES_FAIL:
       return {
         ...state,
         loading: false,

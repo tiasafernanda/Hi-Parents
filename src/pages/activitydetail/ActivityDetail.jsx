@@ -1,13 +1,22 @@
 import React from 'react';
 import styles from './assets/ActivityDetail.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { AiOutlineDelete } from 'react-icons/ai';
 import folder from './assets/img/folder_5.svg';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
+import { getChildActivities, postChildActivities } from '../../store/actions/nannies';
 
 export default function ActivityDetail() {
+  const { appointment_id } = useParams;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getChildActivities(appointment_id));
+  }, [dispatch, appointment_id]);
+  const activitiesDetail = useSelector((state) => state.nannies.childDetail.activities);
+  console.log('details', activitiesDetail && activitiesDetail[0]);
   const [form, setForm] = useState([
     {
       activity: '',
@@ -15,7 +24,18 @@ export default function ActivityDetail() {
       time: '',
     },
   ]);
+  // const [inputActivities, setInputActivities] = useState({
+  //   activity: '',
+  //   photo: null,
+  //   time: '',
+  // });
+  // console.log(inputActivities);
+
+  const submitActivities = () => {
+    dispatch(postChildActivities(form));
+  };
   console.log('form', form);
+
   const changeForm = (index, e) => {
     let newForm = [...form];
     newForm[index][e.target.name] = e.target.value;
@@ -199,7 +219,7 @@ export default function ActivityDetail() {
                     <fieldset>
                       <legend className={styles.legend}>Time</legend>
                       <input
-                        type='text'
+                        type='time'
                         name='time'
                         value={item.time || ''}
                         onChange={(e) => changeForm(index, e)}
@@ -246,6 +266,7 @@ export default function ActivityDetail() {
           Cancel
         </button>
         <button
+          onClick={submitActivities}
           style={{
             padding: '0.5rem 4rem',
             backgroundColor: '#10B278',
