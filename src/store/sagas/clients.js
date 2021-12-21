@@ -17,10 +17,11 @@ const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 function* getClients() {
   try {
     const res = yield axios.get(`${baseUrl}appointments/fe/`);
-    console.log(res);
+    console.log(res, 'clinet.js res');
+    console.log(res.data.appointments, 'clinet.js res.data.appointment');
     yield put({
       type: GET_CLIENTS_SUCCESS,
-      payload: res.data.data,
+      payload: res.data.appointments,
     });
   } catch (err) {
     yield put({
