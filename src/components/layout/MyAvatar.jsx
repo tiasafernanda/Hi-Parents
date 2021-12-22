@@ -3,6 +3,7 @@ import { Box, Avatar, Popover, Typography, Button } from '@mui/material';
 
 export default function MyAvatar({ userName }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  console.log(anchorEl, 'anchor');
 
   const handleLogOut = () => {
     localStorage.removeItem('token');
@@ -14,12 +15,17 @@ export default function MyAvatar({ userName }) {
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (anchorEl !== null) {
+      setAnchorEl(null);
+    } else {
+      setAnchorEl(event.currentTarget);
+    }
   };
 
-  const handleClose = () => {
+  const handleCloseAvatar = () => {
     setAnchorEl(null);
   };
+  console.log(handleCloseAvatar, 'handleClose');
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -39,7 +45,7 @@ export default function MyAvatar({ userName }) {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        onClose={handleCloseAvatar}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',

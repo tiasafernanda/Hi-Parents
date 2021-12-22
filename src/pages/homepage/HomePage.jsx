@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
-        <p>Contact us on 083849420146 or iraziqony@gmail.com</p>
+        <p>Contact us on 085266973971 or hiparent.id@gmail.com</p>
         <div className={styles.auth}>
           <Link to='/auth/signup'>Register</Link>
           <Link to='/auth/signin'>Login</Link>
@@ -42,8 +42,8 @@ export default function HomePage() {
         <div className={styles.location}>
           <h4>Location</h4>
           <p>Indonesia</p>
-          <p>Jl. Planet Namek No. 123</p>
-          <p>Jawa Timur, Surabaya</p>
+          <p>Jl. Cendana No 4D</p>
+          <p>West Sumatera, Padang</p>
         </div>
         <div className={styles.operation}>
           <h4>Hours of Operation</h4>
@@ -58,8 +58,10 @@ export default function HomePage() {
           <div className={styles.introText1}>
             <h1>Welcome to Hi-Parents!</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est in neque aliquet vitae
-              turpis amet, urna netus sed. Eu semper eu neque, massa pharetra orci fusce ac..{' '}
+              Hi-Parent is an application that helps parents who leave their children in daycare so
+              that we can monitor what their children are doing with their caregivers. The main
+              problem Hi-Parents make is to help parents. We can monitor their children in daycare
+              so they can feel relief when entrusting children to daycare.{' '}
             </p>
             <Link to='/auth/signup'>Register</Link>
           </div>
@@ -68,8 +70,10 @@ export default function HomePage() {
           <div className={styles.introText2}>
             <h1>About Us</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est in neque aliquet vitae
-              turpis amet, urna netus sed. Eu semper eu neque, massa pharetra orci fusce ac..{' '}
+              Hi-Parent is an application that helps parents who leave their children in daycare so
+              that we can monitor what their children are doing with their caregivers. The main
+              problem Hi-Parents make is to help parents. We can monitor their children in daycare
+              so they can feel relief when entrusting children to daycare.{' '}
             </p>
             <Link to='/auth/signin'>Login</Link>
           </div>
@@ -113,9 +117,9 @@ export default function HomePage() {
           <div className={styles.footerContact}>
             <h5>Contact Us</h5>
             <p>Indonesia</p>
-            <p>Jl. Planet Namek No. 123, Surabaya</p>
-            <p>Telp : 083849420146</p>
-            <p>Email : vegeta@dragonball.com</p>
+            <p>Jl. Cendana No 4D, Padang</p>
+            <p>Telp : 085266973971</p>
+            <p>Email : hiparent.id@gmail.com</p>
           </div>
         </div>
       </div>

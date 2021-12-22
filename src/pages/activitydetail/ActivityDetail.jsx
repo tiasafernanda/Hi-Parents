@@ -1,5 +1,9 @@
 import React from 'react';
 import styles from './assets/ActivityDetail.module.scss';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -8,15 +12,30 @@ import folder from './assets/img/folder_5.svg';
 import { Link, useParams } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { getChildActivities, postChildActivities } from '../../store/actions/nannies';
+import { getClientDetail } from '../../store/actions/clients';
+import dayjs from 'dayjs';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  outline: 'none',
+};
 export default function ActivityDetail() {
-  const { appointment_id } = useParams;
+  const { appointment_id } = useParams();
+  console.log(appointment_id, 'appointmentId');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getChildActivities(appointment_id));
   }, [dispatch, appointment_id]);
   const activitiesDetail = useSelector((state) => state.nannies.childDetail.activities);
-  console.log('details', activitiesDetail && activitiesDetail[0]);
+  console.log('Activities Detail', activitiesDetail);
+  useEffect(() => {
+    dispatch(getClientDetail(appointment_id));
+  }, [dispatch, appointment_id]);
+  const detailClient = useSelector((state) => state.clients.clientDetail.details);
+  console.log('Client Detail', detailClient && detailClient[0]);
   const [form, setForm] = useState([
     {
       activity: '',
@@ -46,6 +65,9 @@ export default function ActivityDetail() {
     newForm.splice(index, 1);
     setForm(newForm);
   };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [image, setImage] = useState();
   const [isUpload, setIsUpload] = useState(false);
   function handleImageChange(e) {
@@ -92,16 +114,28 @@ export default function ActivityDetail() {
           <div className={styles.form1}>
             <fieldset>
               <legend className={styles.legend}>Children Name</legend>
-              <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
+              <input
+                type='text'
+                id='child'
+                name='child'
+                value={detailClient && detailClient[0]?.child?.name}
+                readonly='readonly'
+              />
             </fieldset>
 
             <fieldset>
               <legend className={styles.legend}>Gender </legend>
-              <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
+              <input
+                type='text'
+                id='gender'
+                name='gender'
+                value={detailClient && detailClient[0]?.child?.gender}
+                readonly='readonly'
+              />
             </fieldset>
 
-            <div>
-              <fieldset>
+            <div className={styles.childPhoto}>
+              {/* <fieldset>
                 <legend className={styles.legend}>Photo</legend>
                 <div className={styles.image}>
                   <div className={styles.imageUpload}>
@@ -137,13 +171,28 @@ export default function ActivityDetail() {
                     )}
                   </div>
                 </div>
+              </fieldset> */}
+              <fieldset>
+                <legend className={styles.legend}>Photo</legend>
+                <img
+                  src={detailClient && detailClient[0]?.child?.photo}
+                  alt=''
+                  className='expandable-image'
+                  onClick={handleOpen}
+                />
               </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
             <fieldset>
               <legend className={styles.legend}>Birth Place</legend>
-              <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
+              <input
+                type='text'
+                id='birth'
+                name='birth'
+                value={detailClient && detailClient[0]?.child?.place_birth}
+                readonly='readonly'
+              />
             </fieldset>
 
             <fieldset>
@@ -152,7 +201,9 @@ export default function ActivityDetail() {
                 type='text'
                 id='birthdate'
                 name='birthdate'
-                value='16 November 1992'
+                value={dayjs(detailClient && detailClient[0]?.child?.date_birth).format(
+                  'DD MMMM YYYY'
+                )}
                 readonly='readonly'
               />
             </fieldset>
@@ -277,6 +328,30 @@ export default function ActivityDetail() {
         >
           Save
         </button>
+      </div>
+      <div className={styles.modal}>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <img
+                src={detailClient && detailClient[0]?.child?.photo}
+                alt=''
+                onClick={handleOpen}
+                style={{ borderRadius: '8px', width: '30rem' }}
+              />
+            </Box>
+          </Fade>
+        </Modal>
       </div>
     </div>
   );

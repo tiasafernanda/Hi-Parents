@@ -1,4 +1,10 @@
 import {
+  GET_NANNY_PROFILE_BEGIN,
+  GET_NANNY_PROFILE_SUCCESS,
+  GET_NANNY_PROFILE_FAIL,
+  // UPDATE_NANNY_PROFILE_BEGIN,
+  // UPDATE_NANNY_PROFILE_SUCCESS,
+  // UPDATE_NANNY_PROFILE_FAIL,
   GET_NANNIES_BEGIN,
   GET_NANNIES_SUCCESS,
   GET_NANNIES_FAIL,
@@ -40,6 +46,26 @@ const nannies = (state = initialState, action) => {
     default:
       return {
         ...state,
+      };
+    case GET_NANNY_PROFILE_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_NANNY_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        profile: payload,
+      };
+    case GET_NANNY_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        profile: [],
       };
     case GET_NANNIES_BEGIN:
       return {

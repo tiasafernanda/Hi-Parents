@@ -6,7 +6,21 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   GET_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_BEGIN,
+  GET_NANNY_PROFILE_BEGIN,
+  UPDATE_NANNY_PROFILE_BEGIN,
 } from './types';
+
+export const getNannyProfileAction = () => {
+  return {
+    type: GET_NANNY_PROFILE_BEGIN,
+  };
+};
+
+export const updateNannyProfileAction = () => {
+  return {
+    type: UPDATE_NANNY_PROFILE_BEGIN,
+  };
+};
 
 export const getNannies = () => {
   return {
@@ -20,9 +34,10 @@ export const getActiveNannies = () => {
   };
 };
 
-export const updateAppointmentStatus = () => {
+export const updateAppointmentStatus = (body) => {
   return {
     type: UPDATE_STATUS_APPOINTMENT_BEGIN,
+    body,
   };
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Modal from '../../components/modal/Modal';
 import styles from './assets/ClientList.module.scss';
@@ -16,19 +17,35 @@ import sortIcon from './assets/sortIcon.svg';
 import filterIcon from './assets/filterIcon.svg';
 
 export default function ClientList() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, clients } = useSelector((state) => state.clients);
+  // const activeClient = useSelector((state) => state.clients.activeClient);
+  // const nannies = useSelector((state) => state.nannies);
+  console.log('clients list', clients);
+  useEffect(() => {
+    dispatch(getActiveNannies());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getActiveClients());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAppointment());
+  }, [dispatch]);
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClientDetail = (appointment_id) => {
-    window.location.href = `/dashboard/clientdetail/${appointment_id}`;
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget);
+    setSelectedItem(item);
   };
 
   const handleClose = () => {
@@ -62,10 +79,13 @@ export default function ClientList() {
   const showing = clients.length - firstIndex;
   console.log(showing, 'showing');
 
+  console.log(clients?.slice(firstIndex, lastIndex));
+
   //Modal
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal, 'modal');
   const [selectedItem, setSelectedItem] = useState('');
+  console.log(selectedItem, 'selectedItem');
   const modalValue = clients.find((data) => data.client_Id === selectedItem);
   console.log(modalValue, 'modalValue');
 
@@ -110,6 +130,7 @@ export default function ClientList() {
           {loading
             ? 'wait a minute'
             : clients?.slice(firstIndex, lastIndex).map((item, index) => {
+                console.log(item.appointment_id);
                 return (
                   <tr key={index} id={item.appointment_id}>
                     <td>{item?.date_request}</td>
@@ -136,9 +157,9 @@ export default function ClientList() {
                           aria-controls='basic-menu'
                           aria-haspopup='true'
                           aria-expanded={open ? 'true' : undefined}
-                          /*onClick={clients.appointment_status === 'Pending' ? handleClick : null}*/ onClick={
-                            handleClick
-                          }
+                          /*onClick={clients.appointment_status === 'Pending' ? handleClick : null}*/ onClick={(
+                            e
+                          ) => handleClick(e, item)}
                           sx={{ color: 'black' }}
                         >
                           &bull;&bull;&bull;
@@ -155,7 +176,13 @@ export default function ClientList() {
                         >
                           <MenuItem
                             onClick={() => handleModal(item.client_Id)}
-                            disabled={item?.appointment_status === 'Accept' ? true : false}
+                            disabled={
+                              item?.appointment_status === 'Accept'
+                                ? true
+                                : item?.appointment_status === 'Reject'
+                                ? true
+                                : false
+                            }
                           >
                             <span>
                               <BsCheck2Circle
@@ -170,7 +197,13 @@ export default function ClientList() {
                             </span>{' '}
                             Reject Client
                           </MenuItem>
-                          <MenuItem onClick={handleClientDetail} id={item.appointment_id}>
+                          <MenuItem
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleClientDetail(selectedItem.appointment_id);
+                            }}
+                            id={item.appointment_id}
+                          >
                             <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                               <AiOutlineInfoCircle />
                             </span>{' '}

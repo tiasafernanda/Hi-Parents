@@ -9,6 +9,8 @@ import {
   watchGetMainClients,
 } from './clients';
 import {
+  watchGetNannyProfile,
+  watchUpdateNannyProfile,
   watchGetActiveNannies,
   watchGetAppointment,
   watchGetChildActivities,
@@ -32,6 +34,8 @@ export default function* rootSaga() {
     watchGetClients(),
     watchGetClientDetail(),
     watchGetActiveClients(),
+    watchGetNannyProfile(),
+    watchUpdateNannyProfile(),
     watchGetNannies(),
     watchGetActiveNannies(),
     watchGetAppointment(),

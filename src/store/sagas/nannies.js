@@ -1,5 +1,11 @@
 import { put, takeEvery } from '@redux-saga/core/effects';
 import {
+  GET_NANNY_PROFILE_BEGIN,
+  GET_NANNY_PROFILE_SUCCESS,
+  GET_NANNY_PROFILE_FAIL,
+  UPDATE_NANNY_PROFILE_BEGIN,
+  UPDATE_NANNY_PROFILE_SUCCESS,
+  UPDATE_NANNY_PROFILE_FAIL,
   GET_NANNIES_BEGIN,
   GET_NANNIES_SUCCESS,
   GET_NANNIES_FAIL,
@@ -37,6 +43,51 @@ function* getNannies() {
   } catch (err) {
     yield put({
       type: GET_NANNIES_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* getNannyProfile() {
+  try {
+    const res = yield axios.get(`${baseUrl}nannies/profile`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: GET_NANNY_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: GET_NANNY_PROFILE_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* updateNannyProfile(action) {
+  const { body } = action;
+  try {
+    const res = yield axios.put(`${baseUrl}nannies/profile`, body, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: UPDATE_NANNY_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+    const resProfile = yield axios.get(`${baseUrl}nannies/profile`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: GET_NANNY_PROFILE_SUCCESS,
+      payload: resProfile.data,
+    });
+  } catch (err) {
+    yield put({
+      type: UPDATE_NANNY_PROFILE_FAIL,
       error: err,
     });
   }
@@ -112,7 +163,7 @@ function* getChildActivities(actions) {
   const { appointment_id } = actions;
   try {
     const res = yield axios.get(`${baseUrl}activity/${appointment_id}`);
-    console.log(res);
+    console.log('child activities', res.data);
     yield put({
       type: GET_CHILD_ACTIVITIES_SUCCESS,
       payload: res.data,
@@ -141,6 +192,14 @@ function* postChildActivities(actions) {
       error: err,
     });
   }
+}
+
+export function* watchGetNannyProfile() {
+  yield takeEvery(GET_NANNY_PROFILE_BEGIN, getNannyProfile);
+}
+
+export function* watchUpdateNannyProfile() {
+  yield takeEvery(GET_NANNY_PROFILE_BEGIN, updateNannyProfile);
 }
 
 export function* watchGetNannies() {

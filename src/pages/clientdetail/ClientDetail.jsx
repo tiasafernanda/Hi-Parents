@@ -23,7 +23,7 @@ const style = {
 
 export default function ClientDetail() {
   const { appointment_id } = useParams();
-
+  console.log(appointment_id, 'appointmentId');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClientDetail(appointment_id));
@@ -298,7 +298,7 @@ export default function ClientDetail() {
                 src={detailClient && detailClient[0]?.child?.parent?.photo}
                 alt=''
                 onClick={handleOpen}
-                style={{ borderRadius: '8px', width: '20rem' }}
+                style={{ borderRadius: '8px', width: '30rem' }}
               />
             </Box>
           </Fade>
@@ -320,7 +320,7 @@ export default function ClientDetail() {
                 src={detailClient && detailClient[0]?.child?.photo}
                 alt=''
                 onClick={handleOpen1}
-                style={{ borderRadius: '8px', width: '20rem' }}
+                style={{ borderRadius: '8px', width: '30rem' }}
               />
             </Box>
           </Fade>

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import styles from './assets/ChildActivity.module.scss';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaChild } from 'react-icons/fa';
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
@@ -20,6 +20,7 @@ const useStyles = makeStyles({
 });
 export default function ChildActivity() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const activity = useSelector((state) => state.nannies.activity);
   console.log('activity list', activity);
   useEffect(() => {
@@ -29,12 +30,21 @@ export default function ChildActivity() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClientDetail = (appointment_id) => {
-    window.location.href = `/dashboard/activitydetail/${appointment_id}`;
+  const [selectedItem, setSelectedItem] = useState('');
+  console.log(selectedItem, 'selectedItem');
+  // const handleClientDetail = (appointment_id) => {
+  //   console.log(appointment_id, 'appointment_id');
+  //   navigate(`/dashboard/activitydetail/${appointment_id}`);
+  // };
+
+  const handleActivityDetail = (appointment_id) => {
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/activitydetail/${appointment_id}`);
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget);
+    setSelectedItem(item);
   };
 
   const handleClose = () => {
@@ -82,9 +92,9 @@ export default function ChildActivity() {
       <div className={styles.adjust}>
         <h5>{dayjs().format('dddd, DD MMMM YYYY')}</h5>
         <div className={styles.sortFilter}>
-          {/* <Link to='/dashboard/createactivity'>
+          <Link to='/dashboard/createactivity'>
             <FaChild style={{ position: 'relative', top: '1px' }} /> Create New Activity
-          </Link> */}
+          </Link>
           <button>
             <BiSortUp style={{ position: 'relative', top: '1px' }} />
             Sort
@@ -117,7 +127,7 @@ export default function ChildActivity() {
                   aria-controls='basic-menu'
                   aria-haspopup='true'
                   aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
+                  onClick={(e) => handleClick(e, item)}
                   sx={{ color: 'black', boxShadow: 'none' }}
                 >
                   &bull;&bull;&bull;
@@ -134,8 +144,11 @@ export default function ChildActivity() {
                   }}
                 >
                   <Button
-                    onClick={handleClientDetail}
-                    id={item.appointment_id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleActivityDetail(selectedItem.appointment.appointment_id);
+                    }}
+                    id={activity?.appointment?.appointment_id}
                     sx={{
                       boxShadow: 0,
                       color: 'black',

@@ -1,12 +1,69 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getNannyProfileAction, updateNannyProfileAction } from '../../store/actions/nannies';
 import styles from './assets/UserProfile.module.scss';
 import MenuItem from '@mui/material/MenuItem';
 import folder from './assets/img/folder_5.svg';
 
 export default function UserProfile() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getNannyProfileAction());
+  }, [dispatch]);
+  const nannyProfile = useSelector((state) => state.nannies.profile);
+  console.log('profile', nannyProfile);
+  const newProfile = useSelector((state) => state.nannies.profile);
+  console.log('profile', nannyProfile);
+
+  const [updateProfile, setUpdateProfile] = useState({
+    name: '',
+    phone_number: '',
+    gender: '',
+    photo: null,
+  });
+
+  console.log(updateProfile);
+
+  const changeInput = (e, index) => {
+    // setUpdateProfile({
+    //   ...updateProfile,
+    //   [e.target.name]: e.target.value,
+    // });
+    // let newForm = [updateProfile];
+    // newForm[index][e.target.name] = e.target.value;
+    // setUpdateProfile(newForm);
+  };
+
+  const submitUpdateProfile = () => {
+    dispatch(updateNannyProfileAction(updateProfile));
+  };
+
+  const [image, setImage] = useState();
+  console.log(image);
+  const [isUpload, setIsUpload] = useState(false);
+
+  function handleImageForm(e, index) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        let newForm = [updateProfile];
+        newForm[index].photo = e.target.result;
+        setUpdateProfile(newForm);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
+  function deletePhoto(index) {
+    let newForm = [updateProfile];
+    newForm[index].photo = '';
+    setUpdateProfile(newForm);
+  }
+
   const genders = [
     {
       value: 'Male',
@@ -22,20 +79,6 @@ export default function UserProfile() {
   const handleChange = (event) => {
     setGender(event.target.value);
   };
-
-  const [image, setImage] = useState();
-  const [isUpload, setIsUpload] = useState(false);
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        setImage(e.target.result);
-        setIsUpload(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
 
   return (
     <div className={styles.containers}>
@@ -64,8 +107,18 @@ export default function UserProfile() {
                 flexDirection: 'column',
               }}
             >
-              <TextField required id='outlined-required' label='Name' placeholder='Name' />
-              <TextField required id='outlined-disabled' label='Email' placeholder='Email' />
+              <TextField
+                required
+                id='outlined-required'
+                value={nannyProfile?.userProfile?.name || ''}
+                onChange={(e) => changeInput(e)}
+              />
+              <TextField
+                required
+                id='outlined-disabled'
+                value={nannyProfile?.userProfile?.email}
+                disabled
+              />
               <div className={styles.photo}>
                 <fieldset>
                   <legend className={styles.legend}>Photo</legend>
@@ -87,7 +140,7 @@ export default function UserProfile() {
                             id='upload-input'
                             type='file'
                             accept='image/*'
-                            onChange={handleImageChange}
+                            onChange={(e) => handleImageForm(e)}
                           />
                         </>
                       ) : (
@@ -114,18 +167,20 @@ export default function UserProfile() {
                 required
                 id='outlined-disabled'
                 label='Phone Number'
-                type='number'
-                placeholder='Phone Number'
+                type='tel'
+                placeholder='081234xxxxx'
+                value={nannyProfile?.userProfile?.phone_number}
+                onChange={(e) => changeInput(e)}
               />
               <TextField
                 select
                 label='Gender'
                 value={gender}
-                onChange={handleChange}
+                onChange={(e) => changeInput(e)}
                 helperText='Please select your gender'
               >
                 {genders.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem key={option.value} value={'' || option.value}>
                     {option.label}
                   </MenuItem>
                 ))}

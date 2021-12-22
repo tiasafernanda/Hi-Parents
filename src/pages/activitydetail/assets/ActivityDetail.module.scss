@@ -12,7 +12,7 @@
   .container {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin: 5rem 2rem;
+    margin: 3rem 2rem;
     padding: 2rem 2rem;
 
     input:focus {
@@ -28,6 +28,22 @@
       //   margin-bottom: 0.5rem;
       //   width: 4rem;
       // }
+      .childPhoto {
+        img {
+          margin-left: 1rem;
+          margin-bottom: 0.5rem;
+          width: 4rem;
+          height: 3rem;
+        }
+
+        img:hover {
+          cursor: zoom-in;
+        }
+
+        button:hover {
+          cursor: pointer;
+        }
+      }
 
       button:hover {
         cursor: pointer;
