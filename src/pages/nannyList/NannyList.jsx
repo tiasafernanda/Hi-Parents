@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { getNannies } from '../../store/actions/nannies';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { getNannies, getAppointment } from '../../store/actions/nannies';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { SortIcon, FilterIcon } from './NannyListIcons';
 import {
   Box,
@@ -19,41 +19,19 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ActionButton from '../../components/actionButton/ActionButton';
 import styles from './assets/NannyList.module.scss';
-import { useSelector } from 'react-redux';
-
-/*function createData(data1, data2, data3, data4, status) {
-  return { data1, data2, data3, data4, status };
-}
-
-const rows = [createData('Yugi Muto', '#000123', '08123912120', 0, false), createData('Yugi Muto', '#000123', '08123912120', 0, true)];*/
 
 export default function NannyList() {
-  useEffect(() => {
-    dispatch(getNannies());
-  }, []);
-
   const dispatch = useDispatch();
 
-  const nannyList = useSelector((state) => state.nannies.nannies);
-  console.log(nannyList.nannies, 'nannyList');
+  useEffect(() => {
+    dispatch(getNannies());
+  }, [getNannies]);
+  useEffect(() => {
+    dispatch(getAppointment());
+  }, [dispatch]);
 
-  // const [nanny, setNannyList] = useState({
-  //   nanny_id: '',
-  //   name: '',
-  //   phone_number: '',
-  //   numberOfChild: '',
-  //   status: '',
-  // });
-
-  // useEffect(() => {
-  //   setNannyList({
-  //     nanny_id: nannyList.nanny_id,
-  //     name: nannyList.name,
-  //     phone_number: nannyList.phone_number,
-  //     numberOfChild: nannyList.numberOfChild,
-  //     status: nannyList.status,
-  //   });
-  // }, []);
+  const nannies = useSelector((state) => state.nannies.nannies);
+  console.log(nannies.nannies, 'nannyList');
 
   return (
     <div className={styles.container}>
@@ -107,7 +85,7 @@ export default function NannyList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {nannyList.nannies?.map((item, index) => (
+              {nannies.nannies?.map((item, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component='th' scope='row'>
                     {item.name}
@@ -131,8 +109,9 @@ export default function NannyList() {
                       {item.status}
                     </Typography>
                   </TableCell>
-                  <TableCell align='center'>
-                    <ActionButton />
+                  <TableCell align="center">
+                    <ActionButton appointment_id={item.appointment_id} />
+                    {console.log(item.appointment_id, 'appointment')}
                   </TableCell>
                 </TableRow>
               ))}

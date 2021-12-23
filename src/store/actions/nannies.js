@@ -8,6 +8,7 @@ import {
   POST_CHILD_ACTIVITIES_BEGIN,
   GET_NANNY_PROFILE_BEGIN,
   UPDATE_NANNY_PROFILE_BEGIN,
+  GET_NANNIES_ASC_BEGIN,
 } from './types';
 
 export const getNannyProfileAction = () => {
@@ -69,5 +70,12 @@ export const postChildActivities = (
     type: POST_CHILD_ACTIVITIES_BEGIN,
     body,
     // appointment_id,
+  };
+};
+
+export const getNanniesAsc = (sort) => {
+  return {
+    type: GET_NANNIES_ASC_BEGIN,
+    sort,
   };
 };

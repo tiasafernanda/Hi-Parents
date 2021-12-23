@@ -1,25 +1,18 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import {
-  Box,
-  Button,
-  Typography,
-  InputBase,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { Box, Button, Typography, InputBase, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import styles from './assets/ManageChild.module.scss';
 import { Link } from 'react-router-dom';
-
-/*const createData = (props) => {
-  return { props };
-};*/
-const data = ['Yugi Muto', 'Nobitakun'];
+import { getClientAccepted } from '../../store/actions/clients';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { style } from '@mui/system';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,28 +59,72 @@ const SearchInput = () => {
         <SearchIconWrapper>
           <SearchIcon sx={{ color: '#10B278' }} />
         </SearchIconWrapper>
-        <StyledInputBase placeholder='Search child list' inputProps={{ 'aria-label': 'search' }} />
+        <StyledInputBase placeholder="Search child list" inputProps={{ 'aria-label': 'search' }} />
       </Search>
     </>
   );
 };
 
 export default function ManageChild() {
+  const dispatch = useDispatch();
+
+  const { loading, clients } = useSelector((state) => state.clients);
+  console.log(clients);
+
+  useEffect(() => {
+    dispatch(getClientAccepted());
+  }, [dispatch]);
+
+  const [selected, setSelected] = useState([]);
+  const [items, setItems] = useState('');
+  const [check, setCheck] = useState(false);
+
+  const handleCheck = (index) => {
+    if (check !== true) {
+      setItems(index);
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
+
+  const handleAllCheck = () => {
+    if (check !== true) {
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
+
+  const [state, setState] = useState({
+    gilad: true,
+    jason: false,
+    antoine: false,
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const { gilad, jason, antoine } = state;
+  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+
   return (
     <div className={styles.container}>
       <Box>
-        <Link to='/dashboard/nannylist'>
-          <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
+        <Link to="/dashboard/nannylist">
+          <Typography sx={{ fontFamily: 'Nunito' }} variant="h4">
             <BiLeftArrowAlt style={{ position: 'relative', top: '5px' }} /> Manage Child
           </Typography>
         </Link>
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '27px' }}>
           <Box sx={{ width: '45rem' }}>
             <Box sx={{ display: 'flex' }}>
-              <Typography tx={{ marginRight: '0.75rem' }}>
-                Limit Child Nanny Can Manage (6/5)
-              </Typography>
-              <Typography variant='caption' color='red' tx={{ lineHeight: '2.25px' }}>
+              <Typography tx={{ marginRight: '0.75rem' }}>Limit Child Nanny Can Manage (6/5)</Typography>
+              <Typography variant="caption" color="red" tx={{ lineHeight: '2.25px' }}>
                 You cannot assign children more than limited number
               </Typography>
             </Box>
@@ -111,9 +148,7 @@ export default function ManageChild() {
                 <SearchInput />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography>Select All</Typography>
-                  <CheckBoxIcon
-                    sx={{ height: '4.5rem', marginLeft: '0.5rem', marginRight: '2rem' }}
-                  />
+                  <Checkbox onClick={handleAllCheck} />
                 </Box>
               </Box>
               <Box>
@@ -131,20 +166,18 @@ export default function ManageChild() {
                     borderColor: '#D9D9D9',
                   }}
                 >
-                  {data.map((item) => (
-                    <ListItem>
-                      <ListItemText>{item}</ListItemText>
-                      <ListItemIcon>
-                        <CheckBoxIcon />
-                      </ListItemIcon>
-                    </ListItem>
-                  ))}
+                  {clients.appointments &&
+                    clients.appointments.map((item, index) => (
+                      <FormControl className={styles.formLabel} disabled={item.is_taken === true} required error={error} component="fieldset" variant="standard">
+                        <FormControlLabel control={<Checkbox onClick={() => handleCheck(index)} onChange={handleChange} name={item.child.name} />} label={item.child.name} labelPlacement="start" />
+                      </FormControl>
+                    ))}
                 </List>
               </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
               <Button
-                variant='contained'
+                variant="contained"
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',
@@ -156,7 +189,7 @@ export default function ManageChild() {
                 Cancel
               </Button>
               <Button
-                variant='contained'
+                variant="contained"
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',

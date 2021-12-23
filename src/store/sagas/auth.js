@@ -40,7 +40,7 @@ function* registerNanny(action) {
       {
         type: REGISTERNANNY_SUCCESS,
       },
-      (window.location.href = '/auth/signin') // setup token on local storage
+      (window.location.href = '/auth/signin')
     );
   } catch (err) {
     console.log(err);

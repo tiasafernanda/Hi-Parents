@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import Modal from '../../components/modal/Modal';
 import styles from './assets/ClientList.module.scss';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClients, getActiveClients } from '../../store/actions/clients';
-import { getActiveNannies, getAppointment } from '../../store/actions/nannies';
+import { getClients } from '../../store/actions/clients';
+import { getAppointment } from '../../store/actions/nannies';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
@@ -19,29 +18,20 @@ import filterIcon from './assets/filterIcon.svg';
 export default function ClientList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { loading, clients } = useSelector((state) => state.clients);
-  // const activeClient = useSelector((state) => state.clients.activeClient);
-  // const nannies = useSelector((state) => state.nannies);
   console.log('clients list', clients);
-  useEffect(() => {
-    dispatch(getActiveNannies());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(getActiveClients());
-  }, [dispatch]);
+
   useEffect(() => {
     dispatch(getAppointment());
   }, [dispatch]);
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
 
-  const handleClientDetail = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
-    navigate(`/dashboard/clientdetail/${appointment_id}`);
-  };
+  //Dropdown Menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget);
@@ -50,6 +40,30 @@ export default function ClientList() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClientDetail = (appointment_id) => {
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/clientdetail/${appointment_id}`);
+  };
+
+  //Accept Client & Modal
+  const [openModal, setOpenModal] = useState(false);
+  console.log(openModal, 'modal');
+
+  const [selectedItem, setSelectedItem] = useState('');
+  console.log(selectedItem, 'selectedItem');
+
+  const modalValue = clients.find((data) => data.client_Id === selectedItem);
+  console.log(modalValue, 'modalValue');
+
+  const handleModal = (clientId) => {
+    setSelectedItem(clientId);
+    setOpenModal(true);
+  };
+
+  const handleModalCLose = (e) => {
+    setOpenModal(false);
   };
 
   //Reject Message
@@ -78,25 +92,6 @@ export default function ClientList() {
 
   const showing = clients.length - firstIndex;
   console.log(showing, 'showing');
-
-  console.log(clients?.slice(firstIndex, lastIndex));
-
-  //Modal
-  const [openModal, setOpenModal] = useState(false);
-  console.log(openModal, 'modal');
-  const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
-  const modalValue = clients.find((data) => data.client_Id === selectedItem);
-  console.log(modalValue, 'modalValue');
-
-  const handleModal = (clientId) => {
-    setSelectedItem(clientId);
-    setOpenModal(true);
-  };
-
-  const handleModalCLose = (e) => {
-    setOpenModal(false);
-  };
 
   return (
     <div className={styles.dashboard}>
@@ -130,7 +125,6 @@ export default function ClientList() {
           {loading
             ? 'wait a minute'
             : clients?.slice(firstIndex, lastIndex).map((item, index) => {
-                console.log(item.appointment_id);
                 return (
                   <tr key={index} id={item.appointment_id}>
                     <td>{item?.date_request}</td>
@@ -152,16 +146,7 @@ export default function ClientList() {
                     </td>
                     <td>
                       <div>
-                        <Button
-                          id='basic-button'
-                          aria-controls='basic-menu'
-                          aria-haspopup='true'
-                          aria-expanded={open ? 'true' : undefined}
-                          /*onClick={clients.appointment_status === 'Pending' ? handleClick : null}*/ onClick={(
-                            e
-                          ) => handleClick(e, item)}
-                          sx={{ color: 'black' }}
-                        >
+                        <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={(e) => handleClick(e, item)} sx={{ color: 'black' }}>
                           &bull;&bull;&bull;
                         </Button>
                         <Menu
@@ -174,22 +159,14 @@ export default function ClientList() {
                             'aria-labelledby': 'basic-button',
                           }}
                         >
-                          <MenuItem
-                            onClick={() => handleModal(item.client_Id)}
-                            disabled={
-                              item?.appointment_status === 'Accept'
-                                ? true
-                                : item?.appointment_status === 'Reject'
-                                ? true
-                                : false
-                            }
-                          >
+                          <MenuItem onClick={() => handleModal(item.client_Id)} disabled={item?.appointment_status === 'Pending' ? false : true}>
                             <span>
                               <BsCheck2Circle
                                 style={{ color: '#10B278', position: 'relative', top: '2px' }}
                               />
                             </span>{' '}
                             Accept Client
+                            {console.log(item?.appointment_status, ', accept client')}
                           </MenuItem>
                           <MenuItem onClick={handleMessage}>
                             <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>

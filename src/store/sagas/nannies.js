@@ -27,6 +27,9 @@ import {
   POST_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_FAIL,
   POST_CHILD_ACTIVITIES_SUCCESS,
+  // GET_NANNIES_ASC_BEGIN,
+  // GET_NANNIES_ASC_SUCCESS,
+  // GET_NANNIES_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -200,13 +203,21 @@ function* postChildActivities(actions) {
   }
 }
 
-export function* watchGetNannyProfile() {
-  yield takeEvery(GET_NANNY_PROFILE_BEGIN, getNannyProfile);
-}
-
-export function* watchUpdateNannyProfile() {
-  yield takeEvery(UPDATE_NANNY_PROFILE_BEGIN, updateNannyProfile);
-}
+// function* getNanniesAsc() {
+//   try {
+//     const res = yield axios.get(`${baseUrl}nannies?sort=${sort}`);
+//     console.log(res);
+//     yield put({
+//       type: GET_NANNIES_SUCCESS,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     yield put({
+//       type: GET_NANNIES_FAIL,
+//       error: err,
+//     });
+//   }
+// }
 
 export function* watchGetNannies() {
   yield takeEvery(GET_NANNIES_BEGIN, getNannies);
@@ -234,4 +245,12 @@ export function* watchGetChildActivities() {
 
 export function* watchPostChildActivities() {
   yield takeEvery(POST_CHILD_ACTIVITIES_BEGIN, postChildActivities);
+}
+
+export function* watchGetNannyProfile() {
+  yield takeEvery(GET_NANNY_PROFILE_BEGIN, getNannyProfile);
+}
+
+export function* watchUpdateNannyProfile() {
+  yield takeEvery(UPDATE_NANNY_PROFILE_BEGIN, updateNannyProfile);
 }
