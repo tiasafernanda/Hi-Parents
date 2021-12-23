@@ -4,9 +4,11 @@ import styles from './assets/ChildActivity.module.scss';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { BiEdit } from 'react-icons/bi';
 import { FaChild } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
 import { getChildActivity } from '../../store/actions/nannies';
@@ -36,6 +38,16 @@ export default function ChildActivity() {
   //   console.log(appointment_id, 'appointment_id');
   //   navigate(`/dashboard/activitydetail/${appointment_id}`);
   // };
+
+  const handleCreateActivity = (appointment_id) => {
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/createactivity/${appointment_id}`);
+  };
+
+  const handleEditActivity = (appointment_id) => {
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/editactivity/${appointment_id}`);
+  };
 
   const handleActivityDetail = (appointment_id) => {
     console.log(appointment_id, 'appointment_id');
@@ -92,9 +104,6 @@ export default function ChildActivity() {
       <div className={styles.adjust}>
         <h5>{dayjs().format('dddd, DD MMMM YYYY')}</h5>
         <div className={styles.sortFilter}>
-          <Link to='/dashboard/createactivity'>
-            <FaChild style={{ position: 'relative', top: '1px' }} /> Create New Activity
-          </Link>
           <button>
             <BiSortUp style={{ position: 'relative', top: '1px' }} />
             Sort
@@ -139,11 +148,39 @@ export default function ChildActivity() {
                   onClose={handleClose}
                   elevation={1}
                   className={classes.root}
+                  sx={{ display: 'flex', flexDirection: 'column' }}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
                 >
-                  <Button
+                  <MenuItem
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleCreateActivity(selectedItem.appointment.appointment_id);
+                    }}
+                    id={activity?.appointment?.appointment_id}
+                    sx={{
+                      boxShadow: 0,
+                      color: 'black',
+                    }}
+                  >
+                    <FaChild style={{ position: 'relative', bottom: '2px', color: '#2586d7' }} />{' '}
+                    Create New Activity
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleEditActivity(selectedItem.appointment.appointment_id);
+                    }}
+                    id={activity?.appointment?.appointment_id}
+                    sx={{
+                      boxShadow: 0,
+                      color: 'black',
+                    }}
+                  >
+                    <BiEdit /> Edit Activity
+                  </MenuItem>
+                  <MenuItem
                     onClick={(e) => {
                       e.preventDefault();
                       handleActivityDetail(selectedItem.appointment.appointment_id);
@@ -154,11 +191,12 @@ export default function ChildActivity() {
                       color: 'black',
                     }}
                   >
+                    {' '}
                     <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
                       <AiOutlineInfoCircle />
                     </span>{' '}
                     View Details
-                  </Button>
+                  </MenuItem>
                 </Menu>
               </div>
             </td>

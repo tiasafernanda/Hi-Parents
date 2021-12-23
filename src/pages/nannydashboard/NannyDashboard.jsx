@@ -17,7 +17,7 @@ import { getMainClients, getActiveClients } from '../../store/actions/clients';
 import {
   getActiveNannies,
   getAppointment,
-  updateAppointmentStatus,
+  // updateAppointmentStatus,
 } from '../../store/actions/nannies';
 // import Stack from '@mui/material/Stack';
 // import LinearProgress from '@mui/material/LinearProgress';
@@ -42,16 +42,16 @@ export default function NannyDashboard() {
   useEffect(() => {
     dispatch(getMainClients());
   }, [dispatch]);
-  const [acceptStatus, setAcceptStatus] = useState({
-    appointment_id: '',
-    appointment_status: 'Accept',
-  });
-  console.log(acceptStatus);
-  const [rejectStatus, setRejectStatus] = useState({
-    appointment_id: '',
-    appointment_status: 'Reject',
-  });
-  console.log(rejectStatus);
+  // const [acceptStatus, setAcceptStatus] = useState({
+  //   appointment_id: '',
+  //   appointment_status: 'Accept',
+  // });
+  // console.log(acceptStatus);
+  // const [rejectStatus, setRejectStatus] = useState({
+  //   appointment_id: '',
+  //   appointment_status: 'Reject',
+  // });
+  // console.log(rejectStatus);
 
   // const getIdAccept = (id) => {
   //   setAcceptStatus({

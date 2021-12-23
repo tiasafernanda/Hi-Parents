@@ -177,7 +177,7 @@ function* getChildActivities(actions) {
 }
 
 function* postChildActivities(actions) {
-  const { body } = actions;
+  const { body, appointment_id } = actions;
   try {
     const res = yield axios.post(`${baseUrl}activity`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -185,6 +185,12 @@ function* postChildActivities(actions) {
     console.log(res);
     yield put({
       type: POST_CHILD_ACTIVITIES_SUCCESS,
+    });
+    const resActivities = yield axios.get(`${baseUrl}activity/${appointment_id}`);
+    console.log('child activities', resActivities.data);
+    yield put({
+      type: GET_CHILD_ACTIVITIES_SUCCESS,
+      payload: res.data,
     });
   } catch (err) {
     yield put({
@@ -199,7 +205,7 @@ export function* watchGetNannyProfile() {
 }
 
 export function* watchUpdateNannyProfile() {
-  yield takeEvery(GET_NANNY_PROFILE_BEGIN, updateNannyProfile);
+  yield takeEvery(UPDATE_NANNY_PROFILE_BEGIN, updateNannyProfile);
 }
 
 export function* watchGetNannies() {

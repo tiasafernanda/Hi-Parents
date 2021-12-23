@@ -23,18 +23,6 @@
       display: flex;
       justify-content: space-around;
 
-      img {
-        margin-left: 1rem;
-        margin-bottom: 0.5rem;
-        width: 4rem;
-        height: 3rem;
-      }
-
-      // img {
-      //   margin-left: 1rem;
-      //   margin-bottom: 0.5rem;
-      //   width: 4rem;
-      // }
       .childPhoto {
         img {
           margin-left: 1rem;
@@ -51,6 +39,12 @@
           cursor: pointer;
         }
       }
+
+      // img {
+      //   margin-left: 1rem;
+      //   margin-bottom: 0.5rem;
+      //   width: 4rem;
+      // }
 
       button:hover {
         cursor: pointer;

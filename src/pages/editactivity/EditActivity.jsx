@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './assets/CreateActivity.module.scss';
+import styles from './assets/EditActivity.module.scss';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -22,7 +22,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   outline: 'none',
 };
-export default function CreateActivity() {
+export default function EditActivity() {
   const { appointment_id } = useParams();
   console.log(appointment_id, 'appointmentId');
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ export default function CreateActivity() {
     <div className={styles.containers}>
       <Link to='/dashboard/childactivity'>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
-        Create Child Activity
+        Edit Child Activity
       </Link>
       <div className={styles.container}>
         <h3>Child Information</h3>

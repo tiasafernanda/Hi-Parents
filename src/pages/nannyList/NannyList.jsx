@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getNannies } from '../../store/actions/nannies';
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { SortIcon, FilterIcon } from './NannyListIcons';
 import {
   Box,

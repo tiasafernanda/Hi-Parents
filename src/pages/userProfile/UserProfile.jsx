@@ -3,7 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getNannyProfileAction, updateNannyProfileAction } from '../../store/actions/nannies';
+import {
+  getNannyProfileAction,
+  // updateNannyProfileAction
+} from '../../store/actions/nannies';
 import styles from './assets/UserProfile.module.scss';
 import MenuItem from '@mui/material/MenuItem';
 import folder from './assets/img/folder_5.svg';
@@ -15,8 +18,8 @@ export default function UserProfile() {
   }, [dispatch]);
   const nannyProfile = useSelector((state) => state.nannies.profile);
   console.log('profile', nannyProfile);
-  const newProfile = useSelector((state) => state.nannies.profile);
-  console.log('profile', nannyProfile);
+  // const newProfile = useSelector((state) => state.nannies.profile);
+  // console.log('profile', nannyProfile);
 
   const [updateProfile, setUpdateProfile] = useState({
     name: '',
@@ -28,18 +31,18 @@ export default function UserProfile() {
   console.log(updateProfile);
 
   const changeInput = (e, index) => {
-    // setUpdateProfile({
-    //   ...updateProfile,
-    //   [e.target.name]: e.target.value,
-    // });
+    setUpdateProfile({
+      ...updateProfile,
+      [e.target.name]: e.target.value,
+    });
     // let newForm = [updateProfile];
     // newForm[index][e.target.name] = e.target.value;
     // setUpdateProfile(newForm);
   };
 
-  const submitUpdateProfile = () => {
-    dispatch(updateNannyProfileAction(updateProfile));
-  };
+  // const submitUpdateProfile = () => {
+  //   dispatch(updateNannyProfileAction(updateProfile));
+  // };
 
   const [image, setImage] = useState();
   console.log(image);
@@ -58,11 +61,11 @@ export default function UserProfile() {
     }
   }
 
-  function deletePhoto(index) {
-    let newForm = [updateProfile];
-    newForm[index].photo = '';
-    setUpdateProfile(newForm);
-  }
+  // function deletePhoto(index) {
+  //   let newForm = [updateProfile];
+  //   newForm[index].photo = '';
+  //   setUpdateProfile(newForm);
+  // }
 
   const genders = [
     {
@@ -76,9 +79,9 @@ export default function UserProfile() {
   ];
   const [gender, setGender] = React.useState();
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setGender(event.target.value);
+  // };
 
   return (
     <div className={styles.containers}>
@@ -110,12 +113,14 @@ export default function UserProfile() {
               <TextField
                 required
                 id='outlined-required'
+                name='name'
                 value={nannyProfile?.userProfile?.name || ''}
                 onChange={(e) => changeInput(e)}
               />
               <TextField
                 required
                 id='outlined-disabled'
+                name='email'
                 value={nannyProfile?.userProfile?.email}
                 disabled
               />
@@ -138,6 +143,7 @@ export default function UserProfile() {
                           </label>
                           <input
                             id='upload-input'
+                            name='photo'
                             type='file'
                             accept='image/*'
                             onChange={(e) => handleImageForm(e)}
@@ -167,6 +173,7 @@ export default function UserProfile() {
                 required
                 id='outlined-disabled'
                 label='Phone Number'
+                name='phone_number'
                 type='tel'
                 placeholder='081234xxxxx'
                 value={nannyProfile?.userProfile?.phone_number}
@@ -175,6 +182,7 @@ export default function UserProfile() {
               <TextField
                 select
                 label='Gender'
+                name='gender'
                 value={gender}
                 onChange={(e) => changeInput(e)}
                 helperText='Please select your gender'

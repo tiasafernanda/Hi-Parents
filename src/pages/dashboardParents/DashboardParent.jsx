@@ -1,51 +1,51 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
-import styles from "./assets/DashboardParent.module.scss";
-import MenuItem from "@mui/material/MenuItem";
-import folder from "./assets/img/folder_5.svg";
-import { AiOutlineDelete } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { ChildAction } from "../../store/actions/childParent";
-import { ParentAction } from "../../store/actions/parent";
-import { Link, useParams } from "react-router-dom";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useState } from 'react';
+import styles from './assets/DashboardParent.module.scss';
+import MenuItem from '@mui/material/MenuItem';
+import folder from './assets/img/folder_5.svg';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { ChildAction } from '../../store/actions/childParent';
+// import { ParentAction } from '../../store/actions/parent';
+// import { useParams } from 'react-router-dom';
 
 export default function ProfileParent() {
-  const { appointment_id } = useParams();
+  // const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const genders = [
     {
-      value: "Male",
-      label: "Male",
+      value: 'Male',
+      label: 'Male',
     },
     {
-      value: "Female",
-      label: "Female",
+      value: 'Female',
+      label: 'Female',
     },
   ];
-  const [gender, setGender] = React.useState("");
-  const [gender1, setGender1] = React.useState("");
+  // const [gender, setGender] = React.useState('');
+  // const [gender1, setGender1] = React.useState('');
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
-  };
-  const handleChange1 = (index, event) => {
-    setGender1(event.target.value);
+  // const handleChange = (event) => {
+  //   setGender(event.target.value);
+  // };
+  // const handleChange1 = (index, event) => {
+  //   setGender1(event.target.value);
     // let setGender1 = [...form];
     // setGender1[index][e.target.name] = e.target.value;
     // setForm(setGender1);
-  };
+  // };
 
   const [inputParent, setInputParent] = useState({
-    name: "",
-    phone_number: "",
-    address: "",
-    job: "",
-    place_birth: "",
-    date_birth: "",
-    gender: "",
+    name: '',
+    phone_number: '',
+    address: '',
+    job: '',
+    place_birth: '',
+    date_birth: '',
+    gender: '',
     photo: null,
   });
   console.log(inputParent);
@@ -56,20 +56,20 @@ export default function ProfileParent() {
     });
   };
 
-  const submitParent = () => {
-    dispatch(ParentAction(inputParent));
-  };
+  // const submitParent = () => {
+  //   dispatch(ParentAction(inputParent));
+  // };
 
   const [inputChild, setInputChild] = useState([
     {
-      name: "",
-      gender: "",
-      place_birth: "",
-      date_birth: "",
+      name: '',
+      gender: '',
+      place_birth: '',
+      date_birth: '',
       photo: null,
     },
   ]);
-  console.log("inputChild", inputChild);
+  console.log('inputChild', inputChild);
   const changeInputChild = (index, e) => {
     let newInputChild = [...inputChild];
     newInputChild[index][e.target.name] = e.target.value;
@@ -101,7 +101,7 @@ export default function ProfileParent() {
     }
   }
   const [previewChild, setPreviewChild] = useState([]);
-  console.log("previewChild", previewChild);
+  console.log('previewChild', previewChild);
   function handleImageForm(index, e) {
     if (e.target.files && e.target.files[0]) {
       let newFoto = [...inputChild];
@@ -119,18 +119,18 @@ export default function ProfileParent() {
 
   function deletePhoto(index) {
     let newInputChild = [...inputChild];
-    newInputChild[index].photo = "";
+    newInputChild[index].photo = '';
     setInputChild(newInputChild);
   }
 
   const submitData = () => {
     let formdata = new FormData();
     for (let i = 0; i < inputChild.length; i++) {
-      formdata.append("name", inputChild[i].name);
-      formdata.append("gender", inputChild[i].gender);
-      formdata.append("place_birth", inputChild[i].place_birth);
-      formdata.append("date_birth", inputChild[i].date_birth);
-      formdata.append("photo", inputChild[i].photo);
+      formdata.append('name', inputChild[i].name);
+      formdata.append('gender', inputChild[i].gender);
+      formdata.append('place_birth', inputChild[i].place_birth);
+      formdata.append('date_birth', inputChild[i].date_birth);
+      formdata.append('photo', inputChild[i].photo);
     }
 
     dispatch(ChildAction(formdata));
@@ -138,63 +138,59 @@ export default function ProfileParent() {
 
   return (
     <div className={styles.containers}>
-      <h1
-        style={{ marginTop: "3rem", marginBottom: "1rem", marginLeft: "2rem" }}
-      >
-        User Profile
-      </h1>
+      <h1 style={{ marginTop: '3rem', marginBottom: '1rem', marginLeft: '2rem' }}>User Profile</h1>
       <div className={styles.container}>
-        <h3 style={{ marginBottom: "1rem" }}>Parent Information</h3>
-        <hr style={{ width: "fitcontent" }} />
+        <h3 style={{ marginBottom: '1rem' }}>Parent Information</h3>
+        <hr style={{ width: 'fitcontent' }} />
         <Box
-          component="form"
+          component='form'
           sx={{
-            "& .MuiTextField-root": { m: 2, width: "40ch" },
+            '& .MuiTextField-root': { m: 2, width: '40ch' },
           }}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              marginTop: "1rem",
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              marginTop: '1rem',
             }}
           >
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <TextField
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 required
-                id="outlined-required"
-                label="Parent Name"
-                name="name"
-                placeholder="Parent Name"
+                id='outlined-required'
+                label='Parent Name'
+                name='name'
+                placeholder='Parent Name'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
-                id="outlined-required"
-                label="Email"
-                name="email"
-                placeholder="Email"
+                id='outlined-required'
+                label='Email'
+                name='email'
+                placeholder='Email'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
-                id="outlined-required"
-                label="Phone Number"
-                type="number"
-                name="phone_number"
-                placeholder="Phone Number"
+                id='outlined-required'
+                label='Phone Number'
+                type='number'
+                name='phone_number'
+                placeholder='Phone Number'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
-                id="outlined-required"
-                label="Address"
-                type="text"
-                name="address"
-                placeholder="Address"
+                id='outlined-required'
+                label='Address'
+                type='text'
+                name='address'
+                placeholder='Address'
                 onChange={(e) => changeInputParent(e)}
               />
               <div className={styles.photo}>
@@ -205,19 +201,19 @@ export default function ProfileParent() {
                     <div className={styles.imageUpload}>
                       {!isUpload ? (
                         <>
-                          <label htmlFor="upload-input">
+                          <label htmlFor='upload-input'>
                             <img
                               src={folder}
-                              draggable={"false"}
-                              alt="placeholder"
-                              style={{ width: "2rem" }}
+                              draggable={'false'}
+                              alt='placeholder'
+                              style={{ width: '2rem' }}
                             />
                           </label>
                           <input
-                            id="upload-input"
-                            type="file"
-                            name="photo"
-                            accept="image/*"
+                            id='upload-input'
+                            type='file'
+                            name='photo'
+                            accept='image/*'
                             onChange={(e) => handleImageChange(e)}
                           />
                         </>
@@ -226,7 +222,7 @@ export default function ProfileParent() {
                           <img
                             id={styles.uploadedImage}
                             src={image}
-                            alt="uploaded-img"
+                            alt='uploaded-img'
                             onClick={() => {
                               setIsUpload(false);
                               setImage(null);
@@ -240,39 +236,39 @@ export default function ProfileParent() {
                 </fieldset>
               </div>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <TextField
                 required
-                id="outlined-required"
-                name="job"
-                label="Job"
-                placeholder="Job"
+                id='outlined-required'
+                name='job'
+                label='Job'
+                placeholder='Job'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
-                id="outlined-required"
-                label="Place Birth"
-                name="place_birth"
-                placeholder="Place Birth"
+                id='outlined-required'
+                label='Place Birth'
+                name='place_birth'
+                placeholder='Place Birth'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
-                id="outlined-required"
-                label="Date Birth"
-                name="date_birth"
-                placeholder="Date Birth"
+                id='outlined-required'
+                label='Date Birth'
+                name='date_birth'
+                placeholder='Date Birth'
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 select
-                label="Gender"
-                name="gender"
+                label='Gender'
+                name='gender'
                 value={inputParent.gender}
                 // onChange={handleChange}
                 onChange={(e) => changeInputParent(e)}
-                helperText="Please select your gender"
+                helperText='Please select your gender'
               >
                 {genders.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -288,8 +284,8 @@ export default function ProfileParent() {
                 <div key={index}>
                   <h3
                     style={{
-                      marginTop: "4rem",
-                      marginBottom: "1rem",
+                      marginTop: '4rem',
+                      marginBottom: '1rem',
                     }}
                   >
                     Children Information
@@ -297,29 +293,29 @@ export default function ProfileParent() {
                   <hr />
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      marginTop: "1rem",
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      marginTop: '1rem',
                     }}
                   >
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <TextField
                         required
-                        name="name"
+                        name='name'
                         // value={item.name || ""}
-                        id="outlined-required"
-                        label="Children Name"
-                        placeholder="Children Name"
+                        id='outlined-required'
+                        label='Children Name'
+                        placeholder='Children Name'
                         onChange={(e) => changeInputChild(index, e)}
                       />
                       <TextField
                         select
-                        label="Gender"
-                        name="gender"
+                        label='Gender'
+                        name='gender'
                         value={inputChild[index].gender}
                         // onChange={(e) => handleChange1(index, e)}
                         onChange={(e) => changeInputChild(index, e)}
-                        helperText="Please select your gender"
+                        helperText='Please select your gender'
                       >
                         {genders.map((option) => (
                           <MenuItem key={option.value} value={option.value}>
@@ -334,19 +330,19 @@ export default function ProfileParent() {
                             <div className={styles.imageUpload}>
                               {!item.photo ? (
                                 <>
-                                  <label htmlFor="upload-input-child">
+                                  <label htmlFor='upload-input-child'>
                                     <img
                                       src={folder}
-                                      draggable={"false"}
-                                      alt="placeholder"
-                                      style={{ width: "2rem" }}
+                                      draggable={'false'}
+                                      alt='placeholder'
+                                      style={{ width: '2rem' }}
                                     />
                                   </label>
                                   <input
-                                    id="upload-input-child"
-                                    name="photo"
-                                    type="file"
-                                    accept="image/*"
+                                    id='upload-input-child'
+                                    name='photo'
+                                    type='file'
+                                    accept='image/*'
                                     onChange={(e) => handleImageForm(index, e)}
                                     // onChange={(e) =(index, e)}
                                   />
@@ -356,7 +352,7 @@ export default function ProfileParent() {
                                   <img
                                     id={styles.uploadedImage}
                                     src={previewChild[index]}
-                                    alt="uploaded-img"
+                                    alt='uploaded-img'
                                     onClick={() => {
                                       deletePhoto(index);
                                     }}
@@ -368,37 +364,34 @@ export default function ProfileParent() {
                         </fieldset>
                       </div>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <TextField
                         required
-                        name="place_birth"
-                        value={item.place_birth || ""}
-                        id="outlined-required"
-                        label="Birth Place"
-                        placeholder="Birth Place"
+                        name='place_birth'
+                        value={item.place_birth || ''}
+                        id='outlined-required'
+                        label='Birth Place'
+                        placeholder='Birth Place'
                         onChange={(e) => changeInputChild(index, e)}
                       />
                       <TextField
                         required
-                        name="date_birth"
-                        value={item.date_birth || ""}
-                        id="outlined-required"
-                        label="Birth Date"
-                        placeholder="Birth Date"
+                        name='date_birth'
+                        value={item.date_birth || ''}
+                        id='outlined-required'
+                        label='Birth Date'
+                        placeholder='Birth Date'
                         onChange={(e) => changeInputChild(index, e)}
                       />
-                      <button
-                        className={styles.deletebtn}
-                        onClick={() => deleteInputChild(index)}
-                      >
+                      <button className={styles.deletebtn} onClick={() => deleteInputChild(index)}>
                         <AiOutlineDelete
                           style={{
-                            position: "relative",
-                            top: "1px",
-                            marginRight: "0.5rem",
+                            position: 'relative',
+                            top: '1px',
+                            marginRight: '0.5rem',
                           }}
                         />
-                        {""} Delete Children
+                        {''} Delete Children
                       </button>
                     </Box>
                   </div>
@@ -412,31 +405,29 @@ export default function ProfileParent() {
               setInputChild([
                 ...inputChild,
                 {
-                  child_name: "",
-                  gender: "",
+                  child_name: '',
+                  gender: '',
                   photo: null,
-                  birth_place: "",
-                  birth_date: "",
+                  birth_place: '',
+                  birth_date: '',
                 },
               ]);
             }}
             style={{
-              marginTop: "2rem",
-              width: "10rem",
-              height: " 2.5rem",
-              borderRadius: "2rem",
-              color: "green",
-              border: "1px solid #10B278",
-              backgroundColor: "transparent",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: "600",
+              marginTop: '2rem',
+              width: '10rem',
+              height: ' 2.5rem',
+              borderRadius: '2rem',
+              color: 'green',
+              border: '1px solid #10B278',
+              backgroundColor: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: '600',
             }}
           >
-            <AddCircleOutlineIcon
-              sx={{ fontSize: "1rem", marginRight: "0.5rem" }}
-            />
+            <AddCircleOutlineIcon sx={{ fontSize: '1rem', marginRight: '0.5rem' }} />
             Add Children
           </button>
         </Box>
@@ -446,7 +437,7 @@ export default function ProfileParent() {
           {/* <Link to="/dashboard/nannydashboard"> */}
           <button
             style={{
-              backgroundColor: "#F1B722",
+              backgroundColor: '#F1B722',
             }}
             // onClick={submitParent}
             // onClick={submitChild}
@@ -459,15 +450,15 @@ export default function ProfileParent() {
         <div className={styles.savebtn}>
           <button
             style={{
-              backgroundColor: "#F67979",
-              marginRight: "1rem",
+              backgroundColor: '#F67979',
+              marginRight: '1rem',
             }}
           >
             Cancel
           </button>
           <button
             style={{
-              backgroundColor: "#10B278",
+              backgroundColor: '#10B278',
             }}
             onClick={submitChild}
           >

@@ -4,14 +4,11 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
-import { AiOutlineDelete } from 'react-icons/ai';
-import folder from './assets/img/folder_5.svg';
 import { Link, useParams } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import { getChildActivities, postChildActivities } from '../../store/actions/nannies';
+import { getChildActivities } from '../../store/actions/nannies';
 import { getClientDetail } from '../../store/actions/clients';
 import dayjs from 'dayjs';
 
@@ -36,70 +33,14 @@ export default function ActivityDetail() {
   }, [dispatch, appointment_id]);
   const detailClient = useSelector((state) => state.clients.clientDetail.details);
   console.log('Client Detail', detailClient && detailClient[0]);
-  const [form, setForm] = useState([
-    {
-      activity: '',
-      photo: null,
-      time: '',
-    },
-  ]);
-  // const [inputActivities, setInputActivities] = useState({
-  //   activity: '',
-  //   photo: null,
-  //   time: '',
-  // });
-  // console.log(inputActivities);
 
-  const submitActivities = () => {
-    dispatch(postChildActivities(form));
-  };
-  console.log('form', form);
-
-  const changeForm = (index, e) => {
-    let newForm = [...form];
-    newForm[index][e.target.name] = e.target.value;
-    setForm(newForm);
-  };
-  const deleteForm = (index) => {
-    let newForm = [...form];
-    newForm.splice(index, 1);
-    setForm(newForm);
-  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [image, setImage] = useState();
-  const [isUpload, setIsUpload] = useState(false);
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
 
-      reader.onload = function (e) {
-        setImage(e.target.result);
-        setIsUpload(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
-
-  function handleImageForm(index, e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        let newForm = [...form];
-        newForm[index].photo = e.target.result;
-        setForm(newForm);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
-
-  function deletePhoto(index) {
-    let newForm = [...form];
-    newForm[index].photo = '';
-    setForm(newForm);
-  }
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
 
   return (
     <div className={styles.containers}>
@@ -107,228 +48,115 @@ export default function ActivityDetail() {
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Child Activity Detail
       </Link>
-      <div className={styles.container}>
-        <h3>Child Information</h3>
-        <hr />
-        <form className={styles.form1}>
-          <div className={styles.form1}>
-            <fieldset>
-              <legend className={styles.legend}>Children Name</legend>
-              <input
-                type='text'
-                id='child'
-                name='child'
-                value={detailClient && detailClient[0]?.child?.name}
-                readonly='readonly'
-              />
-            </fieldset>
-
-            <fieldset>
-              <legend className={styles.legend}>Gender </legend>
-              <input
-                type='text'
-                id='gender'
-                name='gender'
-                value={detailClient && detailClient[0]?.child?.gender}
-                readonly='readonly'
-              />
-            </fieldset>
-
-            <div className={styles.childPhoto}>
-              {/* <fieldset>
-                <legend className={styles.legend}>Photo</legend>
-                <div className={styles.image}>
-                  <div className={styles.imageUpload}>
-                    {!isUpload ? (
-                      <>
-                        <label htmlFor='upload-input'>
-                          <img
-                            src={folder}
-                            draggable={'false'}
-                            alt='placeholder'
-                            style={{ width: '2rem' }}
-                          />
-                        </label>
-                        <input
-                          id='upload-input'
-                          type='file'
-                          accept='image/*'
-                          onChange={handleImageChange}
-                        />
-                      </>
-                    ) : (
-                      <div className={styles.ImagePreview}>
-                        <img
-                          id={styles.uploadedImage}
-                          src={image}
-                          alt='uploaded-img'
-                          onClick={() => {
-                            setIsUpload(false);
-                            setImage(null);
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
+      {activitiesDetail?.finalData?.map((item, index) => {
+        return (
+          <div className={styles.container} key={index}>
+            <h3>Child Information</h3>
+            <hr />
+            <form className={styles.form1}>
+              <div className={styles.form1}>
+                <fieldset>
+                  <legend className={styles.legend}>Children Name</legend>
+                  <input
+                    type='text'
+                    id='child'
+                    name='child'
+                    value={item?.child?.name}
+                    readonly='readonly'
+                  />
+                </fieldset>
+                <fieldset>
+                  <legend className={styles.legend}>Gender </legend>
+                  <input
+                    type='text'
+                    id='gender'
+                    name='gender'
+                    value={detailClient && detailClient[0]?.child?.gender}
+                    readonly='readonly'
+                  />
+                </fieldset>
+                <div className={styles.childPhoto}>
+                  <fieldset>
+                    <legend className={styles.legend}>Photo</legend>
+                    <img
+                      src={item?.child?.photo}
+                      alt=''
+                      className='expandable-image'
+                      onClick={handleOpen}
+                    />
+                  </fieldset>
                 </div>
-              </fieldset> */}
-              <fieldset>
-                <legend className={styles.legend}>Photo</legend>
-                <img
-                  src={detailClient && detailClient[0]?.child?.photo}
-                  alt=''
-                  className='expandable-image'
-                  onClick={handleOpen}
-                />
-              </fieldset>
-            </div>
-          </div>
-          <div className={styles.form2}>
-            <fieldset>
-              <legend className={styles.legend}>Birth Place</legend>
-              <input
-                type='text'
-                id='birth'
-                name='birth'
-                value={detailClient && detailClient[0]?.child?.place_birth}
-                readonly='readonly'
-              />
-            </fieldset>
-
-            <fieldset>
-              <legend className={styles.legend}>Birth Date</legend>
-              <input
-                type='text'
-                id='birthdate'
-                name='birthdate'
-                value={dayjs(detailClient && detailClient[0]?.child?.date_birth).format(
-                  'DD MMMM YYYY'
-                )}
-                readonly='readonly'
-              />
-            </fieldset>
-          </div>
-        </form>
-        <div>
-          {form.map((item, index) => {
-            return (
-              <div key={index}>
+              </div>
+              <div className={styles.form2}>
+                <fieldset>
+                  <legend className={styles.legend}>Birth Place</legend>
+                  <input
+                    type='text'
+                    id='birth'
+                    name='birth'
+                    value={detailClient && detailClient[0]?.child?.place_birth}
+                    readonly='readonly'
+                  />
+                </fieldset>
+                <fieldset>
+                  <legend className={styles.legend}>Birth Date</legend>
+                  <input
+                    type='text'
+                    id='birthdate'
+                    name='birthdate'
+                    value={dayjs(detailClient && detailClient[0]?.child?.date_birth).format(
+                      'DD MMMM YYYY'
+                    )}
+                    readonly='readonly'
+                  />
+                </fieldset>
+              </div>
+            </form>
+            <div>
+              <div>
                 <h3>Child Activity</h3>
                 <hr />
-                <form className={styles.form2}>
-                  <div className={styles.form1}>
-                    <fieldset>
-                      <legend className={styles.legend}>Activity</legend>
-                      <input
-                        type='text'
-                        name='activity'
-                        value={item.activity || ''}
-                        onChange={(e) => changeForm(index, e)}
-                      />
-                    </fieldset>
+                {item?.appointment_activities?.map((list) => {
+                  return (
                     <div>
-                      <fieldset>
-                        <legend className={styles.legend}>Photo</legend>
-                        <div className={styles.image}>
-                          <div className={styles.imageUpload}>
-                            {!item.photo ? (
-                              <>
-                                <label htmlFor='upload-input'>
-                                  <img
-                                    src={folder}
-                                    draggable={'false'}
-                                    alt='placeholder'
-                                    style={{ width: '2rem' }}
-                                  />
-                                </label>
-                                <input
-                                  id='upload-input'
-                                  name='photo'
-                                  type='file'
-                                  accept='image/*'
-                                  onChange={(e) => handleImageForm(index, e)}
-                                />
-                              </>
-                            ) : (
-                              <div className={styles.ImagePreview}>
-                                <img
-                                  id={styles.uploadedImage}
-                                  src={item.photo}
-                                  alt='uploaded-img'
-                                  onClick={() => {
-                                    deletePhoto(index);
-                                  }}
-                                />
-                              </div>
-                            )}
+                      <form className={styles.form2}>
+                        <div className={styles.form1}>
+                          <fieldset>
+                            <legend className={styles.legend}>Activity</legend>
+                            <input
+                              type='text'
+                              name='activity_detail'
+                              value={list?.activity_detail}
+                              readonly='readonly'
+                            />
+                          </fieldset>
+                          <div>
+                            <fieldset>
+                              <legend className={styles.legend}>Photo</legend>
+                              <img
+                                src={list?.photo}
+                                alt=''
+                                className='expandable-image'
+                                onClick={handleOpen1}
+                              />
+                            </fieldset>
                           </div>
                         </div>
-                      </fieldset>
+                        <div className={styles.form2}>
+                          <fieldset>
+                            <legend className={styles.legend}>Time</legend>
+                            <input type='time' name='time' value={list?.time} readonly='readonly' />
+                          </fieldset>
+                        </div>
+                      </form>
                     </div>
-                  </div>
-                  <div className={styles.form2}>
-                    <fieldset>
-                      <legend className={styles.legend}>Time</legend>
-                      <input
-                        type='time'
-                        name='time'
-                        value={item.time || ''}
-                        onChange={(e) => changeForm(index, e)}
-                      />
-                    </fieldset>
-                    <button className={styles.deletebtn} onClick={() => deleteForm(index)}>
-                      <AiOutlineDelete style={{ position: 'relative', top: '1px' }} />
-                      {''} Delete Activity
-                    </button>
-                  </div>
-                </form>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
-        <button
-          onClick={() =>
-            setForm([
-              ...form,
-              {
-                activity: '',
-                photo: null,
-                time: '',
-              },
-            ])
-          }
-          className={styles.add}
-        >
-          <AiOutlinePlusCircle style={{ position: 'relative', color: '#10B278', top: '2px' }} />
-          {''} Add Activity
-        </button>
-      </div>
-      <div className={styles.modify}>
-        <button
-          style={{
-            padding: '0.5rem 4rem',
-            backgroundColor: '#F67979',
-            border: 'none',
-            borderRadius: '40px',
-            color: 'white',
-            marginRight: '1rem',
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={submitActivities}
-          style={{
-            padding: '0.5rem 4rem',
-            backgroundColor: '#10B278',
-            border: 'none',
-            borderRadius: '40px',
-            color: 'white',
-          }}
-        >
-          Save
-        </button>
-      </div>
+            </div>
+          </div>
+        );
+      })}
       <div className={styles.modal}>
         <Modal
           aria-labelledby='transition-modal-title'
@@ -347,6 +175,31 @@ export default function ActivityDetail() {
                 src={detailClient && detailClient[0]?.child?.photo}
                 alt=''
                 onClick={handleOpen}
+                style={{ borderRadius: '8px', width: '30rem' }}
+              />
+            </Box>
+          </Fade>
+        </Modal>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          open={open1}
+          onClose={handleClose1}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open1}>
+            <Box sx={style}>
+              <img
+                src={
+                  (activitiesDetail?.finalData?.appointment_activities?.photo,
+                  console.log('photo', activitiesDetail?.finalData?.appointment_activities?.photo))
+                }
+                alt=''
+                onClick={handleOpen1}
                 style={{ borderRadius: '8px', width: '30rem' }}
               />
             </Box>

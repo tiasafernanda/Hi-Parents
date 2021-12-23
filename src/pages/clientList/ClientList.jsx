@@ -109,11 +109,11 @@ export default function ClientList() {
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} />
+          <img src={sortIcon} alt='' />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} />
+          <img src={filterIcon} alt='' />
           Filter
         </button>
       </div>

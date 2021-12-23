@@ -16,9 +16,10 @@ export const getNannyProfileAction = () => {
   };
 };
 
-export const updateNannyProfileAction = () => {
+export const updateNannyProfileAction = (body) => {
   return {
     type: UPDATE_NANNY_PROFILE_BEGIN,
+    body,
   };
 };
 
@@ -60,8 +61,13 @@ export const getChildActivities = (appointment_id) => {
   };
 };
 
-export const postChildActivities = () => {
+export const postChildActivities = (
+  body
+  // appointment_id
+) => {
   return {
     type: POST_CHILD_ACTIVITIES_BEGIN,
+    body,
+    // appointment_id,
   };
 };
