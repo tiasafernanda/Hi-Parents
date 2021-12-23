@@ -15,6 +15,9 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_FAIL,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
+  GET_NANNIES_ASC_BEGIN,
+  GET_NANNIES_ASC_SUCCESS,
+  GET_NANNIES_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -101,6 +104,22 @@ function* getChildActivity() {
     });
   }
 }
+
+// function* getNanniesAsc() {
+//   try {
+//     const res = yield axios.get(`${baseUrl}nannies?sort=${sort}`);
+//     console.log(res);
+//     yield put({
+//       type: GET_NANNIES_SUCCESS,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     yield put({
+//       type: GET_NANNIES_FAIL,
+//       error: err,
+//     });
+//   }
+// }
 
 export function* watchGetNannies() {
   yield takeEvery(GET_NANNIES_BEGIN, getNannies);

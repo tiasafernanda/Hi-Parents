@@ -8,6 +8,12 @@ import {
   GET_CLIENT_DETAIL_BEGIN,
   GET_CLIENT_DETAIL_FAIL,
   GET_CLIENT_DETAIL_SUCCESS,
+  GET_CLIENT_ACCEPTED_BEGIN,
+  GET_CLIENT_ACCEPTED_SUCCESS,
+  GET_CLIENT_ACCEPTED_FAIL,
+  UPDATE_STATUS_APPOINTMENT_BEGIN,
+  UPDATE_STATUS_APPOINTMENT_SUCCESS,
+  UPDATE_STATUS_APPOINTMENT_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +35,7 @@ const initialState = {
 
 const clients = (state = initialState, action) => {
   const { type, payload, error } = action;
+  console.log(type);
   switch (type) {
     default:
       return {
@@ -99,6 +106,46 @@ const clients = (state = initialState, action) => {
         loading: false,
         error: error,
         activeClient: [],
+      };
+    case GET_CLIENT_ACCEPTED_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_CLIENT_ACCEPTED_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        clients: payload,
+      };
+    case GET_CLIENT_ACCEPTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        clients: [],
+      };
+    case UPDATE_STATUS_APPOINTMENT_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_STATUS_APPOINTMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        clients: payload,
+      };
+    case UPDATE_STATUS_APPOINTMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        clients: [],
       };
   }
 };

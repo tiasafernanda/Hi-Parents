@@ -14,6 +14,9 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_FAIL,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
+  GET_NANNIES_ASC_BEGIN,
+  GET_NANNIES_ASC_SUCCESS,
+  GET_NANNIES_ASC_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -129,6 +132,26 @@ const nannies = (state = initialState, action) => {
         loading: false,
         error: error,
         activity: [],
+      };
+    case GET_NANNIES_ASC_BEGIN:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+      };
+    case GET_NANNIES_ASC_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        nannies: payload,
+      };
+    case GET_NANNIES_ASC_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        nannies: [],
       };
   }
 };

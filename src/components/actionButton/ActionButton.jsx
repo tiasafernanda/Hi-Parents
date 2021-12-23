@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IconButton, Popover } from '@mui/material';
 import { ActionIcon } from './ActionIcon';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
 
-const ActionButton = () => {
+const ActionButton = ({ appointment_id }) => {
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -20,8 +23,9 @@ const ActionButton = () => {
   const id = open ? 'simple-popover' : undefined;
 
   const handleManageChild = () => {
-    window.location.href = '/dashboard/managenanny';
+    navigate(`/dashboard/managenanny/${appointment_id}`);
   };
+
   return (
     <div>
       <IconButton onClick={handleClick}>
@@ -60,9 +64,14 @@ const ActionButton = () => {
               width: '13.25rem',
               height: '3.5rem',
             }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleManageChild(appointment_id);
+            }}
+            id={appointment_id}
           >
             <InfoOutlinedIcon sx={{ marginRight: '0.5rem' }} />
-            <Typography onClick={handleManageChild}>Manage Child</Typography>
+            <Typography /*onClick={handleManageChild}*/>Manage Child</Typography>
           </Box>
         </Box>
       </Popover>

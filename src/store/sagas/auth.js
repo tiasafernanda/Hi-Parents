@@ -15,7 +15,7 @@ function* loginNanny(action) {
         type: LOGINNANNY_SUCCESS,
       },
       localStorage.setItem('token', res.data.token),
-      (window.location.href = res.data.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/childactivity') // setup token on local storage
+      (window.location.href = res.data.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/childactivity')
     );
   } catch (err) {
     console.log(err);
@@ -39,7 +39,7 @@ function* registerNanny(action) {
       {
         type: REGISTERNANNY_SUCCESS,
       },
-      (window.location.href = '/auth/signin') // setup token on local storage
+      (window.location.href = '/auth/signin')
     );
   } catch (err) {
     console.log(err);

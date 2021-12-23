@@ -7,4 +7,18 @@
     text-decoration: none;
     color: inherit;
   }
+
+  .formLabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    label {
+      width: 100%;
+      justify-content: space-between;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+  }
 }

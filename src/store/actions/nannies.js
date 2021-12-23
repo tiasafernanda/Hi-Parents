@@ -1,10 +1,4 @@
-import {
-  GET_NANNIES_BEGIN,
-  GET_ACTIVE_NANNIES_BEGIN,
-  GET_APPOINTMENT_BEGIN,
-  GET_CHILD_ACTIVITY_BEGIN,
-  UPDATE_STATUS_APPOINTMENT_BEGIN,
-} from './types';
+import { GET_NANNIES_BEGIN, GET_ACTIVE_NANNIES_BEGIN, GET_APPOINTMENT_BEGIN, GET_CHILD_ACTIVITY_BEGIN, UPDATE_STATUS_APPOINTMENT_BEGIN, GET_NANNIES_ASC_BEGIN } from './types';
 
 export const getNannies = () => {
   return {
@@ -33,5 +27,12 @@ export const getAppointment = () => {
 export const getChildActivity = () => {
   return {
     type: GET_CHILD_ACTIVITY_BEGIN,
+  };
+};
+
+export const getNanniesAsc = (sort) => {
+  return {
+    type: GET_NANNIES_ASC_BEGIN,
+    sort,
   };
 };

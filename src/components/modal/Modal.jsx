@@ -1,6 +1,12 @@
 import styles from './Modal.module.scss';
+import { updateClientAccepted } from '../../store/actions/clients';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Modal = ({ clientId, dateRequest, parentName }) => {
+  const dispatch = useDispatch();
+  const { loading, clients } = useSelector((state) => state.clients);
+  console.log('clients list', clients);
+
   return (
     <div className={styles.modal}>
       <div className={styles.header} onClick={(e) => e.stopPropagation()}>
@@ -21,7 +27,9 @@ const Modal = ({ clientId, dateRequest, parentName }) => {
         </ul>
         <div>
           <button className={styles.cancel}>Cancel</button>
-          <button className={styles.yes}>Yes</button>
+          <button className={styles.yes} onClick={dispatch(updateClientAccepted())}>
+            Yes
+          </button>
         </div>
       </div>
     </div>
