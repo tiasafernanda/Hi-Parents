@@ -1,27 +1,40 @@
-import React from 'react';
-import styles from './assets/ActivityParent.module.scss';
+import React from "react";
+import styles from "./assets/ActivityParent.module.scss";
 // import datas from "./ActivityParentData";
-import { BiSortUp } from 'react-icons/bi';
-import { HiOutlineAdjustments } from 'react-icons/hi';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { BiSortUp } from "react-icons/bi";
+import { HiOutlineAdjustments } from "react-icons/hi";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 // import family from "./assets/img/family.png";
-import Empty from '../../components/empty/Empty';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import Empty from "../../components/empty/Empty";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { childActivityParentAction } from "../../store/actions/childActivityParent";
+import { useDispatch } from "react-redux";
 
 export default function ActivityParent() {
-  const dummyClient = ['ok'];
+  const { ChildActivity } = useSelector((state) => state.childActivityParent);
+  console.log("ChildActivity", ChildActivity);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(childActivityParentAction());
+  }, []);
+
+  const dummyClient = ["ok"];
   return (
     <div className={styles.containers}>
       <h1>Child Activity</h1>
       <div className={styles.adjust}>
         <div className={styles.sortFilter}>
           <button>
-            <BiSortUp style={{ position: 'relative', top: '1px' }} />
+            <BiSortUp style={{ position: "relative", top: "1px" }} />
             Sort
           </button>
           <button>
-            <HiOutlineAdjustments style={{ position: 'relative', top: '1px' }} />
+            <HiOutlineAdjustments
+              style={{ position: "relative", top: "1px" }}
+            />
             Filter
           </button>
         </div>
@@ -43,12 +56,20 @@ export default function ActivityParent() {
 
             <td>
               <div className={styles.dropdown}>
-                <button className={styles.actionButton}>&bull;&bull;&bull;</button>
+                <button className={styles.actionButton}>
+                  &bull;&bull;&bull;
+                </button>
                 <div className={styles.dropdownContent}>
-                  <Link to='/dashboard/parentactivitydetail'>
-                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                  <Link to="/dashboard/parentactivitydetail">
+                    <span
+                      style={{
+                        color: "#768471",
+                        position: "relative",
+                        top: "2px",
+                      }}
+                    >
                       <AiOutlineInfoCircle />
-                    </span>{' '}
+                    </span>{" "}
                     View Details
                   </Link>
                 </div>
@@ -71,12 +92,12 @@ export default function ActivityParent() {
         <h5>Showing 1 of 1</h5>
         <div className={styles.nextButton}>
           <button>
-            <AiOutlineLeft style={{ position: 'relative', top: '1px' }} />
+            <AiOutlineLeft style={{ position: "relative", top: "1px" }} />
             Previous
           </button>
           <button>
             Next
-            <AiOutlineRight style={{ position: 'relative', top: '1px' }} />
+            <AiOutlineRight style={{ position: "relative", top: "1px" }} />
           </button>
         </div>
       </div>

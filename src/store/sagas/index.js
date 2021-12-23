@@ -1,7 +1,10 @@
-import { all } from 'redux-saga/effects';
-import { watchLoginNanny } from './auth';
-import { watchRegisterNanny } from './auth';
-import { watchChangePassword } from './changePassword';
+import { all } from "redux-saga/effects";
+import { watchLoginNanny, watchRegisterNanny } from "./auth";
+import { watchChangePassword } from "./changePassword";
+import { watchDashboarParentChild, watchDashboarChild } from "./childParent";
+import { watchGetDataParent, watchDashboarParent } from "./parent";
+import { watchGetDataChild } from "./getChild";
+import { watchChildActivityParent } from "./childAktivityParent";
 import {
   watchGetActiveClients,
   watchGetClientDetail,
@@ -17,20 +20,21 @@ import {
   watchGetChildActivity,
   watchPostChildActivities,
   watchGetNannies,
-} from './nannies';
-import { watchDashboarChild, watchDashboarParentChild } from './childParent';
-
-import { watchDashboarParent } from './parent';
+} from "./nannies";
 
 export default function* rootSaga() {
   yield all([
     watchLoginNanny(),
     watchRegisterNanny(),
     watchChangePassword(),
-    watchDashboarChild(),
     watchDashboarParentChild(),
+    watchDashboarChild(),
     watchDashboarParent(),
-    watchGetMainClients(),
+    watchGetDataParent(),
+    watchGetDataChild(),
+    watchChildActivityParent(),
+
+
     watchGetClients(),
     watchGetClientDetail(),
     watchGetActiveClients(),
