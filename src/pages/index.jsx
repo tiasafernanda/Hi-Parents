@@ -36,7 +36,7 @@ const Dashboard = () => {
         <Route path='/changepassword' element={<ChangePassword />} />
         <Route path='/activityparent' element={<ActivityParent />} />
         <Route path='/parentdashboard' element={<DashboardParent />} />
-        <Route path='/parentactivitydetail' element={<ParentActivityDetail />} />
+        <Route path='/parentactivitydetail/:id' element={<ParentActivityDetail />} />
         <Route path='/profileparent' element={<ProfileParent />} />
         <Route path='/empty' element={<Empty />} />
         <Route path='/statedashboard' element={<StateDashboard />} />

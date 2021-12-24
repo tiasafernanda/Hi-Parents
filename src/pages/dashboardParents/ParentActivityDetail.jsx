@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './assets/ParentActivityDetail.module.scss';
-import client from './assets/img/clientdetail.jpg';
-import child from './assets/img/child.png';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { childActivityParentDetailAction } from '../../store/actions/childActivityParent';
+import dayjs from 'dayjs';
 
 const style = {
   position: 'absolute',
@@ -17,6 +19,16 @@ const style = {
   outline: 'none',
 };
 export default function ParentActivityDetail() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  console.log('ID', id);
+  useEffect(() => {
+    dispatch(childActivityParentDetailAction(id));
+  }, [dispatch, id]);
+  const childActivity = useSelector((state) => state.childActivityParent.details);
+  console.log('ChildActivityDetail', childActivity?.[id]);
+  const item = childActivity?.find((items) => items.id === id);
+  console.log('item', item);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -37,30 +49,47 @@ export default function ParentActivityDetail() {
           <div className={styles.form1}>
             <fieldset>
               <legend className={styles.legend}>Children Name</legend>
-              <input type='text' id='child' name='child' value='Vegeta Super' readonly='readonly' />
+              <input
+                type='text'
+                id='child'
+                name='child'
+                value={childActivity?.[id]?.appointment?.child?.name}
+                readonly='readonly'
+              />
             </fieldset>
-
             <fieldset>
               <legend className={styles.legend}>Gender </legend>
-              {/* <select name='gender'>
-                <option value=''>Select Gender</option>
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
-              </select> */}
-              <input type='text' id='gender' name='gender' value='Male' readonly='readonly' />
+              <input
+                type='text'
+                id='gender'
+                name='gender'
+                value={childActivity?.[id]?.appointment?.child?.gender}
+                readonly='readonly'
+              />
             </fieldset>
             <br></br>
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
-                <img src={client} alt='' className='expandable-image' onClick={handleOpen} />
+                <img
+                  src={childActivity?.[id]?.appointment?.child?.photo}
+                  alt=''
+                  className='expandable-image'
+                  onClick={handleOpen}
+                />
               </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
             <fieldset>
               <legend className={styles.legend}>Birth Place</legend>
-              <input type='text' id='birth' name='birth' value='Surabaya' readonly='readonly' />
+              <input
+                type='text'
+                id='birth'
+                name='birth'
+                value={childActivity?.[id]?.appointment?.child?.place_birth}
+                readonly='readonly'
+              />
             </fieldset>
 
             <fieldset>
@@ -69,7 +98,9 @@ export default function ParentActivityDetail() {
                 type='text'
                 id='birthdate'
                 name='birthdate'
-                value='16 November 1992'
+                value={dayjs(childActivity?.[id]?.appointment?.child?.date_birth).format(
+                  'DD MMMM YYYY'
+                )}
                 readonly='readonly'
               />
             </fieldset>
@@ -85,21 +116,32 @@ export default function ParentActivityDetail() {
                 type='text'
                 id='activity'
                 name='activity'
-                value='Play Bubble'
+                value={childActivity?.[id]?.activity_detail}
                 readonly='readonly'
               />
             </fieldset>
             <div>
               <fieldset>
                 <legend className={styles.legend}>Photo</legend>
-                <img src={child} alt='' className='expandable-image' onClick={handleOpen1} />
+                <img
+                  src={childActivity?.[id]?.photo}
+                  alt=''
+                  className='expandable-image'
+                  onClick={handleOpen1}
+                />
               </fieldset>
             </div>
           </div>
           <div className={styles.form2}>
             <fieldset>
               <legend className={styles.legend}>Time</legend>
-              <input type='text' id='time' name='time' value='15.00' readonly='readonly' />
+              <input
+                type='text'
+                id='time'
+                name='time'
+                value={childActivity?.[id]?.time}
+                readonly='readonly'
+              />
             </fieldset>
           </div>
         </form>
@@ -118,7 +160,12 @@ export default function ParentActivityDetail() {
         >
           <Fade in={open}>
             <Box sx={style}>
-              <img src={client} alt='' onClick={handleOpen} style={{ borderRadius: '8px' }} />
+              <img
+                src={childActivity && childActivity[0]?.appointment?.child?.photo}
+                alt=''
+                onClick={handleOpen}
+                style={{ borderRadius: '8px', width: '30rem' }}
+              />
             </Box>
           </Fade>
         </Modal>
@@ -137,7 +184,12 @@ export default function ParentActivityDetail() {
         >
           <Fade in={open1}>
             <Box sx={style}>
-              <img src={child} alt='' onClick={handleOpen1} style={{ borderRadius: '8px' }} />
+              <img
+                src={childActivity?.[id]?.photo}
+                alt=''
+                onClick={handleOpen1}
+                style={{ borderRadius: '8px', width: '30rem' }}
+              />
             </Box>
           </Fade>
         </Modal>

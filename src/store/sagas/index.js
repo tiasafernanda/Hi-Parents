@@ -4,7 +4,7 @@ import { watchChangePassword } from './changePassword';
 import { watchDashboarParentChild, watchDashboarChild } from './childParent';
 import { watchGetDataParent, watchDashboarParent } from './parent';
 import { watchGetDataChild } from './getChild';
-import { watchChildActivityParent } from './childAktivityParent';
+import { watchChildActivityParent, watchChildActivityParentDetail } from './childAktivityParent';
 import {
   watchGetActiveClients,
   watchGetClientDetail,
@@ -45,5 +45,6 @@ export default function* rootSaga() {
     watchGetChildActivity(),
     watchGetChildActivities(),
     watchPostChildActivities(),
+    watchChildActivityParentDetail(),
   ]);
 }
