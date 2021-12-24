@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { childActivityParentAction } from "../../store/actions/childActivityParent";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export default function ActivityParent() {
   const { ChildActivity } = useSelector((state) => state.childActivityParent);
@@ -21,7 +22,8 @@ export default function ActivityParent() {
     dispatch(childActivityParentAction());
   }, []);
 
-  const dummyClient = ["ok"];
+  // const childActivityParentAction = [""];
+
   return (
     <div className={styles.containers}>
       <h1>Child Activity</h1>
@@ -47,7 +49,7 @@ export default function ActivityParent() {
           <th>Activity Detail</th>
           <th>Action</th>
         </tr>
-        {dummyClient.length > 0 ? (
+        {childActivityParentAction.length > 0 ? (
           <tr>
             <td>Sakura</td>
             <td>3/11/2021 07:00 PM</td>
@@ -77,14 +79,6 @@ export default function ActivityParent() {
             </td>
           </tr>
         ) : (
-          // <tr>
-          //   <td colspan="6">
-          //     <div className={styles.noClient}>
-          //       <img src={family} alt="" />
-          //       <h5>No Client list for today</h5>
-          //     </div>
-          //   </td>
-          // </tr>
           <Empty />
         )}
       </table>

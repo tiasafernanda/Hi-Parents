@@ -9,6 +9,7 @@ import {
   POST_PARENTCHILD_FAIL,
 } from "../actions/types";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const baseUrl = "https://hi-parent-be.herokuapp.com";
 //function generator
@@ -29,7 +30,7 @@ function* dashboarChild(action) {
       error: err,
     });
   }
-};
+}
 
 function* dashboarParentChild(action) {
   const { body } = action;
@@ -41,6 +42,11 @@ function* dashboarParentChild(action) {
     yield put({
       type: POST_PARENTCHILD_SUCCESS,
     });
+    Swal.fire(
+      res.data.message === "appointment submitted!" ? "Success" : "Error",
+      res.data.message,
+      res.data.message === "appointment submitted!" ? "success" : "error"
+    );
   } catch (err) {
     console.log(err);
     yield put({

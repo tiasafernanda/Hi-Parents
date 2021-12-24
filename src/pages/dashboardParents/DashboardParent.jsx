@@ -41,9 +41,9 @@ export default function ProfileParent() {
   // };
   // const handleChange1 = (index, event) => {
   //   setGender1(event.target.value);
-    // let setGender1 = [...form];
-    // setGender1[index][e.target.name] = e.target.value;
-    // setForm(setGender1);
+  // let setGender1 = [...form];
+  // setGender1[index][e.target.name] = e.target.value;
+  // setForm(setGender1);
   // };
 
   const [inputParent, setInputParent] = useState({
@@ -92,7 +92,7 @@ export default function ProfileParent() {
   };
 
   const deleteSubmitParent = () => {
-    let formdataParent = {...new FormData};
+    let formdataParent = { ...new FormData() };
     new FormData();
     setInputParent(formdataParent);
   };
@@ -495,15 +495,15 @@ export default function ProfileParent() {
       <div className={styles.btn}>
         <div className={styles.submitbtn}>
           {/* <Link to="/dashboard/nannydashboard"> */}
-          <button
-            style={{
-              backgroundColor: "#F1B722",
-            }}
-            // onClick={submitChild}
-            onClick={submitData}
-          >
-            Submit
-          </button>
+            <button
+              style={{
+                backgroundColor: "#F1B722",
+              }}
+              // onClick={submitChild}
+              onClick={submitData}
+            >
+              Submit
+            </button>
           {/* </Link> */}
         </div>
         <div className={styles.savebtn}>
@@ -513,7 +513,6 @@ export default function ProfileParent() {
               marginRight: "1rem",
             }}
             onClick={deleteSubmitParent}
-
           >
             Cancel
           </button>
