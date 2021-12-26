@@ -6,6 +6,8 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   GET_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_BEGIN,
+  UPDATE_CHILD_ACTIVITIES_BEGIN,
+  DELETE_CHILD_ACTIVITIES_BEGIN,
   GET_NANNY_PROFILE_BEGIN,
   UPDATE_NANNY_PROFILE_BEGIN,
   GET_NANNIES_ASC_BEGIN,
@@ -67,6 +69,22 @@ export const postChildActivities = (body, appointment_id) => {
     type: POST_CHILD_ACTIVITIES_BEGIN,
     body,
     appointment_id,
+  };
+};
+
+export const updateChildActivities = (body, id) => {
+  return {
+    type: UPDATE_CHILD_ACTIVITIES_BEGIN,
+    body,
+    id,
+  };
+};
+
+export const deleteChildActivities = (body, id) => {
+  return {
+    type: DELETE_CHILD_ACTIVITIES_BEGIN,
+    body,
+    id,
   };
 };
 

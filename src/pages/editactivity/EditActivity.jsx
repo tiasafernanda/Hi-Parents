@@ -11,7 +11,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import folder from './assets/img/folder_5.svg';
 import { Link, useParams } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import { getChildActivities, postChildActivities } from '../../store/actions/nannies';
+import { getChildActivities, updateChildActivities } from '../../store/actions/nannies';
 import { getClientDetail } from '../../store/actions/clients';
 import dayjs from 'dayjs';
 
@@ -23,8 +23,9 @@ const style = {
   outline: 'none',
 };
 export default function EditActivity() {
-  const { appointment_id } = useParams();
-  console.log(appointment_id, 'appointmentId');
+  const { appointment_id, id } = useParams();
+  console.log(id, 'ID');
+  console.log('appointment_id', appointment_id);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getChildActivities(appointment_id));
@@ -44,15 +45,15 @@ export default function EditActivity() {
     },
   ]);
 
-  const submitActivities = () => {
+  const editActivities = () => {
     let formActivity = new FormData();
     for (let i = 0; i < form.length; i++) {
-      formActivity.append('appointment_id', appointment_id);
+      formActivity.append('id', id);
       formActivity.append('activity_detail', form[i].activity_detail);
       formActivity.append('photo', form[i].photo);
       formActivity.append('time', form[i].time);
     }
-    dispatch(postChildActivities(formActivity, appointment_id));
+    dispatch(updateChildActivities(formActivity, id));
   };
   console.log('form', form);
 
@@ -271,7 +272,7 @@ export default function EditActivity() {
           Cancel
         </button>
         <button
-          onClick={submitActivities}
+          onClick={editActivities}
           style={{
             padding: '0.5rem 4rem',
             backgroundColor: '#10B278',

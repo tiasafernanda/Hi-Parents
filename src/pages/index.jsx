@@ -28,7 +28,7 @@ const Dashboard = () => {
         <Route path='/clientlist' element={<ClientList />} />
         <Route path='/childactivity' element={<ChildActivity />} />
         <Route path='/createactivity/:appointment_id' element={<CreateActivity />} />
-        <Route path='/editactivity/:appointment_id' element={<EditActivity />} />
+        <Route path='/editactivity/:appointment_id/:id' element={<EditActivity />} />
         <Route path='/activitydetail/:appointment_id' element={<ActivityDetail />} />
         <Route path='/nannylist' element={<NannyList />} />
         <Route path='/managenanny' element={<ManageNanny />} />

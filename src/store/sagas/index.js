@@ -20,6 +20,8 @@ import {
   watchGetChildActivity,
   watchPostChildActivities,
   watchGetNannies,
+  watchUpdateChildActivities,
+  watchDeleteChildActivities,
 } from './nannies';
 
 export default function* rootSaga() {
@@ -45,6 +47,8 @@ export default function* rootSaga() {
     watchGetChildActivity(),
     watchGetChildActivities(),
     watchPostChildActivities(),
+    watchDeleteChildActivities(),
+    watchUpdateChildActivities(),
     watchChildActivityParentDetail(),
   ]);
 }

@@ -554,11 +554,9 @@
   }
 }
 
-@media screen and (max-width: 1277px) {
+@media screen and (max-width: 1280px) {
   .container {
-    .navbar {
-      width: auto;
-    }
+    width: 100vw;
 
     .about {
       width: 50rem;
@@ -567,19 +565,21 @@
     }
 
     .intro {
-      display: contents;
+      display: block;
 
       img {
-        width: 25.5rem;
+        width: 27rem;
       }
 
       .intro1 {
+        margin-left: auto;
+        margin-right: auto;
         a {
           margin-top: 1rem !important;
         }
 
         .introText1 {
-          padding-right: 140px;
+          padding: 0 8rem;
         }
       }
       .intro2 {
@@ -587,7 +587,13 @@
           margin-top: 1rem !important;
         }
 
+        img {
+          position: relative;
+          right: 7.6rem;
+        }
+
         .introText2 {
+          padding: 0 8rem;
           h1 {
             margin-top: 1rem;
           }
@@ -597,8 +603,105 @@
   }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .container {
     width: fit-content;
+
+    .intro {
+      display: block;
+
+      img {
+        width: 20rem;
+        height: 18rem;
+      }
+
+      .intro1 {
+        margin-left: auto;
+        margin-right: auto;
+
+        img {
+          position: relative;
+          left: 5rem;
+        }
+
+        .introText1 {
+          padding: 0rem 5rem;
+          margin-left: 0.5rem;
+
+          h1 {
+            margin-bottom: 1rem;
+            line-height: 1.8rem;
+          }
+
+          a {
+            padding: 0.5rem 3rem;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+      .intro2 {
+        img {
+          position: relative;
+          right: 7rem;
+        }
+
+        .introText2 {
+          padding: 0rem 5rem;
+          margin-right: 3rem;
+          h1 {
+            margin: 0.5rem 0;
+          }
+
+          a {
+            padding: 0.5rem 3rem;
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-height: max-content;
+    .navbar {
+      padding: 1rem 2rem;
+    }
+    .header {
+      padding: 1rem 2rem;
+      img {
+        width: 10rem;
+      }
+    }
+    .intro {
+      .intro1 {
+        flex-direction: column;
+        img {
+          margin-left: auto;
+          margin-right: auto;
+          position: initial;
+          margin-bottom: 2rem;
+        }
+        .introText1 {
+          margin-left: 0;
+          a {
+            margin-bottom: 1rem;
+          }
+        }
+      }
+      .intro2 {
+        flex-direction: column-reverse;
+        img {
+          margin-left: auto;
+          margin-right: auto;
+          position: initial;
+          margin-bottom: 1rem;
+        }
+        .introText2 {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }

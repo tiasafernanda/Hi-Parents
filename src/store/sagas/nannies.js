@@ -27,11 +27,18 @@ import {
   POST_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_FAIL,
   POST_CHILD_ACTIVITIES_SUCCESS,
+  UPDATE_CHILD_ACTIVITIES_BEGIN,
+  UPDATE_CHILD_ACTIVITIES_FAIL,
+  UPDATE_CHILD_ACTIVITIES_SUCCESS,
+  DELETE_CHILD_ACTIVITIES_BEGIN,
+  DELETE_CHILD_ACTIVITIES_FAIL,
+  DELETE_CHILD_ACTIVITIES_SUCCESS,
   // GET_NANNIES_ASC_BEGIN,
   // GET_NANNIES_ASC_SUCCESS,
   // GET_NANNIES_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 
@@ -189,6 +196,12 @@ function* postChildActivities(actions) {
     yield put({
       type: POST_CHILD_ACTIVITIES_SUCCESS,
     });
+    Swal.fire(
+      'Success',
+      'Activity Created',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+    );
     const resActivities = yield axios.get(`${baseUrl}activity/${appointment_id}`);
     console.log('child activities', resActivities.data);
     yield put({
@@ -198,6 +211,43 @@ function* postChildActivities(actions) {
   } catch (err) {
     yield put({
       type: POST_CHILD_ACTIVITIES_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* updateChildActivities(actions) {
+  const { body } = actions;
+  try {
+    const res = yield axios.put(`${baseUrl}activity`, body, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: UPDATE_CHILD_ACTIVITIES_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: UPDATE_CHILD_ACTIVITIES_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* deleteChildActivities(actions) {
+  const { body } = actions;
+  try {
+    const res = yield axios.delete(`${baseUrl}activity`, body, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    console.log(res);
+    yield put({
+      type: DELETE_CHILD_ACTIVITIES_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: DELETE_CHILD_ACTIVITIES_FAIL,
       error: err,
     });
   }
@@ -245,6 +295,14 @@ export function* watchGetChildActivities() {
 
 export function* watchPostChildActivities() {
   yield takeEvery(POST_CHILD_ACTIVITIES_BEGIN, postChildActivities);
+}
+
+export function* watchUpdateChildActivities() {
+  yield takeEvery(UPDATE_CHILD_ACTIVITIES_BEGIN, updateChildActivities);
+}
+
+export function* watchDeleteChildActivities() {
+  yield takeEvery(DELETE_CHILD_ACTIVITIES_BEGIN, deleteChildActivities);
 }
 
 export function* watchGetNannyProfile() {

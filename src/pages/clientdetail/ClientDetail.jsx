@@ -32,23 +32,9 @@ export default function ClientDetail() {
   console.log('details', detailClient && detailClient[0]);
   // console.log('parent name', details?.details?.child?.parent?.name);
 
-  const showAlert = () => {
-    // const Toast = Swal.mixin({
-    //   toast: true,
-    //   position: 'bottom',
-    //   showConfirmButton: false,
-    //   timer: 3000,
-    //   timerProgressBar: true,
-    //   didOpen: (toast) => {
-    //     toast.addEventListener('mouseenter', Swal.stopTimer);
-    //     toast.addEventListener('mouseleave', Swal.resumeTimer);
-    //   },
-    // });
+  
 
-    // Toast.fire({
-    //   icon: 'success',
-    //   title: 'Accept Client Success!',
-    // });
+  const showAlert = () => {
     Swal.fire('Accept Client Success!', '', 'success');
   };
   const [open, setOpen] = React.useState(false);
@@ -250,7 +236,10 @@ export default function ClientDetail() {
       </div>
       <div
         className={
-          detailClient && detailClient[0]?.appointment_status === 'Accept'
+          detailClient &&
+          detailClient[0]?.appointment_status === 'Accept' &&
+          detailClient &&
+          detailClient[0]?.appointment_status === 'Accept'
             ? styles.accepted
             : styles.btn
         }
