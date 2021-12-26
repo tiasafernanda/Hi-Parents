@@ -29,6 +29,9 @@ import {
   GET_NANNIES_ASC_BEGIN,
   GET_NANNIES_ASC_SUCCESS,
   GET_NANNIES_ASC_FAIL,
+  PUT_MANAGE_CHILD_BEGIN,
+  PUT_MANAGE_CHILD_SUCCESS,
+  PUT_MANAGE_CHILD_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -229,6 +232,26 @@ const nannies = (state = initialState, action) => {
         nannies: payload,
       };
     case GET_NANNIES_ASC_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+        nannies: [],
+      };
+    case PUT_MANAGE_CHILD_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case PUT_MANAGE_CHILD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        nannies: payload,
+      };
+    case PUT_MANAGE_CHILD_FAIL:
       return {
         ...state,
         loading: false,

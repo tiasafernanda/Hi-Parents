@@ -97,6 +97,7 @@ export default function ClientList() {
     //   setFirstIndex(firstIndex + 10);
     //   setLastIndex(lastIndex + 10);
     // }
+    dispatch(getClients(pages));
     navigate(`/dashboard/clientlist/2`);
   };
 

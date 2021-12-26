@@ -30,6 +30,9 @@ import {
   // GET_NANNIES_ASC_BEGIN,
   // GET_NANNIES_ASC_SUCCESS,
   // GET_NANNIES_ASC_FAIL,
+  PUT_MANAGE_CHILD_BEGIN,
+  PUT_MANAGE_CHILD_SUCCESS,
+  PUT_MANAGE_CHILD_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -219,6 +222,28 @@ function* postChildActivities(actions) {
 //   }
 // }
 
+function* putManageChild(action) {
+  // const { payload } = action;
+  // const data = payload;
+  const { data } = action;
+  const token = localStorage.getItem('token');
+  try {
+    const res = yield axios.put(`${baseUrl}children`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    yield put({
+      type: PUT_MANAGE_CHILD_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: UPDATE_STATUS_APPOINTMENT_FAIL,
+      error: err,
+    });
+  }
+}
+
 export function* watchGetNannies() {
   yield takeEvery(GET_NANNIES_BEGIN, getNannies);
 }
@@ -253,4 +278,8 @@ export function* watchGetNannyProfile() {
 
 export function* watchUpdateNannyProfile() {
   yield takeEvery(UPDATE_NANNY_PROFILE_BEGIN, updateNannyProfile);
+}
+
+export function* watchPutManageChild() {
+  yield takeEvery(PUT_MANAGE_CHILD_BEGIN, putManageChild);
 }

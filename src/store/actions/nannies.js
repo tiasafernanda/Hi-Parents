@@ -9,6 +9,7 @@ import {
   GET_NANNY_PROFILE_BEGIN,
   UPDATE_NANNY_PROFILE_BEGIN,
   GET_NANNIES_ASC_BEGIN,
+  PUT_MANAGE_CHILD_BEGIN,
 } from './types';
 
 export const getNannyProfileAction = () => {
@@ -74,5 +75,12 @@ export const getNanniesAsc = (sort) => {
   return {
     type: GET_NANNIES_ASC_BEGIN,
     sort,
+  };
+};
+
+export const putManageChild = (data) => {
+  return {
+    type: PUT_MANAGE_CHILD_BEGIN,
+    data,
   };
 };
