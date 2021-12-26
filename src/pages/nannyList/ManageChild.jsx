@@ -13,6 +13,7 @@ import { putManageChild } from '../../store/actions/nannies';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -67,6 +68,7 @@ const SearchInput = () => {
 
 export default function ManageChild() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, clients } = useSelector((state) => state.clients);
   const [selected, setSelected] = useState([]);
@@ -140,12 +142,19 @@ export default function ManageChild() {
     // console.log(e.target.value);
   };
 
-  const handleManageChild = () => {
-    dispatch(putManageChild(values));
+  const selectedChild = {
+    appointment_id: [...values],
   };
+  console.log(selectedChild, 'selectedItem');
 
-  // const { gilad, jason, antoine } = state;
-  // const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+  function handleManageChild() {
+    dispatch(putManageChild(selectedChild));
+    navigate(`/dashboard/nannylist`);
+  }
+
+  // const handleCancel = () => {
+  //   navigate(`dashboard/nannyList`);
+  // };
 
   return (
     <div className={styles.container}>
@@ -216,18 +225,21 @@ export default function ManageChild() {
               </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
-              <Button
-                variant="contained"
-                sx={{
-                  width: '16.5rem',
-                  height: '3.3rem',
-                  borderRadius: '2.5rem',
-                  textTransform: 'unset',
-                  backgroundColor: '#F67979',
-                }}
-              >
-                Cancel
-              </Button>
+              <Link to="/dashboard/nannylist">
+                <Button
+                  //onClick={handleManageChild}
+                  variant="contained"
+                  sx={{
+                    width: '16.5rem',
+                    height: '3.3rem',
+                    borderRadius: '2.5rem',
+                    textTransform: 'unset',
+                    backgroundColor: '#F67979',
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Link>
               <Button
                 variant="contained"
                 sx={{
@@ -238,10 +250,23 @@ export default function ManageChild() {
                   backgroundColor: '#10B278',
                   marginLeft: '0.75rem',
                 }}
-                onCLick={handleManageChild}
+                onCLick={() => handleManageChild()}
               >
                 Assign Child
               </Button>
+              {/* <button
+                onCLick={handleManageChild}
+                style={{
+                  width: '16.5rem',
+                  height: '3.3rem',
+                  borderRadius: '2.5rem',
+                  textTransform: 'unset',
+                  backgroundColor: '#10B278',
+                  marginLeft: '0.75rem',
+                }}
+              >
+                Assign Child
+              </button> */}
             </Box>
           </Box>
         </Box>
