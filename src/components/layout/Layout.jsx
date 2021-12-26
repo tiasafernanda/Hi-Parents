@@ -40,7 +40,7 @@ function Layout(props) {
       label: 'Client List',
       icon: <ClientListIcon />,
       iconOnclick: <ClientListOnClickIcon />,
-      path: '/dashboard/clientlist',
+      path: '/dashboard/clientlist/1',
     },
     {
       label: 'Nanny List',

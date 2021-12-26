@@ -18,6 +18,9 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
   UPDATE_STATUS_APPOINTMENT_FAIL,
+  GET_CLIENTS_ASC_BEGIN,
+  GET_CLIENTS_ASC_SUCCESS,
+  GET_CLIENTS_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 
@@ -39,11 +42,10 @@ function* getMainClients() {
   }
 }
 
-function* getClients() {
+function* getClients(action) {
+  const { page } = action;
   try {
-    const res = yield axios.get(`${baseUrl}appointments/fe/`);
-    console.log(res, 'clinet.js res');
-    console.log(res.data.appointments, 'clinet.js res.data.appointment');
+    const res = yield axios.get(`${baseUrl}appointments/fe?page=${page}`);
     yield put({
       type: GET_CLIENTS_SUCCESS,
       payload: res.data.appointments,
@@ -106,15 +108,17 @@ function* getClientAccepted() {
   }
 }
 
-function* updateClientAccepted() {
+function* updateStatusAppointment(action) {
+  // const { payload } = action;
+  // const data = payload;
+  const { data } = action;
+  console.log(data, 'data ini lur');
   const token = localStorage.getItem('token');
   try {
-    const res = yield axios.put(`${baseUrl}appointments/setStatus`, {
+    const res = yield axios.put(`${baseUrl}appointments/setStatus`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      appointment_id: '',
-      appointment_stat: 'Accept',
     });
     console.log(res, 'tes');
     yield put({
@@ -148,6 +152,6 @@ export function* watchGetClientAccepted() {
   yield takeEvery(GET_CLIENT_ACCEPTED_BEGIN, getClientAccepted);
 }
 
-export function* watchUpdateClientAccepted() {
-  yield takeEvery(UPDATE_STATUS_APPOINTMENT_BEGIN, updateClientAccepted);
+export function* watchUpdateStatusAppointment() {
+  yield takeEvery(UPDATE_STATUS_APPOINTMENT_BEGIN, updateStatusAppointment);
 }

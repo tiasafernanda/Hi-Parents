@@ -33,33 +33,11 @@ export default function LoginNanny() {
           <h1 className={SignInNannyStyle.signinnannyHeader}>Sign In</h1>
           <h5>to Hi-Parents to continue</h5>
           <div className={SignInNannyStyle.signinnannyLoginForm}>
-            <input
-              className={SignInNannyStyle.signinnannyInput}
-              type='text'
-              placeholder='Email Addres'
-              name='email'
-              onChange={(e) => changeInput(e)}
-            />
+            <input className={SignInNannyStyle.signinnannyInput} type="text" placeholder="Email Addres" name="email" onChange={(e) => changeInput(e)} />
 
-            <input
-              className={SignInNannyStyle.signinnannyInput}
-              type={showPass === false ? 'text' : 'password'}
-              placeholder='Enter your password'
-              name='password'
-              onChange={(e) => changeInput(e)}
-            />
+            <input className={SignInNannyStyle.signinnannyInput} type={showPass === false ? 'text' : 'password'} placeholder="Enter your password" name="password" onChange={(e) => changeInput(e)} />
 
-            {!showPass ? (
-              <VisibilityIcon
-                className={SignInNannyStyle.signinnannyIcon}
-                onClick={() => setShowPass(!showPass)}
-              />
-            ) : (
-              <VisibilityOffIcon
-                className={SignInNannyStyle.signinnannyIcon}
-                onClick={() => setShowPass(!showPass)}
-              />
-            )}
+            {!showPass ? <VisibilityIcon className={SignInNannyStyle.signinnannyIcon} onClick={() => setShowPass(!showPass)} /> : <VisibilityOffIcon className={SignInNannyStyle.signinnannyIcon} onClick={() => setShowPass(!showPass)} />}
 
             <button className={SignInNannyStyle.signinnannyButton} onClick={submitLoginNanny}>
               Login to Continue
@@ -67,7 +45,7 @@ export default function LoginNanny() {
 
             <div className={SignInNannyStyle.signinnannySignup}>
               <p>Don’t have an account ?</p>
-              <Link to='/auth/signup'>Sign up</Link>
+              <Link to="/auth/signup">Sign up</Link>
             </div>
           </div>
         </div>

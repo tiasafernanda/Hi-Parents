@@ -1,11 +1,4 @@
-import {
-  GET_CLIENTS_BEGIN,
-  GET_ACTIVE_CLIENTS_BEGIN,
-  GET_CLIENT_DETAIL_BEGIN,
-  GET_MAIN_CLIENTS_BEGIN,
-  UPDATE_STATUS_APPOINTMENT_BEGIN,
-  GET_CLIENT_ACCEPTED_BEGIN,
-} from './types';
+import { GET_CLIENTS_BEGIN, GET_ACTIVE_CLIENTS_BEGIN, GET_CLIENTS_ASC_BEGIN, GET_CLIENT_DETAIL_BEGIN, GET_MAIN_CLIENTS_BEGIN, UPDATE_STATUS_APPOINTMENT_BEGIN, GET_CLIENT_ACCEPTED_BEGIN } from './types';
 
 export const getMainClients = () => {
   return {
@@ -13,9 +6,16 @@ export const getMainClients = () => {
   };
 };
 
-export const getClients = () => {
+export const getClients = (page) => {
   return {
     type: GET_CLIENTS_BEGIN,
+    page,
+  };
+};
+
+export const getClientsAsc = () => {
+  return {
+    type: GET_CLIENTS_ASC_BEGIN,
   };
 };
 
@@ -38,8 +38,9 @@ export const getClientAccepted = () => {
   };
 };
 
-export const updateClientAccepted = () => {
+export const updateStatusAppointment = (data) => {
   return {
     type: UPDATE_STATUS_APPOINTMENT_BEGIN,
+    data,
   };
 };
