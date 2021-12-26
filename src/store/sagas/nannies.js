@@ -33,6 +33,9 @@ import {
   DELETE_CHILD_ACTIVITIES_BEGIN,
   DELETE_CHILD_ACTIVITIES_FAIL,
   DELETE_CHILD_ACTIVITIES_SUCCESS,
+  PAGINATION_ACTIVITY_NANNY_BEGIN,
+  PAGINATION_ACTIVITY_NANNY_FAIL,
+  PAGINATION_ACTIVITY_NANNY_SUCCESS,
   // GET_NANNIES_ASC_BEGIN,
   // GET_NANNIES_ASC_SUCCESS,
   // GET_NANNIES_ASC_FAIL,
@@ -155,15 +158,32 @@ function* updateAppointmentStatus(action) {
 
 function* getChildActivity() {
   try {
-    const res = yield axios.get(`${baseUrl}activity/`);
+    const res = yield axios.get(`${baseUrl}activity/fe?sort=ASC`);
     console.log(res);
     yield put({
       type: GET_CHILD_ACTIVITY_SUCCESS,
-      payload: res.data.data,
+      payload: res.data,
     });
   } catch (err) {
     yield put({
       type: GET_CHILD_ACTIVITY_FAIL,
+      error: err,
+    });
+  }
+}
+
+function* paginationActivityNanny(action) {
+  const { pages } = action;
+  try {
+    const res = yield axios.get(`${baseUrl}activity/fe?page=${pages}`);
+    console.log(res);
+    yield put({
+      type: PAGINATION_ACTIVITY_NANNY_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    yield put({
+      type: PAGINATION_ACTIVITY_NANNY_FAIL,
       error: err,
     });
   }
@@ -222,6 +242,12 @@ function* updateChildActivities(actions) {
     const res = yield axios.put(`${baseUrl}activity`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
+    Swal.fire(
+      'Success',
+      'Activity Updated',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+    );
     console.log(res);
     yield put({
       type: UPDATE_CHILD_ACTIVITIES_SUCCESS,
@@ -235,15 +261,34 @@ function* updateChildActivities(actions) {
 }
 
 function* deleteChildActivities(actions) {
-  const { body } = actions;
+  const { body, appointment_id } = actions;
+  let config = {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  };
   try {
-    const res = yield axios.delete(`${baseUrl}activity`, body, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    const res = yield axios({
+      method: 'DELETE',
+      url: 'https://hi-parent-be.herokuapp.com/activity',
+      data: body,
+      headers: config,
     });
     console.log(res);
     yield put({
       type: DELETE_CHILD_ACTIVITIES_SUCCESS,
-      payload: res.data,
+      // payload: res.data,
+    });
+    Swal.fire(
+      'Success',
+      'Activity Deleted',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+      // window.location.reload()
+    );
+    const resActivities = yield axios.get(`${baseUrl}activity/`);
+    console.log('child activities', resActivities.data);
+    yield put({
+      type: GET_CHILD_ACTIVITY_SUCCESS,
+      payload: res.data.data,
     });
   } catch (err) {
     yield put({
@@ -287,6 +332,10 @@ export function* watchUpdateAppointmentStatus() {
 
 export function* watchGetChildActivity() {
   yield takeEvery(GET_CHILD_ACTIVITY_BEGIN, getChildActivity);
+}
+
+export function* watchPaginationActivityNanny() {
+  yield takeEvery(PAGINATION_ACTIVITY_NANNY_BEGIN, paginationActivityNanny);
 }
 
 export function* watchGetChildActivities() {

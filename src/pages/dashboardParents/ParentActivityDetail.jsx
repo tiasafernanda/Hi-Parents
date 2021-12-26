@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { getDataChildAction } from '../../store/actions/getChild';
 import { childActivityParentDetailAction } from '../../store/actions/childActivityParent';
 import dayjs from 'dayjs';
 
@@ -25,8 +26,13 @@ export default function ParentActivityDetail() {
   useEffect(() => {
     dispatch(childActivityParentDetailAction(id));
   }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getDataChildAction());
+  }, [dispatch]);
   const childActivity = useSelector((state) => state.childActivityParent.details);
+  const childDetail = useSelector((state) => state?.getDataChildAction?.profileChild);
   console.log('ChildActivityDetail', childActivity?.[id]);
+  console.log('child detail', childDetail?.appointment);
   const item = childActivity?.find((items) => items.id === id);
   console.log('item', item);
   const [open, setOpen] = React.useState(false);

@@ -10,6 +10,7 @@ import {
   watchGetClientDetail,
   watchGetClients,
   watchGetMainClients,
+  watchUpdateStatusAppointment,
 } from './clients';
 import {
   watchGetNannyProfile,
@@ -22,6 +23,7 @@ import {
   watchGetNannies,
   watchUpdateChildActivities,
   watchDeleteChildActivities,
+  watchPaginationActivityNanny,
 } from './nannies';
 
 export default function* rootSaga() {
@@ -45,10 +47,12 @@ export default function* rootSaga() {
     watchGetActiveNannies(),
     watchGetAppointment(),
     watchGetChildActivity(),
+    watchPaginationActivityNanny(),
     watchGetChildActivities(),
     watchPostChildActivities(),
     watchDeleteChildActivities(),
     watchUpdateChildActivities(),
+    watchUpdateStatusAppointment(),
     watchChildActivityParentDetail(),
   ]);
 }

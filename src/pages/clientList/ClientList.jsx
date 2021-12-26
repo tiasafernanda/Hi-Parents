@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Modal from '../../components/modal/Modal';
 import styles from './assets/ClientList.module.scss';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClients } from '../../store/actions/clients';
+import { getClients, updateStatusAppointment } from '../../store/actions/clients';
 import { getAppointment } from '../../store/actions/nannies';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
@@ -14,9 +14,12 @@ import nextIcon from './assets/nexticon.svg';
 import closeIcon from './assets/close.png';
 import sortIcon from './assets/sortIcon.svg';
 import filterIcon from './assets/filterIcon.svg';
+import ReactLoading from 'react-loading';
+import Empty from '../../components/empty/Empty';
 
 export default function ClientList() {
   const navigate = useNavigate();
+  const { pages } = useParams();
   const dispatch = useDispatch();
 
   const { loading, clients } = useSelector((state) => state.clients);
@@ -25,9 +28,10 @@ export default function ClientList() {
   useEffect(() => {
     dispatch(getAppointment());
   }, [dispatch]);
+
   useEffect(() => {
-    dispatch(getClients());
-  }, [dispatch]);
+    dispatch(getClients(pages));
+  }, [dispatch, pages]);
 
   //Dropdown Menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -46,19 +50,19 @@ export default function ClientList() {
     console.log(appointment_id, 'appointment_id');
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
+  const [selectedItem, setSelectedItem] = useState('');
+  console.log(selectedItem, 'selectedItem');
 
   //Accept Client & Modal
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal, 'modal');
 
-  const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
+  // const [modalSelect, setModalSelect] = useState('');
+  // const modalValue = clients.find((data) => data.client_Id === modalSelect);
+  // console.log(modalSelect, 'modalSelect');
+  // console.log(modalValue, 'modalValue');
 
-  const modalValue = clients.find((data) => data.client_Id === selectedItem);
-  console.log(modalValue, 'modalValue');
-
-  const handleModal = (clientId) => {
-    setSelectedItem(clientId);
+  const handleModal = () => {
     setOpenModal(true);
   };
 
@@ -66,21 +70,35 @@ export default function ClientList() {
     setOpenModal(false);
   };
 
-  //Reject Message
+  //Reject Client & Message
+  const [statusReject, setStatusReject] = useState({
+    appointment_id: null,
+    appointment_status: '',
+  });
+
   const [openMessage, setOpenMessage] = useState(false);
-  const handleMessage = () => {
+
+  const handleRejectClient = () => {
+    setStatusReject((statusReject.appointment_id = selectedItem.appointment_id));
+    setStatusReject((statusReject.appointment_status = 'Reject'));
+    dispatch(updateStatusAppointment(statusReject));
     setOpenMessage(!openMessage ? true : false);
   };
+
+  // const handleMessage = () => {
+  //   setOpenMessage(!openMessage ? true : false);
+  // };
 
   //Table Map & Pagination
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(10);
 
   const nextTable = () => {
-    if (lastIndex < clients.length) {
-      setFirstIndex(firstIndex + 10);
-      setLastIndex(lastIndex + 10);
-    }
+    // if (lastIndex < clients.length) {
+    //   setFirstIndex(firstIndex + 10);
+    //   setLastIndex(lastIndex + 10);
+    // }
+    navigate(`/dashboard/clientlist/2`);
   };
 
   const previousTable = () => {
@@ -104,11 +122,11 @@ export default function ClientList() {
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} alt='' />
+          <img src={sortIcon} />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} alt='' />
+          <img src={filterIcon} />
           Filter
         </button>
       </div>
@@ -122,76 +140,90 @@ export default function ClientList() {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {loading
-            ? 'wait a minute'
-            : clients?.slice(firstIndex, lastIndex).map((item, index) => {
-                return (
-                  <tr key={index} id={item.appointment_id}>
-                    <td>{item?.date_request}</td>
-                    <td>{item?.child?.parent?.name}</td>
-                    <td>{item?.child?.parent?.client_id}</td>
-                    <td>{item?.child?.name}</td>
-                    <td>
-                      <button
-                        className={
-                          item?.appointment_status === 'Pending'
-                            ? styles.pending
-                            : item?.appointment_status === 'Accept'
-                            ? styles.active
-                            : styles.reject
-                        }
+          {loading ? (
+            <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
+          ) : (
+            clients?.slice(firstIndex, lastIndex).map((item, index) => {
+              return (
+                <tr key={index} id={item.appointment_id}>
+                  <td>{item?.date_request}</td>
+                  <td>{item?.child?.parent?.name}</td>
+                  <td>{item?.child?.parent?.client_id}</td>
+                  <td>{item?.child?.name}</td>
+                  <td>
+                    <button
+                      className={
+                        item?.appointment_status === 'Pending'
+                          ? styles.pending
+                          : item?.appointment_status === 'Accept'
+                          ? styles.active
+                          : styles.reject
+                      }
+                    >
+                      {item?.appointment_status}
+                    </button>
+                  </td>
+                  <td>
+                    <div>
+                      <Button
+                        id='basic-button'
+                        aria-controls='basic-menu'
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={(e) => handleClick(e, item)}
+                        sx={{ color: 'black' }}
                       >
-                        {item?.appointment_status}
-                      </button>
-                    </td>
-                    <td>
-                      <div>
-                        <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={(e) => handleClick(e, item)} sx={{ color: 'black' }}>
-                          &bull;&bull;&bull;
-                        </Button>
-                        <Menu
-                          id='basic-menu'
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          elevation={1}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
+                        &bull;&bull;&bull;
+                      </Button>
+                      <Menu
+                        id='basic-menu'
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        elevation={1}
+                        MenuListProps={{
+                          'aria-labelledby': 'basic-button',
+                        }}
+                      >
+                        <MenuItem
+                          onClick={() => handleModal()}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
                         >
-                          <MenuItem onClick={() => handleModal(item.client_Id)} disabled={item?.appointment_status === 'Pending' ? false : true}>
-                            <span>
-                              <BsCheck2Circle
-                                style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                              />
-                            </span>{' '}
-                            Accept Client
-                            {console.log(item?.appointment_status, ', accept client')}
-                          </MenuItem>
-                          <MenuItem onClick={handleMessage}>
-                            <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-                              <BiXCircle />
-                            </span>{' '}
-                            Reject Client
-                          </MenuItem>
-                          <MenuItem
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleClientDetail(selectedItem.appointment_id);
-                            }}
-                            id={item.appointment_id}
-                          >
-                            <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                              <AiOutlineInfoCircle />
-                            </span>{' '}
-                            View Details
-                          </MenuItem>
-                        </Menu>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          <span>
+                            <BsCheck2Circle
+                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                            />
+                          </span>
+                          Accept Client
+                        </MenuItem>
+                        <MenuItem
+                          onClick={handleRejectClient}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
+                          <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                            <BiXCircle />
+                          </span>
+                          Reject Client
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleClientDetail(selectedItem.appointment_id);
+                          }}
+                          id={item.appointment_id}
+                        >
+                          <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                            <AiOutlineInfoCircle />
+                          </span>
+                          View Details
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
+          )}
         </table>
         <div className={styles.footer}>
           <p>Showing {showing >= 10 ? '10' : showing} of 10</p>
@@ -209,9 +241,10 @@ export default function ClientList() {
         {openModal && (
           <div onClick={(e) => handleModalCLose(e)}>
             <Modal
-              clientId={modalValue.child?.parent?.client_id}
-              dateRequest={modalValue.date_request}
-              parentName={modalValue.child?.parent?.name}
+              clientId={selectedItem.child?.parent?.client_id}
+              dateRequest={selectedItem.date_request}
+              parentName={selectedItem.child?.parent?.name}
+              idAppointment={selectedItem.appointment_id}
             />
           </div>
         )}

@@ -19,6 +19,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ActionButton from '../../components/actionButton/ActionButton';
 import styles from './assets/NannyList.module.scss';
+import Empty from '../../components/empty/Empty';
 
 export default function NannyList() {
   const dispatch = useDispatch();
@@ -85,36 +86,40 @@ export default function NannyList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {nannies.nannies?.map((item, index) => (
-                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component='th' scope='row'>
-                    {item.name}
-                  </TableCell>
-                  <TableCell>{item.nanny_id}</TableCell>
-                  <TableCell>{item.phone_number}</TableCell>
-                  <TableCell align='center'>{item.numberOfChild}</TableCell>
-                  <TableCell align='center'>
-                    <Typography
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: item.status === 'Active' ? '#10B278' : '#F67979',
-                        color: 'white',
-                        width: 'fitContent',
-                        height: '35px',
-                        borderRadius: '50px',
-                      }}
-                    >
-                      {item.status}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <ActionButton appointment_id={item.appointment_id} />
-                    {console.log(item.appointment_id, 'appointment')}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {nannies.length != [0] ? (
+                nannies.nannies?.map((item, index) => (
+                  <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component='th' scope='row'>
+                      {item.name}
+                    </TableCell>
+                    <TableCell>{item.nanny_id}</TableCell>
+                    <TableCell>{item.phone_number}</TableCell>
+                    <TableCell align='center'>{item.numberOfChild}</TableCell>
+                    <TableCell align='center'>
+                      <Typography
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backgroundColor: item.status === 'Active' ? '#10B278' : '#F67979',
+                          color: 'white',
+                          width: 'fitContent',
+                          height: '35px',
+                          borderRadius: '50px',
+                        }}
+                      >
+                        {item.status}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <ActionButton appointment_id={item.appointment_id} />
+                      {console.log(item.appointment_id, 'appointment')}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <Empty dashboard='No Nanny Data' />
+              )}
             </TableBody>
           </Table>
         </TableContainer>

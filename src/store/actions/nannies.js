@@ -11,6 +11,7 @@ import {
   GET_NANNY_PROFILE_BEGIN,
   UPDATE_NANNY_PROFILE_BEGIN,
   GET_NANNIES_ASC_BEGIN,
+  PAGINATION_ACTIVITY_NANNY_BEGIN,
 } from './types';
 
 export const getNannyProfileAction = () => {
@@ -80,11 +81,17 @@ export const updateChildActivities = (body, id) => {
   };
 };
 
-export const deleteChildActivities = (body, id) => {
+export const deleteChildActivities = (body) => {
   return {
     type: DELETE_CHILD_ACTIVITIES_BEGIN,
     body,
-    id,
+  };
+};
+
+export const paginationActivityAction = (pages) => {
+  return {
+    type: PAGINATION_ACTIVITY_NANNY_BEGIN,
+    pages,
   };
 };
 

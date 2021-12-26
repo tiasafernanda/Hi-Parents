@@ -17,13 +17,17 @@ function* loginNanny(action) {
         type: LOGINNANNY_SUCCESS,
       },
       localStorage.setItem('token', res.data.token),
-      (window.location.href =
-        res.data.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/activityparent') // setup token on local storage
+      Swal.fire(
+        'Success',
+        'You Have Successfully Login',
+        'success',
+        (window.location.href =
+          res.data.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/activityparent')
+      )
     );
   } catch (err) {
     console.log(err);
-
-    Swal.fire('Error', 'Wrong email or password', 'error');
+    // Swal.fire('Error', 'Wrong email or password', 'error');
     yield put({
       type: LOGINNANNY_FAIL,
       error: err,
@@ -44,6 +48,7 @@ function* registerNanny(action) {
       {
         type: REGISTERNANNY_SUCCESS,
       },
+      Swal.fire('Success', 'Your Account Has Been Successfully Created', 'success'),
       (window.location.href = '/auth/signin')
     );
   } catch (err) {

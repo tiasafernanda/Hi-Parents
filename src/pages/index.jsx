@@ -17,6 +17,7 @@ import Empty from '../components/empty/Empty';
 import StateDashboard from './emptyStates/StateDashboard';
 import CreateActivity from './createactivity/CreateActivity';
 import EditActivity from './editactivity/EditActivity';
+import ModalParent from './dashboardParents/ModalParent';
 
 const Dashboard = () => {
   return (
@@ -25,7 +26,7 @@ const Dashboard = () => {
       <Routes>
         <Route path='/nannydashboard' element={<NannyDashboard />} />
         <Route path='/clientdetail/:appointment_id' element={<ClientDetail />} />
-        <Route path='/clientlist' element={<ClientList />} />
+        <Route path='/clientlist/:page' element={<ClientList />} />
         <Route path='/childactivity' element={<ChildActivity />} />
         <Route path='/createactivity/:appointment_id' element={<CreateActivity />} />
         <Route path='/editactivity/:appointment_id/:id' element={<EditActivity />} />
@@ -41,6 +42,7 @@ const Dashboard = () => {
         <Route path='/empty' element={<Empty />} />
         <Route path='/statedashboard' element={<StateDashboard />} />
         <Route path='*' element={<div>Not Found</div>} />
+        <Route path='modal' element={<ModalParent />} />
       </Routes>
     </>
   );

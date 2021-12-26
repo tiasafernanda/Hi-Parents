@@ -19,6 +19,7 @@ import {
   getAppointment,
   // updateAppointmentStatus,
 } from '../../store/actions/nannies';
+import Empty from '../../components/empty/Empty';
 // import Stack from '@mui/material/Stack';
 // import LinearProgress from '@mui/material/LinearProgress';
 
@@ -135,86 +136,85 @@ export default function NannyDashboard() {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {loading
-            ? 'wait a minute'
-            : mainClients?.map((item, index) => {
-                return (
-                  <tr id={item.appointment_id} key={index}>
-                    <td>{item?.date_request}</td>
-                    <td>{item?.child?.parent?.name}</td>
-                    <td>{item?.child?.parent?.client_id}</td>
-                    <td>{item?.child?.name}</td>
-                    <td>
-                      <p
-                        className={
-                          item?.appointment_status === 'Pending'
-                            ? styles.pending
-                            : item?.appointment_status === 'Accept'
-                            ? styles.active
-                            : styles.reject
-                        }
-                      >
-                        {item?.appointment_status}
-                      </p>
-                    </td>
-                    <td>
-                      <div className={styles.dropdown} id={item.appointment_id} ref={node}>
-                        <button
-                          className={styles.dropbtn}
-                          onClick={(e) => setOpen(index + 1)}
-                          // onClick={(e) => if(true){setOpen(index+1)}else{setOpen(0)})}
+          {mainClients.length != [0] ? (
+            mainClients?.map((item, index) => {
+              return (
+                <tr id={item.appointment_id} key={index}>
+                  <td>{item?.date_request}</td>
+                  <td>{item?.child?.parent?.name}</td>
+                  <td>{item?.child?.parent?.client_id}</td>
+                  <td>{item?.child?.name}</td>
+                  <td>
+                    <p
+                      className={
+                        item?.appointment_status === 'Pending'
+                          ? styles.pending
+                          : item?.appointment_status === 'Accept'
+                          ? styles.active
+                          : styles.reject
+                      }
+                    >
+                      {item?.appointment_status}
+                    </p>
+                  </td>
+                  <td>
+                    <div className={styles.dropdown} id={item.appointment_id} ref={node}>
+                      <button
+                        className={styles.dropbtn}
+                        onClick={(e) => setOpen(index + 1)}
+                        // onClick={(e) => if(true){setOpen(index+1)}else{setOpen(0)})}
 
-                          // onMouseOut={(e) => setOpen(0)}
-                        >
-                          &bull;&bull;&bull;
-                        </button>
-                        <div className={styles.dropdownContent}>
-                          {open === index + 1 && (
-                            <div>
-                              <button
-                                // onClick={
-                                //   (() => getIdAccept(item.appointment_id),
-                                //   setInterval(dispatch(getUpdateAppointment(acceptStatus)), 500))
-                                // }
-                                onClick={() => handleModal(item.client_Id)}
-                                disabled={item?.appointment_status === 'Accept' ? true : false}
-                              >
-                                <span>
-                                  <BsCheck2Circle
-                                    style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                                  />
-                                </span>{' '}
-                                Accept Client
-                              </button>
-                              <button
+                        // onMouseOut={(e) => setOpen(0)}
+                      >
+                        &bull;&bull;&bull;
+                      </button>
+                      <div className={styles.dropdownContent}>
+                        {open === index + 1 && (
+                          <div>
+                            <button
+                              // onClick={
+                              //   (() => getIdAccept(item.appointment_id),
+                              //   setInterval(dispatch(getUpdateAppointment(acceptStatus)), 500))
+                              // }
+                              onClick={() => handleModal(item.client_Id)}
+                              disabled={item?.appointment_status === 'Accept' ? true : false}
+                            >
+                              <span>
+                                <BsCheck2Circle
+                                  style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                                />
+                              </span>{' '}
+                              Accept Client
+                            </button>
+                            <button
                               // onClick={
                               //   (() => getIdReject(item.appointment_id),
                               //   setInterval(dispatch(getUpdateAppointment(rejectStatus)), 500))
                               // }
-                              >
-                                <span
-                                  style={{ color: '#F67979', position: 'relative', top: '2px' }}
-                                >
-                                  <BiXCircle />
-                                </span>{' '}
-                                Reject Client
-                              </button>
-                              <Link to={`/dashboard/clientdetail/${item.appointment_id}`}>
-                                <span
-                                  style={{ color: '#768471', position: 'relative', top: '2px' }}
-                                >
-                                  <AiOutlineInfoCircle />
-                                </span>{' '}
-                                View Details
-                              </Link>
-                            </div>
-                          )}
-                        </div>
+                              disabled={item?.appointment_status === 'Accept' ? true : false}
+                            >
+                              <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                                <BiXCircle />
+                              </span>{' '}
+                              Reject Client
+                            </button>
+                            <Link to={`/dashboard/clientdetail/${item.appointment_id}`}>
+                              <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                                <AiOutlineInfoCircle />
+                              </span>{' '}
+                              View Details
+                            </Link>
+                          </div>
+                        )}
                       </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <Empty dashboard='No Client Data' />
+          )}
         </table>
         <div className={styles.add}>
           <Link to='/dashboard/clientlist'>{''} See All Client List</Link>

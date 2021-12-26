@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import styles from './assets/ClientDetail.module.scss';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { getClientDetail } from '../../store/actions/clients';
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
+import { updateStatusAppointment } from '../../store/actions/clients';
 
 const style = {
   position: 'absolute',
@@ -32,11 +33,6 @@ export default function ClientDetail() {
   console.log('details', detailClient && detailClient[0]);
   // console.log('parent name', details?.details?.child?.parent?.name);
 
-  
-
-  const showAlert = () => {
-    Swal.fire('Accept Client Success!', '', 'success');
-  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -44,13 +40,28 @@ export default function ClientDetail() {
   const handleOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
 
-  // function BackButton() {
-  //   let history = useNavigate();
+  const [statusAccept, setStatusAccept] = useState({
+    appointment_id: null,
+    appointment_status: '',
+  });
 
-  //   function handleBack() {
-  //     history.goBack();
-  //   }
-  // }
+  const handleAcceptClient = () => {
+    setStatusAccept((statusAccept.appointment_id = appointment_id));
+    setStatusAccept((statusAccept.appointment_status = 'Accept'));
+
+    dispatch(updateStatusAppointment(statusAccept));
+    Swal.fire('Accept Client Success!', '', 'success');
+    navigate(-1);
+  };
+
+  const handleRejectClient = () => {
+    setStatusAccept((statusAccept.appointment_id = appointment_id));
+    setStatusAccept((statusAccept.appointment_status = 'Reject'));
+
+    dispatch(updateStatusAppointment(statusAccept));
+    Swal.fire('Client Rejected!', '', 'error');
+    navigate(-1);
+  };
 
   const navigate = useNavigate();
 
@@ -61,10 +72,6 @@ export default function ClientDetail() {
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
     >
-      {/* <Link to='/dashboard/nannydashboard'>
-        <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
-        Client Detail
-      </Link> */}
       <button className={styles.backButton} onClick={() => navigate(-1)}>
         <BiLeftArrowAlt style={{ position: 'relative', top: '4px' }} />
         Client Detail
@@ -253,6 +260,7 @@ export default function ClientDetail() {
             color: 'white',
             marginRight: '1rem',
           }}
+          onClick={handleRejectClient}
         >
           Reject
         </button>
@@ -264,7 +272,7 @@ export default function ClientDetail() {
             borderRadius: '40px',
             color: 'white',
           }}
-          onClick={showAlert}
+          onClick={handleAcceptClient}
         >
           Accept
         </button>
