@@ -62,14 +62,11 @@ export const getChildActivities = (appointment_id) => {
   };
 };
 
-export const postChildActivities = (
-  body
-  // appointment_id
-) => {
+export const postChildActivities = (body, appointment_id) => {
   return {
     type: POST_CHILD_ACTIVITIES_BEGIN,
     body,
-    // appointment_id,
+    appointment_id,
   };
 };
 
