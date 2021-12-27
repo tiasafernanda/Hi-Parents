@@ -5,10 +5,11 @@ import Modal from '../../components/modal/Modal';
 import appointment from './assets/img/new.png';
 import client from './assets/img/client.png';
 import nanny from './assets/img/nanny.png';
+import { Button, Menu, MenuItem } from '@mui/material';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import Button from '@mui/material/Button';
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +18,7 @@ import { getMainClients, getActiveClients } from '../../store/actions/clients';
 import {
   getActiveNannies,
   getAppointment,
-  // updateAppointmentStatus,
+  updateAppointmentStatus,
 } from '../../store/actions/nannies';
 import Empty from '../../components/empty/Empty';
 // import Stack from '@mui/material/Stack';
@@ -26,8 +27,9 @@ import Empty from '../../components/empty/Empty';
 export default function NannyDashboard() {
   // const { data } = props;
   // console.log(data);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, mainClients } = useSelector((state) => state.clients);
+  const { mainClients } = useSelector((state) => state.clients);
   const activeClient = useSelector((state) => state.clients.activeClient);
   const nannies = useSelector((state) => state.nannies);
   console.log('main clients', mainClients);
@@ -43,31 +45,39 @@ export default function NannyDashboard() {
   useEffect(() => {
     dispatch(getMainClients());
   }, [dispatch]);
-  // const [acceptStatus, setAcceptStatus] = useState({
-  //   appointment_id: '',
-  //   appointment_status: 'Accept',
-  // });
-  // console.log(acceptStatus);
-  // const [rejectStatus, setRejectStatus] = useState({
-  //   appointment_id: '',
-  //   appointment_status: 'Reject',
-  // });
-  // console.log(rejectStatus);
 
-  // const getIdAccept = (id) => {
-  //   setAcceptStatus({
-  //     appointment_id: id,
-  //   });
-  // };
-  // const getIdReject = (id) => {
-  //   setRejectStatus({
-  //     appointment_id: id,
-  //   });
-  // };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event, item) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedItem(item);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClientDetail = (appointment_id) => {
+    console.log(appointment_id, 'appointment_id');
+    navigate(`/dashboard/clientdetail/${appointment_id}`);
+  };
+
+  const [statusReject, setStatusReject] = useState({
+    appointment_id: null,
+    appointment_status: '',
+  });
+
+  const [openMessage, setOpenMessage] = useState(false);
+
+  const handleRejectClient = () => {
+    setStatusReject((statusReject.appointment_id = selectedItem.appointment_id));
+    setStatusReject((statusReject.appointment_status = 'Reject'));
+    dispatch(updateAppointmentStatus(statusReject));
+    setOpenMessage(!openMessage ? true : false);
+  };
 
   const node = useRef();
-
-  const [open, setOpen] = useState(0);
 
   useEffect(() => {}, [open]);
 
@@ -136,7 +146,7 @@ export default function NannyDashboard() {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {mainClients.length != [0] ? (
+          {mainClients.length !== [0] ? (
             mainClients?.map((item, index) => {
               return (
                 <tr id={item.appointment_id} key={index}>
@@ -159,17 +169,60 @@ export default function NannyDashboard() {
                   </td>
                   <td>
                     <div className={styles.dropdown} id={item.appointment_id} ref={node}>
-                      <button
-                        className={styles.dropbtn}
-                        onClick={(e) => setOpen(index + 1)}
-                        // onClick={(e) => if(true){setOpen(index+1)}else{setOpen(0)})}
-
-                        // onMouseOut={(e) => setOpen(0)}
+                      <Button
+                        id='basic-button'
+                        aria-controls='basic-menu'
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={(e) => handleClick(e, item)}
+                        sx={{ color: 'black' }}
                       >
                         &bull;&bull;&bull;
-                      </button>
-                      <div className={styles.dropdownContent}>
-                        {open === index + 1 && (
+                      </Button>
+                      <Menu
+                        id='basic-menu'
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        elevation={1}
+                        MenuListProps={{
+                          'aria-labelledby': 'basic-button',
+                        }}
+                      >
+                        <MenuItem
+                          onClick={() => handleModal()}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
+                          <span>
+                            <BsCheck2Circle
+                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                            />
+                          </span>
+                          Accept Client
+                        </MenuItem>
+                        <MenuItem
+                          onClick={handleRejectClient}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
+                          <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                            <BiXCircle />
+                          </span>
+                          Reject Client
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleClientDetail(selectedItem.appointment_id);
+                          }}
+                          id={item.appointment_id}
+                        >
+                          <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                            <AiOutlineInfoCircle />
+                          </span>
+                          View Details
+                        </MenuItem>
+                      </Menu>
+                      {/* {open === index + 1 && (
                           <div>
                             <button
                               // onClick={
@@ -205,8 +258,7 @@ export default function NannyDashboard() {
                               View Details
                             </Link>
                           </div>
-                        )}
-                      </div>
+                        )} */}
                     </div>
                   </td>
                 </tr>

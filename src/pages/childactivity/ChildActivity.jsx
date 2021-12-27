@@ -77,7 +77,6 @@ export default function ChildActivity() {
 
   const handlePage = (e) => {
     e.preventDefault();
-    // console.log(e)
     setPage(parseInt(e.target.textContent));
     setShowPage(true);
   };
@@ -274,8 +273,6 @@ export default function ChildActivity() {
           variant='outlined'
           shape='rounded'
           onChange={handlePage}
-          // hideNextButton
-          // hidePrevButton
         />
       </div>
     </div>

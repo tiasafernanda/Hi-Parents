@@ -36,18 +36,23 @@ import {
   PAGINATION_ACTIVITY_NANNY_BEGIN,
   PAGINATION_ACTIVITY_NANNY_FAIL,
   PAGINATION_ACTIVITY_NANNY_SUCCESS,
+  GET_MAIN_CLIENTS_SUCCESS,
   // GET_NANNIES_ASC_BEGIN,
   // GET_NANNIES_ASC_SUCCESS,
   // GET_NANNIES_ASC_FAIL,
+  PUT_MANAGE_CHILD_BEGIN,
+  PUT_MANAGE_CHILD_SUCCESS,
+  PUT_MANAGE_CHILD_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 
-function* getNannies() {
+function* getNannies(action) {
+  const { pages } = action;
   try {
-    const res = yield axios.get(`${baseUrl}nannies`);
+    const res = yield axios.get(`${baseUrl}nannies?page=${pages}`);
     console.log(res);
     yield put({
       type: GET_NANNIES_SUCCESS,
@@ -139,14 +144,25 @@ function* getAppointment() {
 }
 
 function* updateAppointmentStatus(action) {
-  const { body } = action;
+  const { data } = action;
+  console.log(data, 'data ini lur');
+  const token = localStorage.getItem('token');
   try {
-    const res = yield axios.put(`${baseUrl}appointments/setStatus`, body, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    const res = yield axios.put(`${baseUrl}appointments/setStatus`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    console.log(res);
+    console.log(res, 'tes');
+    Swal.fire('Success', res.data[0], 'success');
     yield put({
       type: UPDATE_STATUS_APPOINTMENT_SUCCESS,
+    });
+    const resMainClient = yield axios.get(`${baseUrl}appointments/dashboard`);
+    console.log(resMainClient);
+    yield put({
+      type: GET_MAIN_CLIENTS_SUCCESS,
+      payload: res.data.data,
     });
   } catch (err) {
     yield put({
@@ -280,15 +296,15 @@ function* deleteChildActivities(actions) {
     Swal.fire(
       'Success',
       'Activity Deleted',
-      'success',
-      (window.location.href = '/dashboard/childactivity')
+      'success'
+      // (window.location.href = '/dashboard/childactivity')
       // window.location.reload()
     );
-    const resActivities = yield axios.get(`${baseUrl}activity/`);
-    console.log('child activities', resActivities.data);
+    const resActivities = yield axios.get(`${baseUrl}activity/fe?sort=ASC`);
+    console.log(res);
     yield put({
       type: GET_CHILD_ACTIVITY_SUCCESS,
-      payload: res.data.data,
+      payload: resActivities.data,
     });
   } catch (err) {
     yield put({
@@ -313,6 +329,28 @@ function* deleteChildActivities(actions) {
 //     });
 //   }
 // }
+
+function* putManageChild(action) {
+  // const { payload } = action;
+  // const data = payload;
+  const { data } = action;
+  const token = localStorage.getItem('token');
+  try {
+    const res = yield axios.put(`${baseUrl}children`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    yield put({
+      type: PUT_MANAGE_CHILD_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: UPDATE_STATUS_APPOINTMENT_FAIL,
+      error: err,
+    });
+  }
+}
 
 export function* watchGetNannies() {
   yield takeEvery(GET_NANNIES_BEGIN, getNannies);
@@ -360,4 +398,8 @@ export function* watchGetNannyProfile() {
 
 export function* watchUpdateNannyProfile() {
   yield takeEvery(UPDATE_NANNY_PROFILE_BEGIN, updateNannyProfile);
+}
+
+export function* watchPutManageChild() {
+  yield takeEvery(PUT_MANAGE_CHILD_BEGIN, putManageChild);
 }

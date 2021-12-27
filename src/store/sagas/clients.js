@@ -23,6 +23,7 @@ import {
   GET_CLIENTS_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 
@@ -43,12 +44,12 @@ function* getMainClients() {
 }
 
 function* getClients(action) {
-  const { page } = action;
+  const { pages } = action;
   try {
-    const res = yield axios.get(`${baseUrl}appointments/fe?page=${page}`);
+    const res = yield axios.get(`${baseUrl}appointments/fe?page=${pages}`);
     yield put({
       type: GET_CLIENTS_SUCCESS,
-      payload: res.data.appointments,
+      payload: res.data,
     });
   } catch (err) {
     yield put({
@@ -123,6 +124,16 @@ function* updateStatusAppointment(action) {
     console.log(res, 'tes');
     yield put({
       type: UPDATE_STATUS_APPOINTMENT_SUCCESS,
+    });
+    Swal.fire(
+      'Success',
+      res.data.message === 'success update' ? 'Successfully Accepted Client' : res.data[0],
+      'success'
+    );
+    const resClients = yield axios.get(`${baseUrl}appointments/fe`);
+    yield put({
+      type: GET_CLIENTS_SUCCESS,
+      payload: resClients.data,
     });
   } catch (err) {
     yield put({

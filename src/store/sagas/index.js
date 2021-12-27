@@ -11,6 +11,7 @@ import {
   watchGetClients,
   watchGetMainClients,
   watchUpdateStatusAppointment,
+  watchGetClientAccepted,
 } from './clients';
 import {
   watchGetNannyProfile,
@@ -24,6 +25,7 @@ import {
   watchUpdateChildActivities,
   watchDeleteChildActivities,
   watchPaginationActivityNanny,
+  watchPutManageChild,
 } from './nannies';
 
 export default function* rootSaga() {
@@ -54,5 +56,7 @@ export default function* rootSaga() {
     watchUpdateChildActivities(),
     watchUpdateStatusAppointment(),
     watchChildActivityParentDetail(),
+    watchGetClientAccepted(),
+    watchPutManageChild(),
   ]);
 }

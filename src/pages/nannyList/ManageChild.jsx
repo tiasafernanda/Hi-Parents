@@ -3,16 +3,25 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { Box, Button, Typography, InputBase, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  InputBase,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import styles from './assets/ManageChild.module.scss';
 import { Link } from 'react-router-dom';
 import { getClientAccepted } from '../../store/actions/clients';
+import { putManageChild } from '../../store/actions/nannies';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { style } from '@mui/system';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,7 +68,7 @@ const SearchInput = () => {
         <SearchIconWrapper>
           <SearchIcon sx={{ color: '#10B278' }} />
         </SearchIconWrapper>
-        <StyledInputBase placeholder="Search child list" inputProps={{ 'aria-label': 'search' }} />
+        <StyledInputBase placeholder='Search child list' inputProps={{ 'aria-label': 'search' }} />
       </Search>
     </>
   );
@@ -69,62 +78,99 @@ export default function ManageChild() {
   const dispatch = useDispatch();
 
   const { loading, clients } = useSelector((state) => state.clients);
-  console.log(clients);
+  const [selected, setSelected] = useState([]);
+  const [items, setItems] = useState('');
+  const [check, setCheck] = useState(false);
+  const [checkedLists, setCheckedLists] = useState(null);
+  const [isSelectAll, setIsSelectAll] = useState(false);
+  const [values, setValues] = useState([]);
 
   useEffect(() => {
     dispatch(getClientAccepted());
   }, [dispatch]);
 
-  const [selected, setSelected] = useState([]);
-  const [items, setItems] = useState('');
-  const [check, setCheck] = useState(false);
+  useEffect(() => {
+    console.log(clients, '<<<<<<');
+
+    let temp = [];
+    if (clients.appointments) {
+      clients.appointments.forEach((element) => {
+        if (element.is_taken) {
+          temp.push(true);
+        } else {
+          temp.push(false);
+        }
+      });
+      setCheckedLists(temp);
+    }
+  }, [clients]);
+
+  useEffect(() => {
+    if (checkedLists) {
+      let temp = [...checkedLists];
+      if (isSelectAll) {
+        checkedLists.map((e, idx) => {
+          temp[idx] = true;
+        });
+      } else {
+        //loop client.appointments untuk menghindari value checkedlist yg sudah true berubah menjadi false
+        clients.appointments.forEach((element, idx) => {
+          if (!element.is_taken) {
+            temp[idx] = false;
+          }
+        });
+      }
+      setCheckedLists(temp);
+    }
+  }, [isSelectAll]);
 
   const handleCheck = (index) => {
-    if (check !== true) {
-      setItems(index);
-      setCheck(true);
-    } else {
-      setCheck(false);
-    }
+    let temp = [...checkedLists];
+    temp[index] = !temp[index];
+    setCheckedLists(temp);
   };
 
   const handleAllCheck = () => {
-    if (check !== true) {
-      setCheck(true);
-    } else {
-      setCheck(false);
-    }
+    setIsSelectAll(!isSelectAll);
   };
-
-  const [state, setState] = useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
-  });
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    let temp = [...values];
+    if (values.includes(event.target.value)) {
+      temp = temp.filter((elTemp) => {
+        return elTemp !== event.target.value;
+      });
+    } else {
+      temp.push(event.target.value);
+    }
+    console.log(temp, 'values');
+    setValues(temp);
+
+    // console.log(e.target.value);
   };
 
-  const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+  const handleManageChild = () => {
+    dispatch(putManageChild(values));
+  };
+
+  // const { gilad, jason, antoine } = state;
+  // const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
 
   return (
     <div className={styles.container}>
       <Box>
-        <Link to="/dashboard/nannylist">
-          <Typography sx={{ fontFamily: 'Nunito' }} variant="h4">
+        <Link to='/dashboard/nannylist'>
+          <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
             <BiLeftArrowAlt style={{ position: 'relative', top: '5px' }} /> Manage Child
           </Typography>
         </Link>
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '27px' }}>
           <Box sx={{ width: '45rem' }}>
             <Box sx={{ display: 'flex' }}>
-              <Typography tx={{ marginRight: '0.75rem' }}>Limit Child Nanny Can Manage (6/5)</Typography>
-              <Typography variant="caption" color="red" tx={{ lineHeight: '2.25px' }}>
+              <Typography tx={{ marginRight: '0.75rem' }}>
+                Limit Child Nanny Can Manage ({values.length !== 0 ? values.length : '0'}/5)
+              </Typography>
+              <Typography variant='caption' color='red' tx={{ lineHeight: '2.25px' }}>
                 You cannot assign children more than limited number
               </Typography>
             </Box>
@@ -167,9 +213,27 @@ export default function ManageChild() {
                   }}
                 >
                   {clients.appointments &&
+                    checkedLists &&
                     clients.appointments.map((item, index) => (
-                      <FormControl className={styles.formLabel} disabled={item.is_taken === true} required error={error} component="fieldset" variant="standard">
-                        <FormControlLabel control={<Checkbox onClick={() => handleCheck(index)} onChange={handleChange} name={item.child.name} />} label={item.child.name} labelPlacement="start" />
+                      <FormControl
+                        className={styles.formLabel}
+                        disabled={item.is_taken === true}
+                        /*required error={error}*/ component='fieldset'
+                        variant='standard'
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={checkedLists[index]}
+                              onClick={() => handleCheck(index)}
+                              onChange={handleChange}
+                              name={item.child.name}
+                              value={item.appointment_id}
+                            />
+                          }
+                          label={item.child.name}
+                          labelPlacement='start'
+                        />
                       </FormControl>
                     ))}
                 </List>
@@ -177,7 +241,7 @@ export default function ManageChild() {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
               <Button
-                variant="contained"
+                variant='contained'
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',
@@ -189,7 +253,7 @@ export default function ManageChild() {
                 Cancel
               </Button>
               <Button
-                variant="contained"
+                variant='contained'
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',
@@ -198,6 +262,7 @@ export default function ManageChild() {
                   backgroundColor: '#10B278',
                   marginLeft: '0.75rem',
                 }}
+                onCLick={handleManageChild}
               >
                 Assign Child
               </Button>

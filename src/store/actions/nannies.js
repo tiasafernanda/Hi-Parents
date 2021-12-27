@@ -12,6 +12,7 @@ import {
   UPDATE_NANNY_PROFILE_BEGIN,
   GET_NANNIES_ASC_BEGIN,
   PAGINATION_ACTIVITY_NANNY_BEGIN,
+  PUT_MANAGE_CHILD_BEGIN,
 } from './types';
 
 export const getNannyProfileAction = () => {
@@ -27,9 +28,10 @@ export const updateNannyProfileAction = (body) => {
   };
 };
 
-export const getNannies = () => {
+export const getNannies = (pages) => {
   return {
     type: GET_NANNIES_BEGIN,
+    pages,
   };
 };
 
@@ -39,10 +41,10 @@ export const getActiveNannies = () => {
   };
 };
 
-export const updateAppointmentStatus = (body) => {
+export const updateAppointmentStatus = (data) => {
   return {
     type: UPDATE_STATUS_APPOINTMENT_BEGIN,
-    body,
+    data,
   };
 };
 
@@ -99,5 +101,12 @@ export const getNanniesAsc = (sort) => {
   return {
     type: GET_NANNIES_ASC_BEGIN,
     sort,
+  };
+};
+
+export const putManageChild = (data) => {
+  return {
+    type: PUT_MANAGE_CHILD_BEGIN,
+    data,
   };
 };

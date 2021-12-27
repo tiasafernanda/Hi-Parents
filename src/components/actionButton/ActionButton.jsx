@@ -6,7 +6,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
 
-const ActionButton = ({ appointment_id }) => {
+const ActionButton = () => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,7 +23,7 @@ const ActionButton = ({ appointment_id }) => {
   const id = open ? 'simple-popover' : undefined;
 
   const handleManageChild = () => {
-    navigate(`/dashboard/managenanny/${appointment_id}`);
+    navigate(`/dashboard/managenanny`);
   };
 
   return (
@@ -66,9 +66,9 @@ const ActionButton = ({ appointment_id }) => {
             }}
             onClick={(e) => {
               e.preventDefault();
-              handleManageChild(appointment_id);
+              handleManageChild();
             }}
-            id={appointment_id}
+            // id={}
           >
             <InfoOutlinedIcon sx={{ marginRight: '0.5rem' }} />
             <Typography /*onClick={handleManageChild}*/>Manage Child</Typography>
