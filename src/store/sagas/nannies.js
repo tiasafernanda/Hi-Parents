@@ -331,8 +331,6 @@ function* deleteChildActivities(actions) {
 // }
 
 function* putManageChild(action) {
-  // const { payload } = action;
-  // const data = payload;
   const { data } = action;
   const token = localStorage.getItem('token');
   try {
@@ -341,12 +339,13 @@ function* putManageChild(action) {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res, 'res put manage child');
     yield put({
       type: PUT_MANAGE_CHILD_SUCCESS,
     });
   } catch (err) {
     yield put({
-      type: UPDATE_STATUS_APPOINTMENT_FAIL,
+      type: PUT_MANAGE_CHILD_FAIL,
       error: err,
     });
   }
