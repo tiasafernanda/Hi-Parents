@@ -53,7 +53,7 @@ export default function ActivityParent() {
         </div>
       </div>
       <div style={{ overflowX: 'auto' }}>
-        <table >
+        <table>
           <tr>
             <th>Date & Time</th>
             <th>Children Name</th>
@@ -68,7 +68,6 @@ export default function ActivityParent() {
                 <td>{item?.appointment?.child?.name}</td>
                 <td>{item?.appointment?.nanny?.name}</td>
                 <td>{item?.activity_detail}</td>
-
                 <td>
                   <div className={styles.menu} id={item.id}>
                     <button

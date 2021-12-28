@@ -474,12 +474,10 @@ export default function ProfileParent() {
             style={{
               backgroundColor: '#F1B722',
             }}
-            // onClick={submitChild}
             onClick={submitData}
           >
             Submit
           </button>
-          {/* </Link> */}
         </div>
         <div className={styles.savebtn}>
           <button
