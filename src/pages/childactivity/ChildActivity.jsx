@@ -111,7 +111,7 @@ export default function ChildActivity() {
         ) : (
           activity?.data?.map((item, index) => (
             <tr key={index} id={item.appointment_id}>
-              <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
+              <td>{item?.createdAt}</td>
               <td>{item?.appointment?.child?.name}</td>
               <td>{item?.appointment?.nanny?.name}</td>
               <td>{item?.activity_detail}</td>

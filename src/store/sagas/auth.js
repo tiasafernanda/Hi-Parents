@@ -17,13 +17,21 @@ function* loginNanny(action) {
         type: LOGINNANNY_SUCCESS,
       },
       localStorage.setItem('token', res.data.token),
-      Swal.fire(
-        'Success',
-        'You Have Successfully Login',
-        'success',
-        (window.location.href =
-          res.data.role === 'Nanny' ? '/dashboard/nannydashboard ' : '/dashboard/activityparent')
-      )
+      //
+      res.data.message === 'Congrats! You have successfully sign in!'
+        ? Swal.fire(
+            'Success',
+            res.data.message,
+            'success'(
+              (window.location.href =
+                res.data.role === 'Nanny'
+                  ? '/dashboard/nannydashboard '
+                  : '/dashboard/activityparent')
+            )
+          )
+        : res.data.message === 'This account has not verified yet!'
+        ? Swal.fire('Error', res.data.message, 'warning')
+        : Swal.fire('Error', res.data.message, 'error')
     );
   } catch (err) {
     console.log(err);
