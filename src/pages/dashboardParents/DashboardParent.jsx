@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 
 export default function ProfileParent() {
   const { profile } = useSelector((state) => state.getParent);
-  
+
   // const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const genders = [
@@ -34,7 +34,6 @@ export default function ProfileParent() {
       label: 'Female',
     },
   ];
-  
 
   const [inputParent, setInputParent] = useState({
     name: profile?.data?.name,
@@ -47,7 +46,6 @@ export default function ProfileParent() {
     photo: null,
   });
 
-  
   const changeInputParent = (e) => {
     setInputParent({
       ...inputParent,
@@ -95,7 +93,7 @@ export default function ProfileParent() {
       photo: null,
     },
   ]);
-  
+
   const changeInputChild = (index, e) => {
     let newInputChild = [...inputChild];
     newInputChild[index][e.target.name] = e.target.value;
@@ -111,12 +109,12 @@ export default function ProfileParent() {
     setInputChild(newInputChild);
   };
 
-  const [image, setImage] = useState();
-  
-  const [isUpload, setIsUpload] = useState(false);
-  
+  const [, setImage] = useState();
+
+  const [, setIsUpload] = useState(false);
+
   const [previewParent, setPreviewParent] = useState([]);
-  
+
   function handleImageChange(e) {
     if (e.target.files && e.target.files[0]) {
       setInputParent({ ...inputParent, photo: e.target.files[0] });
@@ -130,7 +128,7 @@ export default function ProfileParent() {
   }
 
   const [previewChild, setPreviewChild] = useState([]);
-  
+
   function handleImageForm(index, e) {
     if (e.target.files && e.target.files[0]) {
       let newFoto = [...inputChild];
@@ -158,7 +156,7 @@ export default function ProfileParent() {
 
   useEffect(() => {
     dispatch(getDataParentAction(), getDataChildAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.containers}>

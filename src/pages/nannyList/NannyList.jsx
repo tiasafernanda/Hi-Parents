@@ -17,22 +17,21 @@ import {
 } from '@mui/material';
 import ActionButton from '../../components/actionButton/ActionButton';
 import styles from './assets/NannyList.module.scss';
-import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
+import ReactLoading from 'react-loading';
 
 export default function NannyList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getNannies());
-  }, [getNannies]);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(getAppointment());
   }, [dispatch]);
 
-  const nanniesList = useSelector((state) => state.nannies.nannies);
-  
-
+  const { loading, nannies } = useSelector((state) => state.nannies);
+  console.log('nannylist', nannies);
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(false);
 
@@ -44,7 +43,7 @@ export default function NannyList() {
 
   useEffect(() => {
     dispatch(getNannies(page));
-  }, [page]);
+  }, [dispatch, page, showPage]);
 
   return (
     <div className={styles.container}>
@@ -98,8 +97,10 @@ export default function NannyList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {nanniesList.nannies &&
-                nanniesList.nannies?.map((item, index) => (
+              {loading ? (
+                <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
+              ) : (
+                nannies?.nannies?.map((item, index) => (
                   <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component='th' scope='row'>
                       {item.name}
@@ -127,13 +128,14 @@ export default function NannyList() {
                       <ActionButton />
                     </TableCell>
                   </TableRow>
-                ))}
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
         <div className={styles.paginationContainer}>
           <Pagination
-            count={nanniesList?.pages}
+            count={nannies?.pages}
             variant='outlined'
             shape='rounded'
             onChange={handlePage}

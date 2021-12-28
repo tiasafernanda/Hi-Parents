@@ -39,8 +39,6 @@ function Layout(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -49,7 +47,6 @@ function Layout(props) {
   };
 
   const decoded = jwt_decode(localStorage.getItem('token'));
-  
 
   const drawerNanny = [
     {
@@ -159,7 +156,7 @@ function Layout(props) {
                 borderColor: '#768471',
               }}
             ></span>
-            <MyAvatar userName={decoded.name} />
+            <MyAvatar userName={decoded.name} avatar={decoded.name} />
           </Box>
         </Toolbar>
       </AppBar>

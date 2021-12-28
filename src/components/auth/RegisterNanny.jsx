@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 //import React from "react";
 import SignUpNannyStyle from './signupnanny.module.scss';
 import * as React from 'react';
@@ -17,12 +18,7 @@ import { Link } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 
 export default function RegisterNanny() {
-  // const [role, setRole] = React.useState('');
-  // const handleChange = (event) => {
-  // setRole(event.target.value);
-  // };
   const [showPass, setShowPass] = useState(false);
-  // const [showCPass, setShowCPass] = useState(false);
 
   const dispatch = useDispatch();
   const [isRole, setIsRole] = useState('');
@@ -32,7 +28,7 @@ export default function RegisterNanny() {
     password: '',
     role: '',
   });
-  
+
   const changeInput = (e) => {
     setRegisterNanny({ ...registerNanny, [e.target.name]: e.target.value });
   };
@@ -41,18 +37,14 @@ export default function RegisterNanny() {
     e.preventDefault();
     dispatch(RegisterNannyAction(registerNanny));
   };
-  
 
-  // const [fullName, setFullName] = useState('');
   const [isFullName, setIsFullName] = useState(true);
 
-  // const [email, setEmail] = useState('');
   const [isEmail, setIsEmail] = useState(true);
-  // const [password, setPassword] = useState('');
+
   const [isPassword, setIsPassword] = useState(true);
 
   const validasiInputFullName = (data) => {
-    
     if (data === '') {
       setIsFullName(false);
     } else {
@@ -61,7 +53,6 @@ export default function RegisterNanny() {
   };
 
   const validasiInputEmail = (data) => {
-    
     if (data === '') {
       setIsEmail(false);
     } else {
@@ -70,7 +61,6 @@ export default function RegisterNanny() {
   };
 
   const validasiInputPassword = (data) => {
-    
     if (data === '') {
       setIsPassword(false);
     } else {
@@ -128,9 +118,9 @@ export default function RegisterNanny() {
                   ? SignUpNannyStyle.signupnannyInput
                   : SignUpNannyStyle.signupnannyInputError
               }
-              type="email"
-              placeholder="Email Addres"
-              name="email"
+              type='email'
+              placeholder='Email Addres'
+              name='email'
               onChange={(e) => {
                 validasiInputEmail(e.target.value);
                 changeInput(e);
@@ -138,9 +128,7 @@ export default function RegisterNanny() {
               }}
             />
             {validator.isEmail(emailError) !== true ? (
-              <span className={SignUpNannyStyle.signupEmailError}>
-                {emailError}
-              </span>
+              <span className={SignUpNannyStyle.signupEmailError}>{emailError}</span>
             ) : null}
 
             <input
@@ -191,16 +179,16 @@ export default function RegisterNanny() {
                 </InputLabel>
                 <NativeSelect
                   className={SignUpNannyStyle.nativeNanny}
-                  defaultValue={"Select Role"}
+                  defaultValue={'Select Role'}
                   inputProps={{
                     name: 'role',
                     id: 'uncontrolled-native',
                   }}
                   onChange={handleRole}
                 >
-                  <option value={""}></option>
-                  <option value={"Nanny"}>Nanny</option>
-                  <option value={"Parent"}>Parent</option>
+                  <option value={''}></option>
+                  <option value={'Nanny'}>Nanny</option>
+                  <option value={'Parent'}>Parent</option>
                 </NativeSelect>
               </FormControl>
             </Box>

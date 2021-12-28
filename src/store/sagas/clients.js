@@ -122,11 +122,7 @@ function* updateStatusAppointment(action) {
     yield put({
       type: UPDATE_STATUS_APPOINTMENT_SUCCESS,
     });
-    Swal.fire(
-      'Success',
-      res.data.message === 'success update' ? 'Successfully Accepted Client' : res.data[0],
-      'success'
-    );
+    Swal.fire('Success', res.data.message === 'success update' ? 'Successfully Accepted Client' : res.data[0], 'success');
     const resClients = yield axios.get(`${baseUrl}appointments/fe`);
     yield put({
       type: GET_CLIENTS_SUCCESS,

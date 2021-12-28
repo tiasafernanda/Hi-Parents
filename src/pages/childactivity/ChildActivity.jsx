@@ -18,7 +18,6 @@ import {
 } from '../../store/actions/nannies';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
 import jwt_decode from 'jwt-decode';
 import ReactLoading from 'react-loading';
@@ -33,7 +32,7 @@ export default function ChildActivity() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, activity } = useSelector((state) => state?.nannies);
-  
+
   useEffect(() => {
     dispatch(getChildActivity());
   }, [dispatch]);
@@ -42,7 +41,6 @@ export default function ChildActivity() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [selectedItem, setSelectedItem] = useState('');
-  
 
   const handleCreateActivity = (appointment_id) => {
     navigate(`/dashboard/createactivity/${appointment_id}`);
@@ -65,10 +63,6 @@ export default function ChildActivity() {
     setAnchorEl(null);
   };
 
-  const [deleteActivity, setDeleteActivity] = useState({
-    id: null,
-  });
-
   const handleDeleteActivity = (id) => {
     let form = new FormData();
     form.append('id', id);
@@ -86,7 +80,7 @@ export default function ChildActivity() {
 
   useEffect(() => {
     dispatch(paginationActivityAction(page));
-  }, [page]);
+  }, [dispatch, page, showPage]);
 
   return (
     <div className={styles.containers}>

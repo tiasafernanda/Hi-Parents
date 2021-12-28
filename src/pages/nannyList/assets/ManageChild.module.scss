@@ -9,16 +9,18 @@
   }
 
   .formLabel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    label {
-      width: 100%;
-      justify-content: space-between;
-      margin-left: 2rem;
-      margin-right: 2rem;
+    path {
+      fill: #10b278;
     }
+    // path {
+    //   color: #10b278;
+    // }
+
+    // label {
+    //   width: 100%;
+    //   justify-content: space-between;
+    //   margin-left: 2rem;
+    //   margin-right: 2rem;
+    // }
   }
 }

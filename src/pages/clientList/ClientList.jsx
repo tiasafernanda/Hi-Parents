@@ -9,16 +9,13 @@ import { getAppointment } from '../../store/actions/nannies';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
-import previousIcon from './assets/previousicon.svg';
-import nextIcon from './assets/nexticon.svg';
-import closeIcon from './assets/close.png';
 import sortIcon from './assets/sortIcon.svg';
 import filterIcon from './assets/filterIcon.svg';
 import ReactLoading from 'react-loading';
-import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
 import { io } from 'socket.io-client';
 
+// eslint-disable-next-line no-unused-vars
 const socket = io.connect('/');
 
 export default function ClientList() {
@@ -27,7 +24,6 @@ export default function ClientList() {
   const dispatch = useDispatch();
 
   const { loading, clients } = useSelector((state) => state.clients);
-  
 
   useEffect(() => {
     dispatch(getAppointment());
@@ -51,17 +47,12 @@ export default function ClientList() {
   };
 
   const handleClientDetail = (appointment_id) => {
-    
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
   const [selectedItem, setSelectedItem] = useState('');
-  
 
   //Accept Client & Modal
   const [openModal, setOpenModal] = useState(false);
-  
-
-  
 
   const handleModal = () => {
     setOpenModal(true);
@@ -77,8 +68,6 @@ export default function ClientList() {
     appointment_id: null,
     appointment_status: '',
   });
-
-  const [openMessage, setOpenMessage] = useState(false);
 
   const handleRejectClient = () => {
     setStatusReject((statusReject.appointment_id = selectedItem.appointment_id));
@@ -97,18 +86,18 @@ export default function ClientList() {
 
   useEffect(() => {
     dispatch(getClients(page));
-  }, [page]);
+  }, [dispatch, page, showPage]);
 
   return (
     <div className={styles.dashboard}>
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} />
+          <img src={sortIcon} alt='' />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} />
+          <img src={filterIcon} alt='' />
           Filter
         </button>
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-const-assign */
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import styles from './assets/NannyDashboard.module.scss';
@@ -26,9 +27,9 @@ export default function NannyDashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, mainClients } = useSelector((state) => state.clients);
-  const activeClient  = useSelector((state) => state.clients.activeClient);
+  const activeClient = useSelector((state) => state.clients.activeClient);
   const nannies = useSelector((state) => state.nannies);
-  
+
   useEffect(() => {
     dispatch(getActiveNannies());
   }, [dispatch]);
@@ -55,7 +56,6 @@ export default function NannyDashboard() {
   };
 
   const handleClientDetail = (appointment_id) => {
-    
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
 
@@ -95,10 +95,9 @@ export default function NannyDashboard() {
   });
 
   const [openModal, setOpenModal] = useState(false);
-  
+
   const [selectedItem, setSelectedItem] = useState('');
   const modalValue = mainClients.find((data) => data.client_id === selectedItem);
-  
 
   const handleModal = (clientId) => {
     setSelectedItem(clientId);

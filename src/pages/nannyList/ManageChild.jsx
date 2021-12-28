@@ -1,28 +1,17 @@
+/* eslint-disable array-callback-return */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import {
-  Box,
-  Button,
-  Typography,
-  InputBase,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { Box, Button, Typography, InputBase, List, ListItem, ListItemText } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import styles from './assets/ManageChild.module.scss';
 import { Link } from 'react-router-dom';
 import { getClientAccepted } from '../../store/actions/clients';
 import { putManageChild } from '../../store/actions/nannies';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useNavigate } from 'react-router-dom';
+import { ListItemButton } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -77,12 +66,8 @@ const SearchInput = () => {
 
 export default function ManageChild() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { loading, clients } = useSelector((state) => state.clients);
-  const [selected, setSelected] = useState([]);
-  const [items, setItems] = useState('');
-  const [check, setCheck] = useState(false);
   const [checkedLists, setCheckedLists] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [values, setValues] = useState([]);
@@ -92,8 +77,6 @@ export default function ManageChild() {
   }, [dispatch]);
 
   useEffect(() => {
-    
-
     let temp = [];
     if (clients.appointments) {
       clients.appointments.forEach((element) => {
@@ -124,7 +107,7 @@ export default function ManageChild() {
       }
       setCheckedLists(temp);
     }
-  }, [isSelectAll]);
+  }, [checkedLists, clients.appointments, isSelectAll]);
 
   const handleCheck = (index) => {
     let temp = [...checkedLists];
@@ -145,25 +128,20 @@ export default function ManageChild() {
     } else {
       temp.push(event.target.value);
     }
-    
+
     setValues(temp);
-
-    
   };
 
-  const selectedChild = {
-    appointment_id: [...values],
-  };
-  
+  const [selectedChild, setSelectedChild] = useState({
+    appointment_id: null,
+  });
 
-  function handleManageChild() {
+  const handleSubmit = () => {
+    let temp = [...values];
+    setSelectedChild((selectedChild.appointment_id = temp));
     dispatch(putManageChild(selectedChild));
-    navigate(`/dashboard/nannylist`);
-  }
-
-  // const handleCancel = () => {
-  //   navigate(`dashboard/nannyList`);
-  // };
+  };
+  console.log(selectedChild, 'testes');
 
   return (
     <div className={styles.container}>
@@ -193,77 +171,88 @@ export default function ManageChild() {
             >
               <Box
                 sx={{
+                  height: '5rem',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   paddingLeft: '1rem',
-                  paddingRight: '1rem',
+                  paddingRight: '1.2rem',
+                  borderStyle: 'solid',
+                  borderColor: '#b8b8b8',
+                  borderWidth: '1px',
+                  borderTop: 0,
+                  borderLeft: 0,
+                  borderRight: 0,
                 }}
               >
                 <SearchInput />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography>Select All</Typography>
-                  <Checkbox onClick={handleAllCheck} />
+                  <Checkbox className={styles.formLabel} onClick={handleAllCheck} />
                 </Box>
               </Box>
-              <Box>
-                <List
-                  sx={{
-                    width: '100%',
-                    /*maxWidth: 360,*/ bgcolor: 'background.paper',
-                    borderTop: '0.5px',
-                    borderLeft: 0,
-                    borderRight: 0,
-                    borderBottom: 0,
-                    borderBottomLeftRadius: '12px',
-                    borderBottomRightRadius: '12px',
-                    borderStyle: 'solid',
-                    borderColor: '#D9D9D9',
-                  }}
-                >
-                  {clients.appointments &&
+
+              <List
+                sx={{
+                  width: '100%',
+                  //maxWidth: 360,
+                  bgcolor: 'background.paper',
+                  position: 'relative',
+                  overflow: 'auto',
+                  maxHeight: 300,
+                  '& ul': { padding: 0 },
+                }}
+              >
+                {loading
+                  ? 'loading'
+                  : clients.appointments &&
                     checkedLists &&
                     clients.appointments.map((item, index) => (
-                      <FormControl
-                        className={styles.formLabel}
+                      // <FormControl className={styles.formLabel} disabled={item.is_taken === true} component="fieldset" variant="standard">
+                      //   <FormControlLabel
+                      //     control={<Checkbox checked={checkedLists[index]} onClick={() => handleCheck(index)} onChange={handleChange} name={item.child.name} value={item.appointment_id} />}
+                      //     label={item.child.name}
+                      //     labelPlacement="start"
+                      //   />
+                      // </FormControl>
+                      <ListItem
+                        secondaryAction={
+                          <Checkbox
+                            className={styles.formLabel}
+                            edge='end'
+                            checked={checkedLists[index]}
+                            onClick={() => handleCheck(index)}
+                            onChange={handleChange}
+                            name={item.child.name}
+                            value={item.appointment_id}
+                          />
+                        }
+                        disablePadding
                         disabled={item.is_taken === true}
-                        /*required error={error}*/ component='fieldset'
-                        variant='standard'
                       >
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={checkedLists[index]}
-                              onClick={() => handleCheck(index)}
-                              onChange={handleChange}
-                              name={item.child.name}
-                              value={item.appointment_id}
-                            />
-                          }
-                          label={item.child.name}
-                          labelPlacement='start'
-                        />
-                      </FormControl>
+                        <ListItemButton>
+                          <ListItemText primary={item.child.name} />
+                        </ListItemButton>
+                      </ListItem>
                     ))}
-                </List>
-              </Box>
+              </List>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
-              <Link to="/dashboard/nannylist">
-                <Button
-                  //onClick={handleManageChild}
-                  variant="contained"
-                  sx={{
-                    width: '16.5rem',
-                    height: '3.3rem',
-                    borderRadius: '2.5rem',
-                    textTransform: 'unset',
-                    backgroundColor: '#F67979',
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Link>
+              {/* <Link to="/dashboard/nannylist"> */}
+              <Button
+                variant='contained'
+                sx={{
+                  width: '16.5rem',
+                  height: '3.3rem',
+                  borderRadius: '2.5rem',
+                  textTransform: 'unset',
+                  backgroundColor: '#F67979',
+                }}
+                onClick={() => (window.location.href = '/dashboard/nannylist')}
+              >
+                Cancel
+              </Button>
+              {/* </Link> */}
               <Button
                 variant='contained'
                 sx={{
@@ -272,13 +261,26 @@ export default function ManageChild() {
                   borderRadius: '2.5rem',
                   textTransform: 'unset',
                   backgroundColor: '#10B278',
-                  marginLeft: '0.75rem',
                 }}
-                onCLick={() => handleManageChild()}
+                onClick={handleSubmit}
               >
                 Assign Child
               </Button>
-              {/* <button
+              {/* <Button
+                variant="contained"
+                sx={{
+                  width: '16.5rem',
+                  height: '3.3rem',
+                  borderRadius: '2.5rem',
+                  textTransform: 'unset',
+                  backgroundColor: '#10B278',
+                  marginLeft: '0.75rem',
+                }}
+                onCLick={() => handleSubmit()}
+              >
+                Assign Child
+              </Button> */}
+              {/* <button 
                 onCLick={handleManageChild}
                 style={{
                   width: '16.5rem',

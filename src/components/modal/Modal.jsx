@@ -1,26 +1,22 @@
 import styles from './Modal.module.scss';
 import { updateStatusAppointment } from '../../store/actions/clients';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 const Modal = ({ idAppointment, clientId, dateRequest, parentName }) => {
   const dispatch = useDispatch();
-  const clients = useSelector((state) => state.clients);
-  
-
-  
 
   const [statusAccept, setStatusAccept] = useState({
     appointment_id: null,
     appointment_status: '',
   });
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [setAnchorEl] = useState(null);
 
   const handleAcceptClient = () => {
     setStatusAccept((statusAccept.appointment_id = idAppointment));
     setStatusAccept((statusAccept.appointment_status = 'Accept'));
-    
+
     dispatch(updateStatusAppointment(statusAccept));
     setAnchorEl(null);
   };

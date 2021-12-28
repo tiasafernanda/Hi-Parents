@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './assets/ActivityParent.module.scss';
 // import datas from "./ActivityParentData";
 import { BiSortUp } from 'react-icons/bi';
@@ -13,41 +13,19 @@ import { useEffect } from 'react';
 import { childActivityParentAction } from '../../store/actions/childActivityParent';
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import { makeStyles } from '@mui/styles';
+
 import dayjs from 'dayjs';
 import Empty from '../../components/empty/Empty';
 // import { Empty } from '../../components/empty/Empty';
 
-const useStyles = makeStyles({
-  root: {
-    boxShadow: 0,
-  },
-});
 export default function ActivityParent() {
   const childActivity = useSelector((state) => state.childActivityParent.Activity);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(childActivityParentAction());
   }, [dispatch]);
-
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const [selectedItem, setSelectedItem] = useState('');
-  
-
-  const handleClick = (event, item) => {
-    setAnchorEl(event.currentTarget);
-    setSelectedItem(item);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleActivityDetail = (id) => {
     navigate(`/dashboard/parentactivitydetail/${id}`);
@@ -75,7 +53,7 @@ export default function ActivityParent() {
           <th>Activity Detail</th>
           <th>Action</th>
         </tr>
-        {childActivity.length != [0] ? (
+        {childActivity.length !== [0] ? (
           childActivity?.map((item, index) => (
             <tr key={index}>
               <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
@@ -89,7 +67,6 @@ export default function ActivityParent() {
                     id={item.id}
                     aria-controls='basic-menu'
                     aria-haspopup='true'
-                    aria-expanded={open ? 'true' : undefined}
                     // onClick={(e) => handleClick(e, item)}
                     onClick={(e) => {
                       e.preventDefault();

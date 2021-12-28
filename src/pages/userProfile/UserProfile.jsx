@@ -14,8 +14,6 @@ export default function UserProfile() {
     dispatch(getNannyProfileAction());
   }, [dispatch]);
   const nannyProfile = useSelector((state) => state.nannies.profile);
-  
-  
 
   const [updateProfile, setUpdateProfile] = useState({
     name: nannyProfile?.userProfile?.name || '',
@@ -23,8 +21,6 @@ export default function UserProfile() {
     gender: nannyProfile?.userProfile?.gender || '',
     photo: null,
   });
-
-  
 
   const changeInput = (e) => {
     setUpdateProfile({
@@ -43,9 +39,9 @@ export default function UserProfile() {
     dispatch(updateNannyProfileAction(formDataNanny));
   };
 
-  const [image, setImage] = useState();
-  
-  const [isUpload, setIsUpload] = useState(false);
+  const [, setImage] = useState();
+
+  const [, setIsUpload] = useState(false);
 
   const [nannyImage, setNannyImage] = useState([]);
 
@@ -71,7 +67,6 @@ export default function UserProfile() {
       label: 'Female',
     },
   ];
-  
 
   return (
     <div className={styles.containers}>
