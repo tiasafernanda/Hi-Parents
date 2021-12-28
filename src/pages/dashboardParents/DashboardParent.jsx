@@ -10,18 +10,15 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { ChildAction } from '../../store/actions/childParent';
 import { ParentAction } from '../../store/actions/parent';
-// import { Link, useParams } from "react-router-dom";
 import { getDataParentAction } from '../../store/actions/getParent';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getDataChildAction } from '../../store/actions/getChild';
-// import { ParentActionSuccess } from "../../store/actions/parent";
 import { ParentChildAction } from '../../store/actions/childParent';
 import dayjs from 'dayjs';
 
 export default function ProfileParent() {
   const { profile } = useSelector((state) => state.getParent);
-  console.log('profile', profile);
+
   // const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const genders = [
@@ -34,32 +31,18 @@ export default function ProfileParent() {
       label: 'Female',
     },
   ];
-  // const [gender, setGender] = React.useState("");
-  // const [gender1, setGender1] = React.useState("");
-
-  // const handleChange = (event) => {
-  //   setGender(event.target.value);
-  // };
-  // const handleChange1 = (index, event) => {
-  //   setGender1(event.target.value);
-  // let setGender1 = [...form];
-  // setGender1[index][e.target.name] = e.target.value;
-  // setForm(setGender1);
-  // };
 
   const [inputParent, setInputParent] = useState({
-    name: profile?.data?.name,
-    phone_number: '',
-    address: '',
-    job: '',
-    place_birth: '',
-    date_birth: '',
-    gender: '',
-    photo: null,
+    name: profile?.data?.name || '',
+    phone_number: profile?.data?.phone_number || '',
+    address: profile?.data?.address || '',
+    job: profile?.data?.job || '',
+    place_birth: profile?.data?.place_birth || '',
+    date_birth: profile?.data?.date_birth || '',
+    gender: profile?.data?.gender || '',
+    photo: profile?.data?.photo || null,
   });
 
-  console.log(inputParent.phone_number);
-  console.log(inputParent);
   const changeInputParent = (e) => {
     setInputParent({
       ...inputParent,
@@ -107,40 +90,21 @@ export default function ProfileParent() {
       photo: null,
     },
   ]);
-  console.log('inputChild', inputChild);
+
   const changeInputChild = (index, e) => {
     let newInputChild = [...inputChild];
     newInputChild[index][e.target.name] = e.target.value;
     setInputChild(newInputChild);
   };
 
-  // const submitChild = () => {
-  //   dispatch(ChildAction(inputChild));
-  // };
   const deleteInputChild = (index) => {
     let newInputChild = [...inputChild];
     newInputChild.splice(index, 1);
     setInputChild(newInputChild);
   };
 
-  const [image, setImage] = useState();
-  console.log('image', image);
-  const [isUpload, setIsUpload] = useState(false);
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        setImage(e.target.result);
-        setIsUpload(true);
-        console.log(e);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
-
   const [previewParent, setPreviewParent] = useState([]);
-  console.log('previewParent', previewParent);
+
   function handleImageChange(e) {
     if (e.target.files && e.target.files[0]) {
       setInputParent({ ...inputParent, photo: e.target.files[0] });
@@ -154,7 +118,7 @@ export default function ProfileParent() {
   }
 
   const [previewChild, setPreviewChild] = useState([]);
-  console.log('previewChild', previewChild);
+
   function handleImageForm(index, e) {
     if (e.target.files && e.target.files[0]) {
       let newFoto = [...inputChild];
@@ -181,8 +145,8 @@ export default function ProfileParent() {
   };
 
   useEffect(() => {
-    dispatch(getDataParentAction(), getDataChildAction());
-  }, []);
+    dispatch(getDataParentAction());
+  }, [dispatch]);
 
   return (
     <div className={styles.containers}>
@@ -236,6 +200,7 @@ export default function ProfileParent() {
                 defaultValue={profile?.data?.phone_number || ''}
                 onChange={(e) => changeInputParent(e)}
               />
+              <p className={styles.phoneNumber}>*Must be 12 digits</p>
               <TextField
                 required
                 id='outlined-required'
@@ -252,15 +217,26 @@ export default function ProfileParent() {
 
                   <div className={styles.image}>
                     <div className={styles.imageUpload}>
-                      {/* {!isUpload ? ( */}
                       {!inputParent.photo ? (
                         <>
                           <label htmlFor='upload-input-parent'>
                             <img
-                              src={folder}
+                              src={profile?.data?.photo === null ? folder : profile?.data?.photo}
                               draggable={'false'}
                               alt='placeholder'
-                              style={{ width: '2rem' }}
+                              style={
+                                profile?.data?.photo === null
+                                  ? { width: '2rem' }
+                                  : {
+                                      height: '5rem',
+                                      width: '5rem',
+                                      objectFit: 'cover',
+                                      borderRadius: '20px',
+                                      position: 'relative',
+                                      bottom: '1px',
+                                      right: '1px',
+                                    }
+                              }
                             />
                           </label>
                           <input
@@ -268,7 +244,6 @@ export default function ProfileParent() {
                             type='file'
                             name='photo'
                             accept='image/*'
-                            // onChange={(e) => handleImageChange(e)}
                             onChange={(e) => handleImageChange(e)}
                           />
                         </>
@@ -279,8 +254,8 @@ export default function ProfileParent() {
                             src={previewParent}
                             alt='uploaded-img'
                             onClick={() => {
-                              setIsUpload(false);
-                              setImage(null);
+                              setInputParent(false);
+                              setPreviewParent(null);
                             }}
                             // onChange={(e) => changeInputParent(e)}
                           />
@@ -317,9 +292,10 @@ export default function ProfileParent() {
                 label='Date Birth'
                 name='date_birth'
                 placeholder='Date Birth'
-                defaultValue={dayjs(profile?.data?.date_birth).format('DD MMMM YYYY') || ''}
+                defaultValue={dayjs(profile?.data?.date_birth).format('DD MMMM YYYY')}
                 onChange={(e) => changeInputParent(e)}
               />
+              <p className={styles.dateFormat}>*DD/MM/YYYY</p>
               <TextField
                 select
                 label='Gender'

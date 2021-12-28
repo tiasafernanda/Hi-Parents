@@ -13,7 +13,7 @@ function* getDataChild() {
     const res = yield axios.get(`${baseUrl}/children/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
-    console.log(res);
+    console.log('child', res);
     yield put({
       type: GET_GETDATACHILD_SUCCESS,
       payload: res.data,

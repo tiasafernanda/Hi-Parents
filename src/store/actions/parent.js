@@ -1,5 +1,4 @@
-import { PUT_PARENT_BEGIN, PUT_PARENT_SUCCESS } from "./types";
-
+import { PUT_PARENT_BEGIN } from './types';
 
 export const ParentAction = (body) => {
   return {
@@ -7,11 +6,3 @@ export const ParentAction = (body) => {
     body,
   };
 };
-
-// export const ParentActionSuccess = (body) => {
-//   return {
-//     type: PUT_PARENT_SUCCESS,
-//     body,
-//   };
-// };
-

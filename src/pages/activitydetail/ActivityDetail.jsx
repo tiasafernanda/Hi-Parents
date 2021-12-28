@@ -21,18 +21,17 @@ const style = {
 };
 export default function ActivityDetail() {
   const { appointment_id } = useParams();
-  console.log(appointment_id, 'appointmentId');
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getChildActivities(appointment_id));
   }, [dispatch, appointment_id]);
   const activitiesDetail = useSelector((state) => state.nannies.childDetail.activities);
-  console.log('Activities Detail', activitiesDetail);
+
   useEffect(() => {
     dispatch(getClientDetail(appointment_id));
   }, [dispatch, appointment_id]);
   const detailClient = useSelector((state) => state.clients.clientDetail.details);
-  console.log('Client Detail', detailClient && detailClient[0]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -194,10 +193,7 @@ export default function ActivityDetail() {
           <Fade in={open1}>
             <Box sx={style}>
               <img
-                src={
-                  (activitiesDetail?.finalData?.appointment_activities?.photo,
-                  console.log('photo', activitiesDetail?.finalData?.appointment_activities?.photo))
-                }
+                src={activitiesDetail?.finalData?.appointment_activities?.map().photo}
                 alt=''
                 onClick={handleOpen1}
                 style={{ borderRadius: '8px', width: '30rem' }}

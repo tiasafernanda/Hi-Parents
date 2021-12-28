@@ -14,7 +14,7 @@ export default function LoginNanny() {
     password: '',
   });
 
-  console.log(inputLoginNanny);
+  
 
   const changeInput = (e) => {
     setInputLoginNanny({

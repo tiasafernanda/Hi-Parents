@@ -1,19 +1,16 @@
+/* eslint-disable array-callback-return */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { Box, Button, Typography, InputBase, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Button, Typography, InputBase, List, ListItem, ListItemText } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import styles from './assets/ManageChild.module.scss';
 import { Link } from 'react-router-dom';
 import { getClientAccepted } from '../../store/actions/clients';
 import { putManageChild } from '../../store/actions/nannies';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useNavigate } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -61,7 +58,7 @@ const SearchInput = () => {
         <SearchIconWrapper>
           <SearchIcon sx={{ color: '#10B278' }} />
         </SearchIconWrapper>
-        <StyledInputBase placeholder="Search child list" inputProps={{ 'aria-label': 'search' }} />
+        <StyledInputBase placeholder='Search child list' inputProps={{ 'aria-label': 'search' }} />
       </Search>
     </>
   );
@@ -69,7 +66,6 @@ const SearchInput = () => {
 
 export default function ManageChild() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { loading, clients } = useSelector((state) => state.clients);
   const [checkedLists, setCheckedLists] = useState(null);
@@ -81,8 +77,6 @@ export default function ManageChild() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(clients, '<<<<<<');
-
     let temp = [];
     if (clients.appointments) {
       clients.appointments.forEach((element) => {
@@ -113,7 +107,7 @@ export default function ManageChild() {
       }
       setCheckedLists(temp);
     }
-  }, [isSelectAll]);
+  }, [checkedLists, clients.appointments, isSelectAll]);
 
   const handleCheck = (index) => {
     let temp = [...checkedLists];
@@ -134,10 +128,8 @@ export default function ManageChild() {
     } else {
       temp.push(event.target.value);
     }
-    console.log(temp, 'values');
-    setValues(temp);
 
-    // console.log(e.target.value);
+    setValues(temp);
   };
 
   const [selectedChild, setSelectedChild] = useState({
@@ -148,23 +140,23 @@ export default function ManageChild() {
     let temp = [...values];
     setSelectedChild((selectedChild.appointment_id = temp));
     dispatch(putManageChild(selectedChild));
-    // navigate(`/dashboard/nannylist`);
   };
-  console.log(selectedChild, 'testes');
 
   return (
     <div className={styles.container}>
       <Box>
-        <Link to="/dashboard/nannylist">
-          <Typography sx={{ fontFamily: 'Nunito' }} variant="h4">
+        <Link to='/dashboard/nannylist'>
+          <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
             <BiLeftArrowAlt style={{ position: 'relative', top: '5px' }} /> Manage Child
           </Typography>
         </Link>
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '27px' }}>
           <Box sx={{ width: '45rem' }}>
             <Box sx={{ display: 'flex' }}>
-              <Typography tx={{ marginRight: '0.75rem' }}>Limit Child Nanny Can Manage ({values.length !== 0 ? values.length : '0'}/5)</Typography>
-              <Typography variant="caption" color="red" tx={{ lineHeight: '2.25px' }}>
+              <Typography tx={{ marginRight: '0.75rem' }}>
+                Limit Child Nanny Can Manage ({values.length !== 0 ? values.length : '0'}/5)
+              </Typography>
+              <Typography variant='caption' color='red' tx={{ lineHeight: '2.25px' }}>
                 You cannot assign children more than limited number
               </Typography>
             </Box>
@@ -223,7 +215,17 @@ export default function ManageChild() {
                       //   />
                       // </FormControl>
                       <ListItem
-                        secondaryAction={<Checkbox className={styles.formLabel} edge="end" checked={checkedLists[index]} onClick={() => handleCheck(index)} onChange={handleChange} name={item.child.name} value={item.appointment_id} />}
+                        secondaryAction={
+                          <Checkbox
+                            className={styles.formLabel}
+                            edge='end'
+                            checked={checkedLists[index]}
+                            onClick={() => handleCheck(index)}
+                            onChange={handleChange}
+                            name={item.child.name}
+                            value={item.appointment_id}
+                          />
+                        }
                         disablePadding
                         disabled={item.is_taken === true}
                       >
@@ -237,7 +239,7 @@ export default function ManageChild() {
             <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
               {/* <Link to="/dashboard/nannylist"> */}
               <Button
-                variant="contained"
+                variant='contained'
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',
@@ -251,7 +253,7 @@ export default function ManageChild() {
               </Button>
               {/* </Link> */}
               <Button
-                variant="contained"
+                variant='contained'
                 sx={{
                   width: '16.5rem',
                   height: '3.3rem',

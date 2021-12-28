@@ -59,9 +59,7 @@ export default function HomePage() {
             <h1>Welcome to Hi-Parents!</h1>
             <p>
               Hi-Parent is an application that helps parents who leave their children in daycare so
-              that we can monitor what their children are doing with their caregivers. The main
-              problem Hi-Parents make is to help parents. We can monitor their children in daycare
-              so they can feel relief when entrusting children to daycare.{' '}
+              that we can monitor what their children are doing with their caregivers.{' '}
             </p>
             <Link to='/auth/signup'>Register</Link>
           </div>
@@ -70,10 +68,8 @@ export default function HomePage() {
           <div className={styles.introText2}>
             <h1>About Us</h1>
             <p>
-              Hi-Parent is an application that helps parents who leave their children in daycare so
-              that we can monitor what their children are doing with their caregivers. The main
-              problem Hi-Parents make is to help parents. We can monitor their children in daycare
-              so they can feel relief when entrusting children to daycare.{' '}
+              The main problem Hi-Parents make is to help parents. We can monitor their children in
+              daycare so they can feel relief when entrusting children to daycare.{' '}
             </p>
             <Link to='/auth/signin'>Login</Link>
           </div>

@@ -13,9 +13,10 @@ import { put, takeEvery } from '@redux-saga/core/effects';
 const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 
-function* childActivityParent() {
+function* childActivityParent(action) {
+  const { pages } = action;
   try {
-    const res = yield axios.get(`${baseUrl}/parents/dashboard`, {
+    const res = yield axios.get(`${baseUrl}/parents/dashboard?page=${pages}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);

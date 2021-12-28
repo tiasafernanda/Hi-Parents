@@ -46,13 +46,15 @@ import {
 } from '../actions/types';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { baseUrl } from './config';
+import io from 'socket.io-client';
 
-const baseUrl = 'https://hi-parent-be.herokuapp.com/';
+// const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 
 function* getNannies(action) {
   const { pages } = action;
   try {
-    const res = yield axios.get(`${baseUrl}nannies?page=${pages}`);
+    const res = yield axios.get(`${baseUrl()}/nannies?page=${pages}`);
     console.log(res);
     yield put({
       type: GET_NANNIES_SUCCESS,
@@ -68,7 +70,7 @@ function* getNannies(action) {
 
 function* getNannyProfile() {
   try {
-    const res = yield axios.get(`${baseUrl}nannies/profile`, {
+    const res = yield axios.get(`${baseUrl()}/nannies/profile`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
@@ -87,7 +89,7 @@ function* getNannyProfile() {
 function* updateNannyProfile(action) {
   const { body } = action;
   try {
-    const res = yield axios.put(`${baseUrl}nannies/profile`, body, {
+    const res = yield axios.put(`${baseUrl()}/nannies/profile`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
@@ -95,7 +97,12 @@ function* updateNannyProfile(action) {
       type: UPDATE_NANNY_PROFILE_SUCCESS,
       payload: res.data,
     });
-    const resProfile = yield axios.get(`${baseUrl}nannies/profile`, {
+    Swal.fire(
+      res.data.message === 'Success Update Your Profile!' ? 'Success' : 'Info',
+      res.data.message === 'Success Update Your Profile!' ? res.data.message : res.data[0],
+      res.data.message === 'Success Update Your Profile!' ? 'success' : 'info'
+    );
+    const resProfile = yield axios.get(`${baseUrl()}/nannies/profile`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
@@ -113,7 +120,9 @@ function* updateNannyProfile(action) {
 
 function* getActiveNannies() {
   try {
-    const res = yield axios.get(`${baseUrl}nannies/active-nannies`);
+    const socket = io(`${baseUrl()}`);
+    const res = yield axios.get(`${baseUrl()}/nannies/active-nannies`);
+    socket.emit('refreshActiveNannies');
     console.log(res);
     yield put({
       type: GET_ACTIVE_NANNIES_SUCCESS,
@@ -129,7 +138,7 @@ function* getActiveNannies() {
 
 function* getAppointment() {
   try {
-    const res = yield axios.get(`${baseUrl}appointments/newest`);
+    const res = yield axios.get(`${baseUrl()}/appointments/newest`);
     console.log(res);
     yield put({
       type: GET_APPOINTMENT_SUCCESS,
@@ -145,20 +154,20 @@ function* getAppointment() {
 
 function* updateAppointmentStatus(action) {
   const { data } = action;
-  console.log(data, 'data ini lur');
+
   const token = localStorage.getItem('token');
   try {
-    const res = yield axios.put(`${baseUrl}appointments/setStatus`, data, {
+    const res = yield axios.put(`${baseUrl()}/appointments/setStatus`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res, 'tes');
+
     Swal.fire('Success', res.data[0], 'success');
     yield put({
       type: UPDATE_STATUS_APPOINTMENT_SUCCESS,
     });
-    const resMainClient = yield axios.get(`${baseUrl}appointments/dashboard`);
+    const resMainClient = yield axios.get(`${baseUrl()}/appointments/dashboard`);
     console.log(resMainClient);
     yield put({
       type: GET_MAIN_CLIENTS_SUCCESS,
@@ -174,7 +183,7 @@ function* updateAppointmentStatus(action) {
 
 function* getChildActivity() {
   try {
-    const res = yield axios.get(`${baseUrl}activity/fe?sort=ASC`);
+    const res = yield axios.get(`${baseUrl()}/activity/fe?sort=ASC`);
     console.log(res);
     yield put({
       type: GET_CHILD_ACTIVITY_SUCCESS,
@@ -191,7 +200,7 @@ function* getChildActivity() {
 function* paginationActivityNanny(action) {
   const { pages } = action;
   try {
-    const res = yield axios.get(`${baseUrl}activity/fe?page=${pages}`);
+    const res = yield axios.get(`${baseUrl()}/activity/fe?page=${pages}&sort=ASC`);
     console.log(res);
     yield put({
       type: PAGINATION_ACTIVITY_NANNY_SUCCESS,
@@ -208,8 +217,8 @@ function* paginationActivityNanny(action) {
 function* getChildActivities(actions) {
   const { appointment_id } = actions;
   try {
-    const res = yield axios.get(`${baseUrl}activity/${appointment_id}`);
-    console.log('child activities', res.data);
+    const res = yield axios.get(`${baseUrl()}/activity/${appointment_id}`);
+
     yield put({
       type: GET_CHILD_ACTIVITIES_SUCCESS,
       payload: res.data,
@@ -225,16 +234,21 @@ function* getChildActivities(actions) {
 function* postChildActivities(actions) {
   const { body, appointment_id } = actions;
   try {
-    const res = yield axios.post(`${baseUrl}activity`, body, {
+    const res = yield axios.post(`${baseUrl()}/activity`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
     yield put({
       type: POST_CHILD_ACTIVITIES_SUCCESS,
     });
-    Swal.fire('Success', 'Activity Created', 'success', (window.location.href = '/dashboard/childactivity'));
-    const resActivities = yield axios.get(`${baseUrl}activity/${appointment_id}`);
-    console.log('child activities', resActivities.data);
+    Swal.fire(
+      'Success',
+      'Activity Created',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+    );
+    const resActivities = yield axios.get(`${baseUrl()}/activity/${appointment_id}`);
+    console.log(resActivities);
     yield put({
       type: GET_CHILD_ACTIVITIES_SUCCESS,
       payload: res.data,
@@ -250,10 +264,15 @@ function* postChildActivities(actions) {
 function* updateChildActivities(actions) {
   const { body } = actions;
   try {
-    const res = yield axios.put(`${baseUrl}activity`, body, {
+    const res = yield axios.put(`${baseUrl()}/activity`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
-    Swal.fire('Success', 'Activity Updated', 'success', (window.location.href = '/dashboard/childactivity'));
+    Swal.fire(
+      'Success',
+      'Activity Updated',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+    );
     console.log(res);
     yield put({
       type: UPDATE_CHILD_ACTIVITIES_SUCCESS,
@@ -267,7 +286,7 @@ function* updateChildActivities(actions) {
 }
 
 function* deleteChildActivities(actions) {
-  const { body, appointment_id } = actions;
+  const { body } = actions;
   let config = {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   };
@@ -281,17 +300,9 @@ function* deleteChildActivities(actions) {
     console.log(res);
     yield put({
       type: DELETE_CHILD_ACTIVITIES_SUCCESS,
-      // payload: res.data,
     });
-    Swal.fire(
-      'Success',
-      'Activity Deleted',
-      'success'
-      // (window.location.href = '/dashboard/childactivity')
-      // window.location.reload()
-    );
-    const resActivities = yield axios.get(`${baseUrl}activity/fe?sort=ASC`);
-    console.log(res);
+    Swal.fire('Success', 'Activity Deleted', 'success');
+    const resActivities = yield axios.get(`${baseUrl()}/activity/fe?sort=ASC`);
     yield put({
       type: GET_CHILD_ACTIVITY_SUCCESS,
       payload: resActivities.data,
@@ -304,31 +315,16 @@ function* deleteChildActivities(actions) {
   }
 }
 
-// function* getNanniesAsc() {
-//   try {
-//     const res = yield axios.get(`${baseUrl}nannies?sort=${sort}`);
-//     console.log(res);
-//     yield put({
-//       type: GET_NANNIES_SUCCESS,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     yield put({
-//       type: GET_NANNIES_FAIL,
-//       error: err,
-//     });
-//   }
-// }
-
 function* putManageChild(action) {
   const { data } = action;
   const token = localStorage.getItem('token');
   try {
-    const res = yield axios.put(`${baseUrl}children`, data, {
+    const res = yield axios.put(`${baseUrl()}/children`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res);
     yield put({
       type: PUT_MANAGE_CHILD_SUCCESS,
     });

@@ -9,14 +9,14 @@ import { getAppointment } from '../../store/actions/nannies';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
-import previousIcon from './assets/previousicon.svg';
-import nextIcon from './assets/nexticon.svg';
-import closeIcon from './assets/close.png';
 import sortIcon from './assets/sortIcon.svg';
 import filterIcon from './assets/filterIcon.svg';
 import ReactLoading from 'react-loading';
-import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
+import { io } from 'socket.io-client';
+
+// eslint-disable-next-line no-unused-vars
+const socket = io.connect('/');
 
 export default function ClientList() {
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ export default function ClientList() {
   const dispatch = useDispatch();
 
   const { loading, clients } = useSelector((state) => state.clients);
-  console.log('clients list', clients);
 
   useEffect(() => {
     dispatch(getAppointment());
@@ -48,20 +47,12 @@ export default function ClientList() {
   };
 
   const handleClientDetail = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
   const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
 
   //Accept Client & Modal
   const [openModal, setOpenModal] = useState(false);
-  console.log(openModal, 'modal');
-
-  // const [modalSelect, setModalSelect] = useState('');
-  // const modalValue = clients.find((data) => data.client_Id === modalSelect);
-  // console.log(modalSelect, 'modalSelect');
-  // console.log(modalValue, 'modalValue');
 
   const handleModal = () => {
     setOpenModal(true);
@@ -77,8 +68,6 @@ export default function ClientList() {
     appointment_id: null,
     appointment_status: '',
   });
-
-  const [openMessage, setOpenMessage] = useState(false);
 
   const handleRejectClient = () => {
     setStatusReject((statusReject.appointment_id = selectedItem.appointment_id));
@@ -97,29 +86,23 @@ export default function ClientList() {
 
   useEffect(() => {
     dispatch(getClients(page));
-  }, [page]);
+  }, [dispatch, page, showPage]);
 
   return (
     <div className={styles.dashboard}>
-      {/* {openMessage && (
-        <div className={styles.rejectMessege}>
-          <p>Reject Client Success!</p>
-          <img src={closeIcon} alt='close' />
-        </div>
-      )} */}
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} />
+          <img src={sortIcon} alt='' />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} />
+          <img src={filterIcon} alt='' />
           Filter
         </button>
       </div>
       <div className={styles.table}>
-        <table>
+        <table style={{ overflowX: 'auto' }}>
           <tr>
             <th>Date Request</th>
             <th>Parent Name</th>
@@ -158,12 +141,38 @@ export default function ClientList() {
                       >
                         <MenuItem onClick={() => handleModal()} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span>
+<<<<<<< HEAD
                             <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                           </span>
                           Accept Client
                         </MenuItem>
                         <MenuItem onClick={handleRejectClient} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+=======
+                            <BsCheck2Circle
+                              style={{
+                                color: '#10B278',
+                                position: 'relative',
+                                top: '3px',
+                                marginRight: '5px',
+                              }}
+                            />
+                          </span>
+                          Accept Client
+                        </MenuItem>
+                        <MenuItem
+                          onClick={handleRejectClient}
+                          // disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
+                          <span
+                            style={{
+                              color: '#F67979',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
+>>>>>>> 1d4c1eea539f2487769c157a8c02feb8a4c15a45
                             <BiXCircle />
                           </span>
                           Reject Client
@@ -175,7 +184,14 @@ export default function ClientList() {
                           }}
                           id={item.appointment_id}
                         >
-                          <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                          <span
+                            style={{
+                              color: '#768471',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
                             <AiOutlineInfoCircle />
                           </span>
                           View Details
@@ -194,8 +210,6 @@ export default function ClientList() {
             variant="outlined"
             shape="rounded"
             onChange={handlePage}
-            // hideNextButton
-            // hidePrevButton
           />
         </div>
         {openModal && (

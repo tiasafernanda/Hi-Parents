@@ -18,9 +18,6 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
   UPDATE_STATUS_APPOINTMENT_FAIL,
-  GET_CLIENTS_ASC_BEGIN,
-  GET_CLIENTS_ASC_SUCCESS,
-  GET_CLIENTS_ASC_FAIL,
 } from '../actions/types';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -64,7 +61,7 @@ function* getClientDetail(actions) {
   try {
     const res = yield axios.get(`${baseUrl}appointments/detail/${appointment_id}`);
     console.log(res);
-    console.log('childActivities', res.data.appointment_id);
+    
     yield put({
       type: GET_CLIENT_DETAIL_SUCCESS,
       payload: res.data.data,
@@ -96,7 +93,7 @@ function* getActiveClients() {
 function* getClientAccepted() {
   try {
     const res = yield axios.get(`${baseUrl}appointments/accepted`);
-    console.log(res, 'tes');
+    
     yield put({
       type: GET_CLIENT_ACCEPTED_SUCCESS,
       payload: res.data,
@@ -113,7 +110,7 @@ function* updateStatusAppointment(action) {
   // const { payload } = action;
   // const data = payload;
   const { data } = action;
-  console.log(data, 'data ini lur');
+  
   const token = localStorage.getItem('token');
   try {
     const res = yield axios.put(`${baseUrl}appointments/setStatus`, data, {
@@ -121,7 +118,7 @@ function* updateStatusAppointment(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res, 'tes');
+    
     yield put({
       type: UPDATE_STATUS_APPOINTMENT_SUCCESS,
     });

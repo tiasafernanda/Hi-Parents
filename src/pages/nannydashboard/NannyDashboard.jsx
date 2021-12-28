@@ -1,3 +1,4 @@
+/* eslint-disable no-const-assign */
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import styles from './assets/NannyDashboard.module.scss';
@@ -10,9 +11,6 @@ import { BsCheck2Circle } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiXCircle } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
-// import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMainClients, getActiveClients } from '../../store/actions/clients';
 import {
@@ -20,19 +18,18 @@ import {
   getAppointment,
   updateAppointmentStatus,
 } from '../../store/actions/nannies';
-import Empty from '../../components/empty/Empty';
-// import Stack from '@mui/material/Stack';
-// import LinearProgress from '@mui/material/LinearProgress';
+import io from 'socket.io-client';
+import { baseUrl } from '../../store/sagas/config';
+import ReactLoading from 'react-loading';
 
 export default function NannyDashboard() {
-  // const { data } = props;
-  // console.log(data);
+  const socket = io(`${baseUrl()}`);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { mainClients } = useSelector((state) => state.clients);
+  const { loading, mainClients } = useSelector((state) => state.clients);
   const activeClient = useSelector((state) => state.clients.activeClient);
   const nannies = useSelector((state) => state.nannies);
-  console.log('main clients', mainClients);
+
   useEffect(() => {
     dispatch(getActiveNannies());
   }, [dispatch]);
@@ -59,7 +56,6 @@ export default function NannyDashboard() {
   };
 
   const handleClientDetail = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
 
@@ -81,24 +77,27 @@ export default function NannyDashboard() {
 
   useEffect(() => {}, [open]);
 
-  // const handleClick = (e, index) => {
-  //   if (!e.target.closest(`.${node.current.class}`) && open) {
-  //     setOpen(0);
-  //   }
-  //   console.log(node.current);
-  // };
+  socket.on('refreshAwaitingAppointment', function (data) {
+    // refresh main clients table data on nanny dashboard
+    mainClients = data;
+    dispatch(getMainClients());
+  });
+  socket.on('refreshActiveNannies', function (data) {
+    // refresh total active nannies on nanny dashboard
+    nannies = data;
+    dispatch(getAppointment());
+    dispatch(getActiveNannies());
+  });
+  socket.on('refreshActiveClient', function (data) {
+    // refresh total active clients on nanny dashboard
+    activeClient = data;
+    dispatch(getActiveClients());
+  });
 
-  // useEffect(() => {
-  //   document.addEventListener('click', handleClick);
-  //   return () => {
-  //     document.removeEventListener('click', handleClick);
-  //   };
-  // }, []);
   const [openModal, setOpenModal] = useState(false);
-  console.log(openModal, 'modal');
+
   const [selectedItem, setSelectedItem] = useState('');
   const modalValue = mainClients.find((data) => data.client_id === selectedItem);
-  console.log(modalValue, 'modalValue');
 
   const handleModal = (clientId) => {
     setSelectedItem(clientId);
@@ -137,7 +136,7 @@ export default function NannyDashboard() {
       </div>
       <div className={styles.table} style={{ overflowX: 'auto' }}>
         <h1>Client List</h1>
-        <table>
+        <table style={{ overflowX: 'auto' }}>
           <tr>
             <th>Date Request</th>
             <th>Parent Name</th>
@@ -146,7 +145,9 @@ export default function NannyDashboard() {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {mainClients.length !== [0] ? (
+          {loading ? (
+            <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
+          ) : (
             mainClients?.map((item, index) => {
               return (
                 <tr id={item.appointment_id} key={index}>
@@ -195,7 +196,12 @@ export default function NannyDashboard() {
                         >
                           <span>
                             <BsCheck2Circle
-                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                              style={{
+                                color: '#10B278',
+                                position: 'relative',
+                                top: '3px',
+                                marginRight: '5px',
+                              }}
                             />
                           </span>
                           Accept Client
@@ -204,7 +210,14 @@ export default function NannyDashboard() {
                           onClick={handleRejectClient}
                           disabled={selectedItem.appointment_status === 'Pending' ? false : true}
                         >
-                          <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                          <span
+                            style={{
+                              color: '#F67979',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
                             <BiXCircle />
                           </span>
                           Reject Client
@@ -216,56 +229,24 @@ export default function NannyDashboard() {
                           }}
                           id={item.appointment_id}
                         >
-                          <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                          <span
+                            style={{
+                              color: '#768471',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
                             <AiOutlineInfoCircle />
                           </span>
                           View Details
                         </MenuItem>
                       </Menu>
-                      {/* {open === index + 1 && (
-                          <div>
-                            <button
-                              // onClick={
-                              //   (() => getIdAccept(item.appointment_id),
-                              //   setInterval(dispatch(getUpdateAppointment(acceptStatus)), 500))
-                              // }
-                              onClick={() => handleModal(item.client_Id)}
-                              disabled={item?.appointment_status === 'Accept' ? true : false}
-                            >
-                              <span>
-                                <BsCheck2Circle
-                                  style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                                />
-                              </span>{' '}
-                              Accept Client
-                            </button>
-                            <button
-                              // onClick={
-                              //   (() => getIdReject(item.appointment_id),
-                              //   setInterval(dispatch(getUpdateAppointment(rejectStatus)), 500))
-                              // }
-                              disabled={item?.appointment_status === 'Accept' ? true : false}
-                            >
-                              <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-                                <BiXCircle />
-                              </span>{' '}
-                              Reject Client
-                            </button>
-                            <Link to={`/dashboard/clientdetail/${item.appointment_id}`}>
-                              <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                                <AiOutlineInfoCircle />
-                              </span>{' '}
-                              View Details
-                            </Link>
-                          </div>
-                        )} */}
                     </div>
                   </td>
                 </tr>
               );
             })
-          ) : (
-            <Empty dashboard='No Client Data' />
           )}
         </table>
         <div className={styles.add}>

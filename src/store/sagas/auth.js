@@ -27,7 +27,6 @@ function* loginNanny(action) {
     );
   } catch (err) {
     console.log(err);
-    // Swal.fire('Error', 'Wrong email or password', 'error');
     yield put({
       type: LOGINNANNY_FAIL,
       error: err,

@@ -18,8 +18,9 @@ import {
 } from '../../store/actions/nannies';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
+import jwt_decode from 'jwt-decode';
+import ReactLoading from 'react-loading';
 
 const useStyles = makeStyles({
   root: {
@@ -27,10 +28,11 @@ const useStyles = makeStyles({
   },
 });
 export default function ChildActivity() {
+  const decoded = jwt_decode(localStorage.getItem('token'));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const activity = useSelector((state) => state?.nannies.activity);
-  console.log('activity list', activity);
+  const { loading, activity } = useSelector((state) => state?.nannies);
+
   useEffect(() => {
     dispatch(getChildActivity());
   }, [dispatch]);
@@ -39,7 +41,6 @@ export default function ChildActivity() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
 
   const handleCreateActivity = (appointment_id) => {
     navigate(`/dashboard/createactivity/${appointment_id}`);
@@ -62,10 +63,6 @@ export default function ChildActivity() {
     setAnchorEl(null);
   };
 
-  const [deleteActivity, setDeleteActivity] = useState({
-    id: null,
-  });
-
   const handleDeleteActivity = (id) => {
     let form = new FormData();
     form.append('id', id);
@@ -83,50 +80,7 @@ export default function ChildActivity() {
 
   useEffect(() => {
     dispatch(paginationActivityAction(page));
-  }, [page]);
-
-  // useEffect(() => {
-  //   dispatch(deleteChildActivities(activity.id));
-  // }, [dispatch, activity.id]);
-
-  // const deleteActivity = () => {
-  //   dispatch(deleteChildActivities(activity.id));
-  // };
-
-  // function sortTable() {
-  //   var table, rows, switching, i, x, y, shouldSwitch;
-  //   table = document.getElementById('activityTable');
-  //   switching = true;
-  //   /*Make a loop that will continue until
-  //   no switching has been done:*/
-  //   while (switching) {
-
-  //     switching = true;
-  //     rows = table.rows;
-  //     /*Loop through all table rows (except the
-  //     first, which contains table headers):*/
-  //     for (i = 1; i < rows.length - 1; i++) {
-
-  //       shouldSwitch = true;
-  //       /*Get the two elements you want to compare,
-  //       one from current row and one from the next:*/
-  //       x = rows[i].getElementsByTagName('TD')[0];
-  //       y = rows[i + 1].getElementsByTagName('TD')[0];
-
-  //       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-
-  //         shouldSwitch = true;
-  //         break;
-  //       }
-  //     }
-  //     if (shouldSwitch) {
-  //       /*If a switch has been marked, make the switch
-  //       and mark that a switch has been done:*/
-  //       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-  //       switching = true;
-  //     }
-  //   }
-  // }
+  }, [dispatch, page, showPage]);
 
   return (
     <div className={styles.containers}>
@@ -152,7 +106,9 @@ export default function ChildActivity() {
           <th>Activity Detail</th>
           <th>Action</th>
         </tr>
-        {activity?.length != [0] ? (
+        {loading ? (
+          <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
+        ) : (
           activity?.data?.map((item, index) => (
             <tr key={index} id={item.appointment_id}>
               <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
@@ -171,6 +127,7 @@ export default function ChildActivity() {
                     onClick={() => {
                       handleDeleteActivity(item.id);
                     }}
+                    disabled={decoded.name === item?.appointment?.nanny?.name ? false : true}
                     sx={{ boxShadow: 0, color: '#F67979' }}
                   >
                     <AiOutlineDelete /> Delete Activity
@@ -204,12 +161,13 @@ export default function ChildActivity() {
                         handleCreateActivity(selectedItem.appointment.appointment_id);
                       }}
                       id={activity?.appointment?.appointment_id}
+                      // disabled={decoded.name === item.appointment.nanny.name ? false : true}
                       sx={{
                         boxShadow: 0,
                         color: '#2586d7',
                       }}
                     >
-                      <FaChild style={{ position: 'relative', bottom: '2px' }} /> Create New
+                      <FaChild style={{ position: 'relative', marginRight: '5px' }} /> Create New
                       Activity
                     </MenuItem>
                     <MenuItem
@@ -221,26 +179,14 @@ export default function ChildActivity() {
                         );
                       }}
                       id={activity?.id}
+                      // disabled={decoded.name === item.appointment.nanny.name ? false : true}
                       sx={{
                         boxShadow: 0,
                         color: '#10B278',
                       }}
                     >
-                      <BiEdit /> Edit Activity
+                      <BiEdit style={{ position: 'relative', marginRight: '5px' }} /> Edit Activity
                     </MenuItem>
-                    {/* <MenuItem
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleDeleteActivity(item.id);
-                    }}
-                    id={activity?.id}
-                    sx={{
-                      boxShadow: 0,
-                      color: '#F67979',
-                    }}
-                  >
-                    <AiOutlineDelete /> Delete Activity
-                  </MenuItem> */}
                     <MenuItem
                       onClick={(e) => {
                         e.preventDefault();
@@ -249,11 +195,11 @@ export default function ChildActivity() {
                       id={activity?.appointment?.appointment_id}
                       sx={{
                         boxShadow: 0,
-                        color: '#C1C1C2',
+                        color: '#2F2F33',
                       }}
                     >
                       {' '}
-                      <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                      <span style={{ position: 'relative', top: '2px', marginRight: '5px' }}>
                         <AiOutlineInfoCircle />
                       </span>{' '}
                       View Details
@@ -263,8 +209,6 @@ export default function ChildActivity() {
               </td>
             </tr>
           ))
-        ) : (
-          <Empty dashboard='No Children Activity' />
         )}
       </table>
       <div className={styles.paginationContainer}>

@@ -1,7 +1,6 @@
 import {
   GET_CLIENTS_BEGIN,
   GET_ACTIVE_CLIENTS_BEGIN,
-  GET_CLIENTS_ASC_BEGIN,
   GET_CLIENT_DETAIL_BEGIN,
   GET_MAIN_CLIENTS_BEGIN,
   UPDATE_STATUS_APPOINTMENT_BEGIN,
@@ -18,12 +17,6 @@ export const getClients = (pages) => {
   return {
     type: GET_CLIENTS_BEGIN,
     pages,
-  };
-};
-
-export const getClientsAsc = () => {
-  return {
-    type: GET_CLIENTS_ASC_BEGIN,
   };
 };
 

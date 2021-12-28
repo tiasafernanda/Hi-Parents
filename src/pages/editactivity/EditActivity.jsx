@@ -24,19 +24,17 @@ const style = {
 };
 export default function EditActivity() {
   const { appointment_id, id } = useParams();
-  console.log(id, 'ID');
-  console.log('appointment_id', appointment_id);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getChildActivities(appointment_id));
   }, [dispatch, appointment_id]);
-  const activitiesDetail = useSelector((state) => state.nannies.childDetail.activities);
-  console.log('Activities Detail', activitiesDetail);
+
   useEffect(() => {
     dispatch(getClientDetail(appointment_id));
   }, [dispatch, appointment_id]);
   const detailClient = useSelector((state) => state.clients.clientDetail.details);
-  console.log('Client Detail', detailClient && detailClient[0]);
+
   const [form, setForm] = useState([
     {
       activity_detail: '',
@@ -55,7 +53,6 @@ export default function EditActivity() {
     }
     dispatch(updateChildActivities(formActivity, id));
   };
-  console.log('form', form);
 
   const changeForm = (index, e) => {
     let newForm = [...form];

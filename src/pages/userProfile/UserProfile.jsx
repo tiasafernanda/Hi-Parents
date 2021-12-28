@@ -3,10 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getNannyProfileAction,
-  // updateNannyProfileAction
-} from '../../store/actions/nannies';
+import { getNannyProfileAction, updateNannyProfileAction } from '../../store/actions/nannies';
 import styles from './assets/UserProfile.module.scss';
 import MenuItem from '@mui/material/MenuItem';
 import folder from './assets/img/folder_5.svg';
@@ -17,55 +14,44 @@ export default function UserProfile() {
     dispatch(getNannyProfileAction());
   }, [dispatch]);
   const nannyProfile = useSelector((state) => state.nannies.profile);
-  console.log('profile', nannyProfile);
-  // const newProfile = useSelector((state) => state.nannies.profile);
-  // console.log('profile', nannyProfile);
 
   const [updateProfile, setUpdateProfile] = useState({
-    name: '',
-    phone_number: '',
-    gender: '',
+    name: nannyProfile?.userProfile?.name || '',
+    phone_number: nannyProfile?.userProfile?.email || '',
+    gender: nannyProfile?.userProfile?.gender || '',
     photo: null,
   });
 
-  console.log(updateProfile);
-
-  const changeInput = (e, index) => {
+  const changeInput = (e) => {
     setUpdateProfile({
       ...updateProfile,
       [e.target.name]: e.target.value,
     });
-    // let newForm = [updateProfile];
-    // newForm[index][e.target.name] = e.target.value;
-    // setUpdateProfile(newForm);
   };
 
-  // const submitUpdateProfile = () => {
-  //   dispatch(updateNannyProfileAction(updateProfile));
-  // };
+  const submitNannyProfile = () => {
+    let formDataNanny = new FormData();
+    formDataNanny.append('name', updateProfile.name);
+    formDataNanny.append('phone_number', updateProfile.phone_number);
+    formDataNanny.append('gender', updateProfile.gender);
+    formDataNanny.append('photo', updateProfile.photo);
 
-  const [image, setImage] = useState();
-  console.log(image);
-  const [isUpload, setIsUpload] = useState(false);
+    dispatch(updateNannyProfileAction(formDataNanny));
+  };
 
-  function handleImageForm(e, index) {
+  const [nannyImage, setNannyImage] = useState([]);
+
+  function handleImageForm(e) {
     if (e.target.files && e.target.files[0]) {
+      setUpdateProfile({ ...updateProfile, photo: e.target.files[0] });
       let reader = new FileReader();
-
-      reader.onload = function (e) {
-        let newForm = [updateProfile];
-        newForm[index].photo = e.target.result;
-        setUpdateProfile(newForm);
-      };
       reader.readAsDataURL(e.target.files[0]);
+
+      reader.onload = () => {
+        setNannyImage(reader.result);
+      };
     }
   }
-
-  // function deletePhoto(index) {
-  //   let newForm = [updateProfile];
-  //   newForm[index].photo = '';
-  //   setUpdateProfile(newForm);
-  // }
 
   const genders = [
     {
@@ -77,11 +63,6 @@ export default function UserProfile() {
       label: 'Female',
     },
   ];
-  const [gender, setGender] = React.useState();
-
-  // const handleChange = (event) => {
-  //   setGender(event.target.value);
-  // };
 
   return (
     <div className={styles.containers}>
@@ -127,18 +108,28 @@ export default function UserProfile() {
               <div className={styles.photo}>
                 <fieldset>
                   <legend className={styles.legend}>Photo</legend>
-                  {/* <input type='file' accept='image/*' onChange={(e) => handleImage(e)} />
-                  {preview ? <img src={preview} alt='preview' /> : null} */}
                   <div className={styles.image}>
                     <div className={styles.imageUpload}>
-                      {!isUpload ? (
+                      {!updateProfile.photo ? (
                         <>
                           <label htmlFor='upload-input'>
                             <img
-                              src={folder}
+                              src={nannyProfile?.userProfile?.photo || folder}
                               draggable={'false'}
                               alt='placeholder'
-                              style={{ width: '2rem' }}
+                              style={
+                                nannyProfile?.userProfile?.photo === null
+                                  ? { width: '2rem' }
+                                  : {
+                                      height: '5rem',
+                                      width: '5rem',
+                                      objectFit: 'cover',
+                                      borderRadius: '20px',
+                                      position: 'relative',
+                                      bottom: '1px',
+                                      right: '1px',
+                                    }
+                              }
                             />
                           </label>
                           <input
@@ -153,11 +144,11 @@ export default function UserProfile() {
                         <div className={styles.ImagePreview}>
                           <img
                             id={styles.uploadedImage}
-                            src={image}
+                            src={nannyImage}
                             alt='uploaded-img'
                             onClick={() => {
-                              setIsUpload(false);
-                              setImage(null);
+                              setUpdateProfile(false);
+                              setNannyImage(null);
                             }}
                           />
                         </div>
@@ -176,14 +167,14 @@ export default function UserProfile() {
                 name='phone_number'
                 type='tel'
                 placeholder='081234xxxxx'
-                value={nannyProfile?.userProfile?.phone_number}
+                defaultValue={nannyProfile?.userProfile?.phone_number}
                 onChange={(e) => changeInput(e)}
               />
               <TextField
                 select
                 label='Gender'
                 name='gender'
-                value={gender}
+                defaultValue={nannyProfile?.userProfile?.gender}
                 onChange={(e) => changeInput(e)}
                 helperText='Please select your gender'
               >
@@ -227,6 +218,7 @@ export default function UserProfile() {
             color: 'white',
             borderStyle: 'none',
           }}
+          onClick={submitNannyProfile}
         >
           Save
         </button>
