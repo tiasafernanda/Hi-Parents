@@ -48,7 +48,7 @@ export default function NannyList() {
   return (
     <div className={styles.container}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography sx={{ fontFamily: 'Nunito' }} variant='h4'>
+        <Typography sx={{ fontFamily: 'Nunito', fontWeight: '700' }} variant='h4'>
           Nanny List
         </Typography>
         <Box
@@ -85,9 +85,9 @@ export default function NannyList() {
           </Button>
         </Box>
         <TableContainer component={Paper} sx={{ borderRadius: '12px' }}>
-          <Table aria-label='simple table'>
+          <Table aria-label='simple table' sx={{ fontFamily: 'Nunito' }}>
             <TableHead>
-              <TableRow>
+              <TableRow sx={{ fontFamily: 'Nunito' }}>
                 <TableCell>Nanny's Name</TableCell>
                 <TableCell>Nanny ID</TableCell>
                 <TableCell>Phone Number</TableCell>
@@ -96,7 +96,7 @@ export default function NannyList() {
                 <TableCell align='center'>Action</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody sx={{ fontFamily: 'Nunito' }}>
               {loading ? (
                 <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
               ) : (

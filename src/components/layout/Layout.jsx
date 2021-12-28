@@ -103,6 +103,7 @@ function Layout(props) {
       <CssBaseline />
       <AppBar
         position='fixed'
+        open={mobileOpen}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           height: '5rem',
@@ -179,7 +180,6 @@ function Layout(props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
             boxShadow: '50rem, 50rem',
           }}
-          // open
         >
           <img
             src={mainLogo}

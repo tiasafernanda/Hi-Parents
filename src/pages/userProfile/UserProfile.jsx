@@ -39,10 +39,6 @@ export default function UserProfile() {
     dispatch(updateNannyProfileAction(formDataNanny));
   };
 
-  const [, setImage] = useState();
-
-  const [, setIsUpload] = useState(false);
-
   const [nannyImage, setNannyImage] = useState([]);
 
   function handleImageForm(e) {
@@ -151,8 +147,8 @@ export default function UserProfile() {
                             src={nannyImage}
                             alt='uploaded-img'
                             onClick={() => {
-                              setIsUpload(false);
-                              setImage(null);
+                              setUpdateProfile(false);
+                              setNannyImage(null);
                             }}
                           />
                         </div>

@@ -267,7 +267,12 @@ function* updateChildActivities(actions) {
     const res = yield axios.put(`${baseUrl()}/activity`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
-    Swal.fire('Success', 'Activity Updated', 'success', (window.location.href = '/dashboard/childactivity'));
+    Swal.fire(
+      'Success',
+      'Activity Updated',
+      'success',
+      (window.location.href = '/dashboard/childactivity')
+    );
     console.log(res);
     yield put({
       type: UPDATE_CHILD_ACTIVITIES_SUCCESS,

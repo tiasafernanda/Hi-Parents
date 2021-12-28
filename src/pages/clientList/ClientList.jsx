@@ -102,7 +102,7 @@ export default function ClientList() {
         </button>
       </div>
       <div className={styles.table}>
-        <table>
+        <table style={{ overflowX: 'auto' }}>
           <tr>
             <th>Date Request</th>
             <th>Parent Name</th>

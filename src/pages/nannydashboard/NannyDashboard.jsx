@@ -136,7 +136,7 @@ export default function NannyDashboard() {
       </div>
       <div className={styles.table} style={{ overflowX: 'auto' }}>
         <h1>Client List</h1>
-        <table>
+        <table style={{ overflowX: 'auto' }}>
           <tr>
             <th>Date Request</th>
             <th>Parent Name</th>
