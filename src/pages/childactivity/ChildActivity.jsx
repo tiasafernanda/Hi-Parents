@@ -161,7 +161,7 @@ export default function ChildActivity() {
                         handleCreateActivity(selectedItem.appointment.appointment_id);
                       }}
                       id={activity?.appointment?.appointment_id}
-                      disabled={decoded.name === item?.appointment?.nanny?.name ? false : true}
+                      // disabled={decoded.name === item.appointment.nanny.name ? false : true}
                       sx={{
                         boxShadow: 0,
                         color: '#2586d7',
@@ -179,7 +179,7 @@ export default function ChildActivity() {
                         );
                       }}
                       id={activity?.id}
-                      disabled={decoded.name === item?.appointment?.nanny?.name ? false : true}
+                      // disabled={decoded.name === item.appointment.nanny.name ? false : true}
                       sx={{
                         boxShadow: 0,
                         color: '#10B278',

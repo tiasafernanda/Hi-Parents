@@ -31,7 +31,7 @@ export default function NannyList() {
   }, [dispatch]);
 
   const { loading, nannies } = useSelector((state) => state.nannies);
-  console.log('nannylist', nannies);
+
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(false);
 

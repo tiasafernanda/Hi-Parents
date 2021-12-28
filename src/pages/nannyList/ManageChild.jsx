@@ -141,7 +141,6 @@ export default function ManageChild() {
     setSelectedChild((selectedChild.appointment_id = temp));
     dispatch(putManageChild(selectedChild));
   };
-  console.log(selectedChild, 'testes');
 
   return (
     <div className={styles.container}>
