@@ -10,12 +10,9 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { ChildAction } from '../../store/actions/childParent';
 import { ParentAction } from '../../store/actions/parent';
-// import { Link, useParams } from "react-router-dom";
 import { getDataParentAction } from '../../store/actions/getParent';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getDataChildAction } from '../../store/actions/getChild';
-// import { ParentActionSuccess } from "../../store/actions/parent";
 import { ParentChildAction } from '../../store/actions/childParent';
 import dayjs from 'dayjs';
 
@@ -36,14 +33,14 @@ export default function ProfileParent() {
   ];
 
   const [inputParent, setInputParent] = useState({
-    name: profile?.data?.name,
-    phone_number: '',
-    address: '',
-    job: '',
-    place_birth: '',
-    date_birth: '',
-    gender: '',
-    photo: null,
+    name: profile?.data?.name || '',
+    phone_number: profile?.data?.phone_number || '',
+    address: profile?.data?.address || '',
+    job: profile?.data?.job || '',
+    place_birth: profile?.data?.place_birth || '',
+    date_birth: profile?.data?.date_birth || '',
+    gender: profile?.data?.gender || '',
+    photo: profile?.data?.photo || null,
   });
 
   const changeInputParent = (e) => {
@@ -100,18 +97,11 @@ export default function ProfileParent() {
     setInputChild(newInputChild);
   };
 
-  // const submitChild = () => {
-  //   dispatch(ChildAction(inputChild));
-  // };
   const deleteInputChild = (index) => {
     let newInputChild = [...inputChild];
     newInputChild.splice(index, 1);
     setInputChild(newInputChild);
   };
-
-  const [, setImage] = useState();
-
-  const [, setIsUpload] = useState(false);
 
   const [previewParent, setPreviewParent] = useState([]);
 
@@ -155,7 +145,7 @@ export default function ProfileParent() {
   };
 
   useEffect(() => {
-    dispatch(getDataParentAction(), getDataChildAction());
+    dispatch(getDataParentAction());
   }, [dispatch]);
 
   return (
@@ -210,6 +200,7 @@ export default function ProfileParent() {
                 defaultValue={profile?.data?.phone_number || ''}
                 onChange={(e) => changeInputParent(e)}
               />
+              <p className={styles.phoneNumber}>*Must be 12 digits</p>
               <TextField
                 required
                 id='outlined-required'
@@ -230,10 +221,22 @@ export default function ProfileParent() {
                         <>
                           <label htmlFor='upload-input-parent'>
                             <img
-                              src={folder}
+                              src={profile?.data?.photo === null ? folder : profile?.data?.photo}
                               draggable={'false'}
                               alt='placeholder'
-                              style={{ width: '2rem' }}
+                              style={
+                                profile?.data?.photo === null
+                                  ? { width: '2rem' }
+                                  : {
+                                      height: '5rem',
+                                      width: '5rem',
+                                      objectFit: 'cover',
+                                      borderRadius: '20px',
+                                      position: 'relative',
+                                      bottom: '1px',
+                                      right: '1px',
+                                    }
+                              }
                             />
                           </label>
                           <input
@@ -251,8 +254,8 @@ export default function ProfileParent() {
                             src={previewParent}
                             alt='uploaded-img'
                             onClick={() => {
-                              setIsUpload(false);
-                              setImage(null);
+                              setInputParent(false);
+                              setPreviewParent(null);
                             }}
                             // onChange={(e) => changeInputParent(e)}
                           />
@@ -289,11 +292,10 @@ export default function ProfileParent() {
                 label='Date Birth'
                 name='date_birth'
                 placeholder='Date Birth'
-                defaultValue={
-                  'DD/MM/YYYY' || dayjs(profile?.data?.date_birth).format('DD MMMM YYYY')
-                }
+                defaultValue={dayjs(profile?.data?.date_birth).format('DD MMMM YYYY')}
                 onChange={(e) => changeInputParent(e)}
               />
+              <p className={styles.dateFormat}>*DD/MM/YYYY</p>
               <TextField
                 select
                 label='Gender'

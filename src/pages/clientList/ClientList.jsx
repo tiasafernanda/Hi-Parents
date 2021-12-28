@@ -221,8 +221,6 @@ export default function ClientList() {
             variant='outlined'
             shape='rounded'
             onChange={handlePage}
-            // hideNextButton
-            // hidePrevButton
           />
         </div>
         {openModal && (

@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './assets/ActivityParent.module.scss';
-// import datas from "./ActivityParentData";
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-// import family from "./assets/img/family.png";
-// import Empty from '../../components/empty/Empty';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -13,10 +9,9 @@ import { useEffect } from 'react';
 import { childActivityParentAction } from '../../store/actions/childActivityParent';
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
-
 import dayjs from 'dayjs';
 import Empty from '../../components/empty/Empty';
-// import { Empty } from '../../components/empty/Empty';
+import Pagination from '@mui/material/Pagination';
 
 export default function ActivityParent() {
   const childActivity = useSelector((state) => state.childActivityParent.Activity);
@@ -30,6 +25,19 @@ export default function ActivityParent() {
   const handleActivityDetail = (id) => {
     navigate(`/dashboard/parentactivitydetail/${id}`);
   };
+
+  const [page, setPage] = useState(1);
+  const [showPage, setShowPage] = useState(false);
+
+  const handlePage = (e) => {
+    e.preventDefault();
+    setPage(parseInt(e.target.textContent));
+    setShowPage(true);
+  };
+
+  useEffect(() => {
+    dispatch(childActivityParentAction(page));
+  }, [dispatch, page, showPage]);
   return (
     <div className={styles.containers}>
       <h1>Child Activity</h1>
@@ -77,36 +85,6 @@ export default function ActivityParent() {
                     <AiOutlineInfoCircle />
                     View Details
                   </Button>
-                  {/* <Menu
-                  anchorEl={anchorEl}
-                  id={item.id}
-                  open={open}
-                  onClose={handleClose}
-                  elevation={1}
-                  className={classes.root}
-                  sx={{ display: 'flex', flexDirection: 'column' }}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleActivityDetail(item.id);
-                    }}
-                    id={item.id}
-                    sx={{
-                      boxShadow: 0,
-                      color: 'black',
-                    }}
-                  >
-                    {' '}
-                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                      <AiOutlineInfoCircle />
-                    </span>{' '}
-                    View Details
-                  </MenuItem>
-                </Menu> */}
                 </div>
               </td>
             </tr>
@@ -115,18 +93,13 @@ export default function ActivityParent() {
           <Empty dashboard='No Children Activity' />
         )}
       </table>
-      <div className={styles.showingButton}>
-        <h5>Showing 1 of 1</h5>
-        <div className={styles.nextButton}>
-          <button>
-            <AiOutlineLeft style={{ position: 'relative', top: '1px' }} />
-            Previous
-          </button>
-          <button>
-            Next
-            <AiOutlineRight style={{ position: 'relative', top: '1px' }} />
-          </button>
-        </div>
+      <div className={styles.paginationContainer}>
+        <Pagination
+          count={childActivity?.pages}
+          variant='outlined'
+          shape='rounded'
+          onChange={handlePage}
+        />
       </div>
     </div>
   );
