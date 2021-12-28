@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 
 export default function ProfileParent() {
   const { profile } = useSelector((state) => state.getParent);
-  console.log('profile', profile);
+  
   // const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const genders = [
@@ -34,18 +34,7 @@ export default function ProfileParent() {
       label: 'Female',
     },
   ];
-  // const [gender, setGender] = React.useState("");
-  // const [gender1, setGender1] = React.useState("");
-
-  // const handleChange = (event) => {
-  //   setGender(event.target.value);
-  // };
-  // const handleChange1 = (index, event) => {
-  //   setGender1(event.target.value);
-  // let setGender1 = [...form];
-  // setGender1[index][e.target.name] = e.target.value;
-  // setForm(setGender1);
-  // };
+  
 
   const [inputParent, setInputParent] = useState({
     name: profile?.data?.name,
@@ -58,8 +47,7 @@ export default function ProfileParent() {
     photo: null,
   });
 
-  console.log(inputParent.phone_number);
-  console.log(inputParent);
+  
   const changeInputParent = (e) => {
     setInputParent({
       ...inputParent,
@@ -107,7 +95,7 @@ export default function ProfileParent() {
       photo: null,
     },
   ]);
-  console.log('inputChild', inputChild);
+  
   const changeInputChild = (index, e) => {
     let newInputChild = [...inputChild];
     newInputChild[index][e.target.name] = e.target.value;
@@ -124,23 +112,11 @@ export default function ProfileParent() {
   };
 
   const [image, setImage] = useState();
-  console.log('image', image);
+  
   const [isUpload, setIsUpload] = useState(false);
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        setImage(e.target.result);
-        setIsUpload(true);
-        console.log(e);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
-
+  
   const [previewParent, setPreviewParent] = useState([]);
-  console.log('previewParent', previewParent);
+  
   function handleImageChange(e) {
     if (e.target.files && e.target.files[0]) {
       setInputParent({ ...inputParent, photo: e.target.files[0] });
@@ -154,7 +130,7 @@ export default function ProfileParent() {
   }
 
   const [previewChild, setPreviewChild] = useState([]);
-  console.log('previewChild', previewChild);
+  
   function handleImageForm(index, e) {
     if (e.target.files && e.target.files[0]) {
       let newFoto = [...inputChild];
@@ -252,7 +228,6 @@ export default function ProfileParent() {
 
                   <div className={styles.image}>
                     <div className={styles.imageUpload}>
-                      {/* {!isUpload ? ( */}
                       {!inputParent.photo ? (
                         <>
                           <label htmlFor='upload-input-parent'>
@@ -268,7 +243,6 @@ export default function ProfileParent() {
                             type='file'
                             name='photo'
                             accept='image/*'
-                            // onChange={(e) => handleImageChange(e)}
                             onChange={(e) => handleImageChange(e)}
                           />
                         </>
@@ -317,7 +291,9 @@ export default function ProfileParent() {
                 label='Date Birth'
                 name='date_birth'
                 placeholder='Date Birth'
-                defaultValue={dayjs(profile?.data?.date_birth).format('DD MMMM YYYY') || ''}
+                defaultValue={
+                  'DD/MM/YYYY' || dayjs(profile?.data?.date_birth).format('DD MMMM YYYY')
+                }
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField

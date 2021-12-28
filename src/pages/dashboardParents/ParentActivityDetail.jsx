@@ -22,7 +22,7 @@ const style = {
 export default function ParentActivityDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  console.log('ID', id);
+  
   useEffect(() => {
     dispatch(childActivityParentDetailAction(id));
   }, [dispatch, id]);
@@ -31,10 +31,9 @@ export default function ParentActivityDetail() {
   }, [dispatch]);
   const childActivity = useSelector((state) => state.childActivityParent.details);
   const childDetail = useSelector((state) => state?.getDataChildAction?.profileChild);
-  console.log('ChildActivityDetail', childActivity?.[id]);
-  console.log('child detail', childDetail?.appointment);
+  
   const item = childActivity?.find((items) => items.id === id);
-  console.log('item', item);
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -32,7 +32,7 @@ export default function RegisterNanny() {
     password: '',
     role: '',
   });
-  console.log(isRole);
+  
   const changeInput = (e) => {
     setRegisterNanny({ ...registerNanny, [e.target.name]: e.target.value });
   };
@@ -41,7 +41,7 @@ export default function RegisterNanny() {
     e.preventDefault();
     dispatch(RegisterNannyAction(registerNanny));
   };
-  console.log('registerNanny', registerNanny);
+  
 
   // const [fullName, setFullName] = useState('');
   const [isFullName, setIsFullName] = useState(true);
@@ -52,7 +52,7 @@ export default function RegisterNanny() {
   const [isPassword, setIsPassword] = useState(true);
 
   const validasiInputFullName = (data) => {
-    console.log(isFullName);
+    
     if (data === '') {
       setIsFullName(false);
     } else {
@@ -61,7 +61,7 @@ export default function RegisterNanny() {
   };
 
   const validasiInputEmail = (data) => {
-    console.log(isEmail);
+    
     if (data === '') {
       setIsEmail(false);
     } else {
@@ -70,7 +70,7 @@ export default function RegisterNanny() {
   };
 
   const validasiInputPassword = (data) => {
-    console.log(isPassword);
+    
     if (data === '') {
       setIsPassword(false);
     } else {

@@ -39,7 +39,7 @@ const initialState = {
 
 const clients = (state = initialState, action) => {
   const { type, payload, error } = action;
-  console.log(type);
+  
   switch (type) {
     default:
       return {

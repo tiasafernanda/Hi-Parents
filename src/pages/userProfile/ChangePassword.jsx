@@ -11,7 +11,7 @@ export default function ChangePassword() {
     newPassword: '',
   });
 
-  console.log(inputChangePassword);
+  
 
   const changeInput = (e) => {
     setInputChangePassword({
@@ -42,12 +42,7 @@ export default function ChangePassword() {
             placeholder='New Password'
             onChange={(e) => changeInput(e)}
           />
-          <input
-            type='password'
-            name='Old Password'
-            placeholder='Confirm Password'
-            // onChange={(e) => changeInput(e)}
-          />
+          {/* <input type='password' name='Old Password' placeholder='Confirm Password' /> */}
         </form>
       </div>
       <div className={style.saveButton}>

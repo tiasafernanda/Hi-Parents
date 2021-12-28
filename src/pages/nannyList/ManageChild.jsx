@@ -92,7 +92,7 @@ export default function ManageChild() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(clients, '<<<<<<');
+    
 
     let temp = [];
     if (clients.appointments) {
@@ -145,16 +145,16 @@ export default function ManageChild() {
     } else {
       temp.push(event.target.value);
     }
-    console.log(temp, 'values');
+    
     setValues(temp);
 
-    // console.log(e.target.value);
+    
   };
 
   const selectedChild = {
     appointment_id: [...values],
   };
-  console.log(selectedChild, 'selectedItem');
+  
 
   function handleManageChild() {
     dispatch(putManageChild(selectedChild));

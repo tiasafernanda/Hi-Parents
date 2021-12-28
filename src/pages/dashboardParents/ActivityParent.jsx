@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 export default function ActivityParent() {
   const childActivity = useSelector((state) => state.childActivityParent.Activity);
-  console.log('ChildActivity', childActivity);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function ActivityParent() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
+  
 
   const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget);

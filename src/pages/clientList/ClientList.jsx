@@ -17,6 +17,9 @@ import filterIcon from './assets/filterIcon.svg';
 import ReactLoading from 'react-loading';
 import Empty from '../../components/empty/Empty';
 import Pagination from '@mui/material/Pagination';
+import { io } from 'socket.io-client';
+
+const socket = io.connect('/');
 
 export default function ClientList() {
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ export default function ClientList() {
   const dispatch = useDispatch();
 
   const { loading, clients } = useSelector((state) => state.clients);
-  console.log('clients list', clients);
+  
 
   useEffect(() => {
     dispatch(getAppointment());
@@ -48,20 +51,17 @@ export default function ClientList() {
   };
 
   const handleClientDetail = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
+    
     navigate(`/dashboard/clientdetail/${appointment_id}`);
   };
   const [selectedItem, setSelectedItem] = useState('');
-  console.log(selectedItem, 'selectedItem');
+  
 
   //Accept Client & Modal
   const [openModal, setOpenModal] = useState(false);
-  console.log(openModal, 'modal');
+  
 
-  // const [modalSelect, setModalSelect] = useState('');
-  // const modalValue = clients.find((data) => data.client_Id === modalSelect);
-  // console.log(modalSelect, 'modalSelect');
-  // console.log(modalValue, 'modalValue');
+  
 
   const handleModal = () => {
     setOpenModal(true);
@@ -86,30 +86,6 @@ export default function ClientList() {
     dispatch(updateStatusAppointment(statusReject));
   };
 
-  // const handleMessage = () => {
-  //   setOpenMessage(!openMessage ? true : false);
-  // };
-
-  //Table Map & Pagination
-  // const [firstIndex, setFirstIndex] = useState(0);
-  // const [lastIndex, setLastIndex] = useState(10);
-
-  // const nextTable = () => {
-
-  //   dispatch(getClients(pages));
-  //   navigate(`/dashboard/clientlist/2`);
-  // };
-
-  // const previousTable = () => {
-  //   if (firstIndex > 0) {
-  //     setFirstIndex(firstIndex - 10);
-  //     setLastIndex(lastIndex - 10);
-  //   }
-  // };
-
-  // const showing = clients.length - firstIndex;
-  // console.log(showing, 'showing');
-
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(false);
 
@@ -125,12 +101,6 @@ export default function ClientList() {
 
   return (
     <div className={styles.dashboard}>
-      {/* {openMessage && (
-        <div className={styles.rejectMessege}>
-          <p>Reject Client Success!</p>
-          <img src={closeIcon} alt='close' />
-        </div>
-      )} */}
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
@@ -203,16 +173,28 @@ export default function ClientList() {
                         >
                           <span>
                             <BsCheck2Circle
-                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                              style={{
+                                color: '#10B278',
+                                position: 'relative',
+                                top: '3px',
+                                marginRight: '5px',
+                              }}
                             />
                           </span>
                           Accept Client
                         </MenuItem>
                         <MenuItem
                           onClick={handleRejectClient}
-                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                          // disabled={selectedItem.appointment_status === 'Pending' ? false : true}
                         >
-                          <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
+                          <span
+                            style={{
+                              color: '#F67979',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
                             <BiXCircle />
                           </span>
                           Reject Client
@@ -224,7 +206,14 @@ export default function ClientList() {
                           }}
                           id={item.appointment_id}
                         >
-                          <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                          <span
+                            style={{
+                              color: '#768471',
+                              position: 'relative',
+                              top: '3px',
+                              marginRight: '5px',
+                            }}
+                          >
                             <AiOutlineInfoCircle />
                           </span>
                           View Details

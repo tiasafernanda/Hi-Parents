@@ -24,14 +24,13 @@ const style = {
 
 export default function ClientDetail() {
   const { appointment_id } = useParams();
-  console.log(appointment_id, 'appointmentId');
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClientDetail(appointment_id));
   }, [dispatch, appointment_id]);
   const detailClient = useSelector((state) => state.clients.clientDetail.details);
-  console.log('details', detailClient && detailClient[0]);
-  // console.log('parent name', details?.details?.child?.parent?.name);
+  
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

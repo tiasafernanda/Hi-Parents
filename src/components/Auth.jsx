@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function Auth() {
   const { type } = useParams();
-  console.log(type);
+  
   return (
     <div>
       {type === 'signin' ? (

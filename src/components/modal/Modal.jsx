@@ -6,11 +6,9 @@ import { useState } from 'react';
 const Modal = ({ idAppointment, clientId, dateRequest, parentName }) => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients);
-  console.log('clients list', clients);
+  
 
-  //const appointment_id = idAppointment;
-  //console.log(appointment_id);
-  // const appointment_status = 'Accept';
+  
 
   const [statusAccept, setStatusAccept] = useState({
     appointment_id: null,
@@ -22,14 +20,7 @@ const Modal = ({ idAppointment, clientId, dateRequest, parentName }) => {
   const handleAcceptClient = () => {
     setStatusAccept((statusAccept.appointment_id = idAppointment));
     setStatusAccept((statusAccept.appointment_status = 'Accept'));
-    // const formData = new FormData();
-    // formData.append(appointment_id, appointment_status);
-    // console.log('formData', formData);
-    // formData.append(appointment_id);
-    // formData.append(appointment_status);
-    // Object.entries(values).forEach((item) => {
-    //   formData.append(item[0], item[1]);
-    // })
+    
     dispatch(updateStatusAppointment(statusAccept));
     setAnchorEl(null);
   };

@@ -10,13 +10,15 @@ import {
 } from '../actions/types';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import io from 'socket.io-client';
+import { baseUrl } from './config';
 
-const baseUrl = 'https://hi-parent-be.herokuapp.com';
+// const baseUrl = 'https://hi-parent-be.herokuapp.com';
 //function generator
 function* dashboarChild(action) {
   const { body } = action;
   try {
-    const res = yield axios.post(`${baseUrl}/children/`, body, {
+    const res = yield axios.post(`${baseUrl()}/children/`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
@@ -36,7 +38,9 @@ function* dashboarChild(action) {
 function* dashboarParentChild(action) {
   const { body } = action;
   try {
-    const res = yield axios.post(`${baseUrl}/appointments/submit`, body, {
+    const socket = io(`${baseUrl()}`);
+    socket.emit('submitChild');
+    const res = yield axios.post(`${baseUrl()}/appointments/submit`, body, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
