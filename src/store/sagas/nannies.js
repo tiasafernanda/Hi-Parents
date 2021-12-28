@@ -41,7 +41,6 @@ const baseUrl = 'https://hi-parent-be.herokuapp.com/';
 function* getNannies() {
   try {
     const res = yield axios.get(`${baseUrl}nannies`);
-    console.log(res);
     yield put({
       type: GET_NANNIES_SUCCESS,
       payload: res.data,
@@ -206,22 +205,6 @@ function* postChildActivities(actions) {
   }
 }
 
-// function* getNanniesAsc() {
-//   try {
-//     const res = yield axios.get(`${baseUrl}nannies?sort=${sort}`);
-//     console.log(res);
-//     yield put({
-//       type: GET_NANNIES_SUCCESS,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     yield put({
-//       type: GET_NANNIES_FAIL,
-//       error: err,
-//     });
-//   }
-// }
-
 function* putManageChild(action) {
   const { data } = action;
   const token = localStorage.getItem('token');
@@ -231,10 +214,10 @@ function* putManageChild(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res, 'res put manage child');
     yield put({
       type: PUT_MANAGE_CHILD_SUCCESS,
     });
+    window.location.href = '/dashboard/nannylist';
   } catch (err) {
     yield put({
       type: PUT_MANAGE_CHILD_FAIL,

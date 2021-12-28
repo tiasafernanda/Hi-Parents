@@ -46,6 +46,7 @@ function* getClients(action) {
   const { page } = action;
   try {
     const res = yield axios.get(`${baseUrl}appointments/fe?page=${page}`);
+    console.log(res, 'getClients');
     yield put({
       type: GET_CLIENTS_SUCCESS,
       payload: res.data.appointments,

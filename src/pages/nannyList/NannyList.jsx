@@ -15,12 +15,9 @@ export default function NannyList() {
   useEffect(() => {
     dispatch(getNannies());
   }, [getNannies]);
-  useEffect(() => {
-    dispatch(getAppointment());
-  }, [dispatch]);
 
-  const nanniesList = useSelector((state) => state.nannies.nannies);
-  console.log(nanniesList.nannies, 'nannyList');
+  const { loading, nannies } = useSelector((state) => state.nannies);
+  console.log(nannies, 'nannies');
 
   return (
     <div className={styles.container}>
@@ -72,36 +69,38 @@ export default function NannyList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {nanniesList.nannies &&
-                nanniesList.nannies?.map((item, index) => (
-                  <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {item.name}
-                    </TableCell>
-                    <TableCell>{item.nanny_id}</TableCell>
-                    <TableCell>{item.phone_number}</TableCell>
-                    <TableCell align="center">{item.numberOfChild}</TableCell>
-                    <TableCell align="center">
-                      <Typography
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          backgroundColor: item.status === 'Active' ? '#10B278' : '#F67979',
-                          color: 'white',
-                          width: 'fitContent',
-                          height: '35px',
-                          borderRadius: '50px',
-                        }}
-                      >
-                        {item.status}
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <ActionButton />
-                    </TableCell>
-                  </TableRow>
-                ))}
+              {loading
+                ? 'loading'
+                : nannies?.nannies &&
+                  nannies?.nannies?.map((item, index) => (
+                    <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell component="th" scope="row">
+                        {item.name}
+                      </TableCell>
+                      <TableCell>{item.nanny_id}</TableCell>
+                      <TableCell>{item.phone_number}</TableCell>
+                      <TableCell align="center">{item.numberOfChild}</TableCell>
+                      <TableCell align="center">
+                        <Typography
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: item.status === 'Active' ? '#10B278' : '#F67979',
+                            color: 'white',
+                            width: 'fitContent',
+                            height: '35px',
+                            borderRadius: '50px',
+                          }}
+                        >
+                          {item.status}
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="center">
+                        <ActionButton />
+                      </TableCell>
+                    </TableRow>
+                  ))}
             </TableBody>
           </Table>
         </TableContainer>
