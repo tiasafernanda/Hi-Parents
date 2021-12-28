@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import PropTypes from 'prop-types';
@@ -19,8 +19,16 @@ function Layout(props) {
 
   console.log(location.pathname);
 
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const getWindowWidth = window.innerWidth;
+  const minimumWindow = 600;
+
+  const variant = getWindowWidth <= minimumWindow;
+  console.log(variant);
+
+  const { windows } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const container = windows !== undefined ? () => windows().document.body : undefined;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -76,8 +84,6 @@ function Layout(props) {
       path: '/dashboard/profileparent',
     },
   ];
-
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FCFCFC' }}>
@@ -141,20 +147,19 @@ function Layout(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, boxShadow: 3 }} aria-label="mailbox folders">
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
-          variant="permanent"
+          variant={variant ? 'temporary' : 'permanent'}
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { xs: 'block', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            boxShadow: '50rem, 50rem',
           }}
           // open
         >

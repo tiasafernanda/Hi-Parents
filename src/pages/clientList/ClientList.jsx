@@ -86,30 +86,6 @@ export default function ClientList() {
     dispatch(updateStatusAppointment(statusReject));
   };
 
-  // const handleMessage = () => {
-  //   setOpenMessage(!openMessage ? true : false);
-  // };
-
-  //Table Map & Pagination
-  // const [firstIndex, setFirstIndex] = useState(0);
-  // const [lastIndex, setLastIndex] = useState(10);
-
-  // const nextTable = () => {
-
-  //   dispatch(getClients(pages));
-  //   navigate(`/dashboard/clientlist/2`);
-  // };
-
-  // const previousTable = () => {
-  //   if (firstIndex > 0) {
-  //     setFirstIndex(firstIndex - 10);
-  //     setLastIndex(lastIndex - 10);
-  //   }
-  // };
-
-  // const showing = clients.length - firstIndex;
-  // console.log(showing, 'showing');
-
   const [page, setPage] = useState(1);
   const [showPage, setShowPage] = useState(false);
 
@@ -163,32 +139,15 @@ export default function ClientList() {
                   <td>{item?.child?.parent?.client_id}</td>
                   <td>{item?.child?.name}</td>
                   <td>
-                    <button
-                      className={
-                        item?.appointment_status === 'Pending'
-                          ? styles.pending
-                          : item?.appointment_status === 'Accept'
-                          ? styles.active
-                          : styles.reject
-                      }
-                    >
-                      {item?.appointment_status}
-                    </button>
+                    <button className={item?.appointment_status === 'Pending' ? styles.pending : item?.appointment_status === 'Accept' ? styles.active : styles.reject}>{item?.appointment_status}</button>
                   </td>
                   <td>
                     <div>
-                      <Button
-                        id='basic-button'
-                        aria-controls='basic-menu'
-                        aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={(e) => handleClick(e, item)}
-                        sx={{ color: 'black' }}
-                      >
+                      <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={(e) => handleClick(e, item)} sx={{ color: 'black' }}>
                         &bull;&bull;&bull;
                       </Button>
                       <Menu
-                        id='basic-menu'
+                        id="basic-menu"
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
@@ -197,21 +156,13 @@ export default function ClientList() {
                           'aria-labelledby': 'basic-button',
                         }}
                       >
-                        <MenuItem
-                          onClick={() => handleModal()}
-                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
-                        >
+                        <MenuItem onClick={() => handleModal()} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span>
-                            <BsCheck2Circle
-                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
-                            />
+                            <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
                           </span>
                           Accept Client
                         </MenuItem>
-                        <MenuItem
-                          onClick={handleRejectClient}
-                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
-                        >
+                        <MenuItem onClick={handleRejectClient} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                             <BiXCircle />
                           </span>
@@ -240,8 +191,8 @@ export default function ClientList() {
         <div className={styles.paginationContainer}>
           <Pagination
             count={clients?.pages}
-            variant='outlined'
-            shape='rounded'
+            variant="outlined"
+            shape="rounded"
             onChange={handlePage}
             // hideNextButton
             // hidePrevButton
@@ -249,12 +200,7 @@ export default function ClientList() {
         </div>
         {openModal && (
           <div onClick={(e) => handleModalCLose(e)}>
-            <Modal
-              clientId={selectedItem.child?.parent?.client_id}
-              dateRequest={selectedItem.date_request}
-              parentName={selectedItem.child?.parent?.name}
-              idAppointment={selectedItem.appointment_id}
-            />
+            <Modal clientId={selectedItem.child?.parent?.client_id} dateRequest={selectedItem.date_request} parentName={selectedItem.child?.parent?.name} idAppointment={selectedItem.appointment_id} />
           </div>
         )}
       </div>
