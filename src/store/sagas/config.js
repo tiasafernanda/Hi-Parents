@@ -6,6 +6,6 @@ module.exports = {
   port,
   useSSL: true,
   baseUrl: function () {
-    return this.useSSL ? `https://${host}` : `http://${host}`;
+    return this.useSSL ? `https://${host}` : `https://${host}`;
   },
 };
