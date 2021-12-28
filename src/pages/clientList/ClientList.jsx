@@ -93,11 +93,11 @@ export default function ClientList() {
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} alt='' />
+          <img src={sortIcon} alt="" />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} alt='' />
+          <img src={filterIcon} alt="" />
           Filter
         </button>
       </div>
@@ -122,32 +122,15 @@ export default function ClientList() {
                   <td>{item?.child?.parent?.client_id}</td>
                   <td>{item?.child?.name}</td>
                   <td>
-                    <button
-                      className={
-                        item?.appointment_status === 'Pending'
-                          ? styles.pending
-                          : item?.appointment_status === 'Accept'
-                          ? styles.active
-                          : styles.reject
-                      }
-                    >
-                      {item?.appointment_status}
-                    </button>
+                    <button className={item?.appointment_status === 'Pending' ? styles.pending : item?.appointment_status === 'Accept' ? styles.active : styles.reject}>{item?.appointment_status}</button>
                   </td>
                   <td>
                     <div>
-                      <Button
-                        id='basic-button'
-                        aria-controls='basic-menu'
-                        aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={(e) => handleClick(e, item)}
-                        sx={{ color: 'black' }}
-                      >
+                      <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={(e) => handleClick(e, item)} sx={{ color: 'black' }}>
                         &bull;&bull;&bull;
                       </Button>
                       <Menu
-                        id='basic-menu'
+                        id="basic-menu"
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
@@ -156,10 +139,7 @@ export default function ClientList() {
                           'aria-labelledby': 'basic-button',
                         }}
                       >
-                        <MenuItem
-                          onClick={() => handleModal()}
-                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
-                        >
+                        <MenuItem onClick={() => handleModal()} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span>
                             <BsCheck2Circle
                               style={{
@@ -216,21 +196,11 @@ export default function ClientList() {
           )}
         </table>
         <div className={styles.paginationContainer}>
-          <Pagination
-            count={clients?.pages}
-            variant='outlined'
-            shape='rounded'
-            onChange={handlePage}
-          />
+          <Pagination count={clients?.pages} variant="outlined" shape="rounded" onChange={handlePage} />
         </div>
         {openModal && (
           <div onClick={(e) => handleModalCLose(e)}>
-            <Modal
-              clientId={selectedItem.child?.parent?.client_id}
-              dateRequest={selectedItem.date_request}
-              parentName={selectedItem.child?.parent?.name}
-              idAppointment={selectedItem.appointment_id}
-            />
+            <Modal clientId={selectedItem.child?.parent?.client_id} dateRequest={selectedItem.date_request} parentName={selectedItem.child?.parent?.name} idAppointment={selectedItem.appointment_id} />
           </div>
         )}
       </div>

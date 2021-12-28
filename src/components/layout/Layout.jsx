@@ -1,36 +1,14 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Badge,
-  Toolbar,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  CssBaseline,
-} from '@mui/material';
+import { AppBar, Box, IconButton, Badge, Toolbar, Drawer, List, ListItem, ListItemText, CssBaseline } from '@mui/material';
 import SearchInput from './SearchInput';
 import MyAvatar from './MyAvatar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {
-  DashboardIcon,
-  DashboardOnClickIcon,
-  ClientListIcon,
-  NannyListIcon,
-  ChildActivityIcon,
-  UserProfileIcon,
-  ClientListOnClickIcon,
-  NannyListOnClickIcon,
-  ChildActivityOnClickIcon,
-  UserProfileOnClickIcon,
-} from './DashboardIcons';
+import { DashboardIcon, DashboardOnClickIcon, ClientListIcon, NannyListIcon, ChildActivityIcon, UserProfileIcon, ClientListOnClickIcon, NannyListOnClickIcon, ChildActivityOnClickIcon, UserProfileOnClickIcon } from './DashboardIcons';
 import mainLogo from './assets/hi-parents.png';
 
 const drawerWidth = 290;
@@ -39,8 +17,18 @@ function Layout(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  console.log(location.pathname);
+
+  const getWindowWidth = window.innerWidth;
+  const minimumWindow = 600;
+
+  const variant = getWindowWidth <= minimumWindow;
+  console.log(variant);
+
+  const { windows } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const container = windows !== undefined ? () => windows().document.body : undefined;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -96,13 +84,11 @@ function Layout(props) {
     },
   ];
 
-  const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FCFCFC' }}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         open={mobileOpen}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
@@ -116,9 +102,9 @@ function Layout(props) {
       >
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton
-            color='default'
-            aria-label='open drawer'
-            edge='start'
+            color="default"
+            aria-label="open drawer"
+            edge="start"
             onClick={handleDrawerToggle}
             sx={{
               mr: '0.125rem',
@@ -136,8 +122,8 @@ function Layout(props) {
             }}
           >
             <IconButton
-              aria-label='notification'
-              size='large'
+              aria-label="notification"
+              size="large"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -145,12 +131,12 @@ function Layout(props) {
                 color: '#F77979',
               }}
             >
-              <Badge overlap='circular' variant='dot' badgeContent={5} color='warning'>
-                <NotificationsIcon fontSize='inherit' />
+              <Badge overlap="circular" variant="dot" badgeContent={5} color="warning">
+                <NotificationsIcon fontSize="inherit" />
               </Badge>
             </IconButton>
             <span
-              className='divider'
+              className="divider"
               style={{
                 borderWidth: '0.0625rem',
                 borderStyle: 'solid',
@@ -161,29 +147,24 @@ function Layout(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        component='nav'
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, boxShadow: 3 }}
-        aria-label='mailbox folders'
-      >
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
-          variant='permanent'
+          variant={variant ? 'temporary' : 'permanent'}
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { xs: 'block', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            boxShadow: '50rem, 50rem',
           }}
         >
           <img
             src={mainLogo}
-            alt='icons'
+            alt="icons"
             style={{
               height: '2.6125rem',
               width: '12.1875rem',
@@ -193,9 +174,7 @@ function Layout(props) {
               marginBottom: '2.5rem',
             }}
           />
-          <List
-            sx={{ width: '15.6875rem', marginRight: 'auto', marginLeft: 'auto', color: '#768471' }}
-          >
+          <List sx={{ width: '15.6875rem', marginRight: 'auto', marginLeft: 'auto', color: '#768471' }}>
             {(decoded.role !== 'Nanny' ? drawerParent : drawerNanny).map((item) => (
               <ListItem
                 button
@@ -217,9 +196,7 @@ function Layout(props) {
                       }
                 }
               >
-                <ListItem sx={{ width: 'fit-content' }}>
-                  {location.pathname === item.path ? item.iconOnclick : item.icon}
-                </ListItem>
+                <ListItem sx={{ width: 'fit-content' }}>{location.pathname === item.path ? item.iconOnclick : item.icon}</ListItem>
                 <ListItemText primary={item.label} />
                 <ArrowForwardIosIcon />
               </ListItem>
