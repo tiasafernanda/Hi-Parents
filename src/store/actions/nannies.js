@@ -6,9 +6,12 @@ import {
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   GET_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_BEGIN,
+  UPDATE_CHILD_ACTIVITIES_BEGIN,
+  DELETE_CHILD_ACTIVITIES_BEGIN,
   GET_NANNY_PROFILE_BEGIN,
   UPDATE_NANNY_PROFILE_BEGIN,
   GET_NANNIES_ASC_BEGIN,
+  PAGINATION_ACTIVITY_NANNY_BEGIN,
   PUT_MANAGE_CHILD_BEGIN,
 } from './types';
 
@@ -25,9 +28,10 @@ export const updateNannyProfileAction = (body) => {
   };
 };
 
-export const getNannies = () => {
+export const getNannies = (pages) => {
   return {
     type: GET_NANNIES_BEGIN,
+    pages,
   };
 };
 
@@ -37,10 +41,10 @@ export const getActiveNannies = () => {
   };
 };
 
-export const updateAppointmentStatus = (body) => {
+export const updateAppointmentStatus = (data) => {
   return {
     type: UPDATE_STATUS_APPOINTMENT_BEGIN,
-    body,
+    data,
   };
 };
 
@@ -68,6 +72,28 @@ export const postChildActivities = (body, appointment_id) => {
     type: POST_CHILD_ACTIVITIES_BEGIN,
     body,
     appointment_id,
+  };
+};
+
+export const updateChildActivities = (body, id) => {
+  return {
+    type: UPDATE_CHILD_ACTIVITIES_BEGIN,
+    body,
+    id,
+  };
+};
+
+export const deleteChildActivities = (body) => {
+  return {
+    type: DELETE_CHILD_ACTIVITIES_BEGIN,
+    body,
+  };
+};
+
+export const paginationActivityAction = (pages) => {
+  return {
+    type: PAGINATION_ACTIVITY_NANNY_BEGIN,
+    pages,
   };
 };
 

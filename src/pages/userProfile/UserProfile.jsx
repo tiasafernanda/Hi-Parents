@@ -114,7 +114,7 @@ export default function UserProfile() {
                 required
                 id='outlined-required'
                 name='name'
-                value={nannyProfile?.userProfile?.name || ''}
+                defaultValue={nannyProfile?.userProfile?.name || ''}
                 onChange={(e) => changeInput(e)}
               />
               <TextField

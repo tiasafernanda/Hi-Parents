@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { getDataChildAction } from '../../store/actions/getChild';
 // import { ParentActionSuccess } from "../../store/actions/parent";
 import { ParentChildAction } from '../../store/actions/childParent';
+import dayjs from 'dayjs';
 
 export default function ProfileParent() {
   const { profile } = useSelector((state) => state.getParent);
@@ -122,21 +123,21 @@ export default function ProfileParent() {
     setInputChild(newInputChild);
   };
 
-  // const [image, setImage] = useState();
-  // console.log("image", image);
-  // const [isUpload, setIsUpload] = useState(false);
-  // function handleImageChange(e) {
-  //   if (e.target.files && e.target.files[0]) {
-  //     let reader = new FileReader();
+  const [image, setImage] = useState();
+  console.log('image', image);
+  const [isUpload, setIsUpload] = useState(false);
+  function handleImageChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
 
-  //     reader.onload = function (e) {
-  //       setImage(e.target.result);
-  //       setIsUpload(true);
-  //       console.log(e);
-  //     };
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   }
-  // }
+      reader.onload = function (e) {
+        setImage(e.target.result);
+        setIsUpload(true);
+        console.log(e);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
 
   const [previewParent, setPreviewParent] = useState([]);
   console.log('previewParent', previewParent);
@@ -212,13 +213,14 @@ export default function ProfileParent() {
                 label='Parent Name'
                 name='name'
                 placeholder='Parent Name'
-                value={inputParent.name}
+                // value={inputParent.name}
+                defaultValue={profile?.data?.name || ''}
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
                 id='outlined-required'
-                label='Email'
+                // label='Email'
                 name='email'
                 placeholder='Email'
                 disabled
@@ -228,9 +230,10 @@ export default function ProfileParent() {
                 required
                 id='outlined-required'
                 label='Phone Number'
-                type='number'
+                type='tel'
                 name='phone_number'
-                placeholder='Phone Number'
+                // placeholder='Phone Number'
+                defaultValue={profile?.data?.phone_number || ''}
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
@@ -240,6 +243,7 @@ export default function ProfileParent() {
                 type='text'
                 name='address'
                 placeholder='Address'
+                defaultValue={profile?.data?.address || ''}
                 onChange={(e) => changeInputParent(e)}
               />
               <div className={styles.photo}>
@@ -275,8 +279,8 @@ export default function ProfileParent() {
                             src={previewParent}
                             alt='uploaded-img'
                             onClick={() => {
-                              // setIsUpload(false);
-                              // setImage(null);
+                              setIsUpload(false);
+                              setImage(null);
                             }}
                             // onChange={(e) => changeInputParent(e)}
                           />
@@ -294,14 +298,17 @@ export default function ProfileParent() {
                 name='job'
                 label='Job'
                 placeholder='Job'
+                defaultValue={profile?.data?.job || ''}
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 required
+                // type='date'
                 id='outlined-required'
                 label='Place Birth'
                 name='place_birth'
                 placeholder='Place Birth'
+                defaultValue={profile?.data?.place_birth}
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
@@ -310,13 +317,14 @@ export default function ProfileParent() {
                 label='Date Birth'
                 name='date_birth'
                 placeholder='Date Birth'
+                defaultValue={dayjs(profile?.data?.date_birth).format('DD MMMM YYYY') || ''}
                 onChange={(e) => changeInputParent(e)}
               />
               <TextField
                 select
                 label='Gender'
                 name='gender'
-                value={inputParent.gender}
+                defaultValue={profile?.data?.gender || ''}
                 // onChange={handleChange}
                 onChange={(e) => changeInputParent(e)}
                 helperText='Please select your gender'

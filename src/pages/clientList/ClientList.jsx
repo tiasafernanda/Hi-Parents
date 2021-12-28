@@ -15,6 +15,8 @@ import closeIcon from './assets/close.png';
 import sortIcon from './assets/sortIcon.svg';
 import filterIcon from './assets/filterIcon.svg';
 import ReactLoading from 'react-loading';
+import Empty from '../../components/empty/Empty';
+import Pagination from '@mui/material/Pagination';
 
 export default function ClientList() {
   const navigate = useNavigate();
@@ -63,6 +65,7 @@ export default function ClientList() {
 
   const handleModal = () => {
     setOpenModal(true);
+    setAnchorEl(null);
   };
 
   const handleModalCLose = (e) => {
@@ -81,7 +84,6 @@ export default function ClientList() {
     setStatusReject((statusReject.appointment_id = selectedItem.appointment_id));
     setStatusReject((statusReject.appointment_status = 'Reject'));
     dispatch(updateStatusAppointment(statusReject));
-    setOpenMessage(!openMessage ? true : false);
   };
 
   // const handleMessage = () => {
@@ -89,36 +91,46 @@ export default function ClientList() {
   // };
 
   //Table Map & Pagination
-  const [firstIndex, setFirstIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(10);
+  // const [firstIndex, setFirstIndex] = useState(0);
+  // const [lastIndex, setLastIndex] = useState(10);
 
-  const nextTable = () => {
-    // if (lastIndex < clients.length) {
-    //   setFirstIndex(firstIndex + 10);
-    //   setLastIndex(lastIndex + 10);
-    // }
-    dispatch(getClients(pages));
-    navigate(`/dashboard/clientlist/2`);
+  // const nextTable = () => {
+
+  //   dispatch(getClients(pages));
+  //   navigate(`/dashboard/clientlist/2`);
+  // };
+
+  // const previousTable = () => {
+  //   if (firstIndex > 0) {
+  //     setFirstIndex(firstIndex - 10);
+  //     setLastIndex(lastIndex - 10);
+  //   }
+  // };
+
+  // const showing = clients.length - firstIndex;
+  // console.log(showing, 'showing');
+
+  const [page, setPage] = useState(1);
+  const [showPage, setShowPage] = useState(false);
+
+  const handlePage = (e) => {
+    e.preventDefault();
+    setPage(parseInt(e.target.textContent));
+    setShowPage(true);
   };
 
-  const previousTable = () => {
-    if (firstIndex > 0) {
-      setFirstIndex(firstIndex - 10);
-      setLastIndex(lastIndex - 10);
-    }
-  };
-
-  const showing = clients.length - firstIndex;
-  console.log(showing, 'showing');
+  useEffect(() => {
+    dispatch(getClients(page));
+  }, [page]);
 
   return (
     <div className={styles.dashboard}>
-      {openMessage && (
+      {/* {openMessage && (
         <div className={styles.rejectMessege}>
           <p>Reject Client Success!</p>
-          <img src={closeIcon} alt="close" />
+          <img src={closeIcon} alt='close' />
         </div>
-      )}
+      )} */}
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
@@ -143,7 +155,7 @@ export default function ClientList() {
           {loading ? (
             <ReactLoading type={'spin'} color={'#10B278'} height={200} width={200} />
           ) : (
-            clients?.slice(firstIndex, lastIndex).map((item, index) => {
+            clients?.appointments?.map((item, index) => {
               return (
                 <tr key={index} id={item.appointment_id}>
                   <td>{item?.date_request}</td>
@@ -151,15 +163,32 @@ export default function ClientList() {
                   <td>{item?.child?.parent?.client_id}</td>
                   <td>{item?.child?.name}</td>
                   <td>
-                    <button className={item?.appointment_status === 'Pending' ? styles.pending : item?.appointment_status === 'Accept' ? styles.active : styles.reject}>{item?.appointment_status}</button>
+                    <button
+                      className={
+                        item?.appointment_status === 'Pending'
+                          ? styles.pending
+                          : item?.appointment_status === 'Accept'
+                          ? styles.active
+                          : styles.reject
+                      }
+                    >
+                      {item?.appointment_status}
+                    </button>
                   </td>
                   <td>
                     <div>
-                      <Button id="basic-button" aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={(e) => handleClick(e, item)} sx={{ color: 'black' }}>
+                      <Button
+                        id='basic-button'
+                        aria-controls='basic-menu'
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={(e) => handleClick(e, item)}
+                        sx={{ color: 'black' }}
+                      >
                         &bull;&bull;&bull;
                       </Button>
                       <Menu
-                        id="basic-menu"
+                        id='basic-menu'
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
@@ -168,13 +197,21 @@ export default function ClientList() {
                           'aria-labelledby': 'basic-button',
                         }}
                       >
-                        <MenuItem onClick={() => handleModal()} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
+                        <MenuItem
+                          onClick={() => handleModal()}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
                           <span>
-                            <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
+                            <BsCheck2Circle
+                              style={{ color: '#10B278', position: 'relative', top: '2px' }}
+                            />
                           </span>
                           Accept Client
                         </MenuItem>
-                        <MenuItem onClick={handleRejectClient} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
+                        <MenuItem
+                          onClick={handleRejectClient}
+                          disabled={selectedItem.appointment_status === 'Pending' ? false : true}
+                        >
                           <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
                             <BiXCircle />
                           </span>
@@ -200,22 +237,24 @@ export default function ClientList() {
             })
           )}
         </table>
-        <div className={styles.footer}>
-          <p>Showing {showing >= 10 ? '10' : showing} of 10</p>
-          <div>
-            <button onClick={previousTable}>
-              <img src={previousIcon} alt="" />
-              Previous
-            </button>
-            <button onClick={nextTable} style={{ marginLeft: '1.5rem' }}>
-              Next
-              <img src={nextIcon} alt="" />
-            </button>
-          </div>
+        <div className={styles.paginationContainer}>
+          <Pagination
+            count={clients?.pages}
+            variant='outlined'
+            shape='rounded'
+            onChange={handlePage}
+            // hideNextButton
+            // hidePrevButton
+          />
         </div>
         {openModal && (
           <div onClick={(e) => handleModalCLose(e)}>
-            <Modal clientId={selectedItem.child?.parent?.client_id} dateRequest={selectedItem.date_request} parentName={selectedItem.child?.parent?.name} idAppointment={selectedItem.appointment_id} />
+            <Modal
+              clientId={selectedItem.child?.parent?.client_id}
+              dateRequest={selectedItem.date_request}
+              parentName={selectedItem.child?.parent?.name}
+              idAppointment={selectedItem.appointment_id}
+            />
           </div>
         )}
       </div>

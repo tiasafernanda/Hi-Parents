@@ -17,6 +17,8 @@ const Modal = ({ idAppointment, clientId, dateRequest, parentName }) => {
     appointment_status: '',
   });
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const handleAcceptClient = () => {
     setStatusAccept((statusAccept.appointment_id = idAppointment));
     setStatusAccept((statusAccept.appointment_status = 'Accept'));
@@ -27,8 +29,9 @@ const Modal = ({ idAppointment, clientId, dateRequest, parentName }) => {
     // formData.append(appointment_status);
     // Object.entries(values).forEach((item) => {
     //   formData.append(item[0], item[1]);
-    // });
+    // })
     dispatch(updateStatusAppointment(statusAccept));
+    setAnchorEl(null);
   };
 
   return (

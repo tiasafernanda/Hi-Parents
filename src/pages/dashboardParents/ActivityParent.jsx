@@ -17,6 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
 import dayjs from 'dayjs';
+import Empty from '../../components/empty/Empty';
+// import { Empty } from '../../components/empty/Empty';
 
 const useStyles = makeStyles({
   root: {
@@ -73,26 +75,32 @@ export default function ActivityParent() {
           <th>Activity Detail</th>
           <th>Action</th>
         </tr>
-        {childActivity?.map((item, index) => (
-          <tr key={index}>
-            <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
-            <td>{item?.appointment?.child?.name}</td>
-            <td>{item?.appointment?.nanny?.name}</td>
-            <td>{item?.activity_detail}</td>
+        {childActivity.length != [0] ? (
+          childActivity?.map((item, index) => (
+            <tr key={index}>
+              <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
+              <td>{item?.appointment?.child?.name}</td>
+              <td>{item?.appointment?.nanny?.name}</td>
+              <td>{item?.activity_detail}</td>
 
-            <td>
-              <div className={styles.menu} id={item.id}>
-                <Button
-                  id={item.id}
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={(e) => handleClick(e, item)}
-                  sx={{ color: 'black', boxShadow: 'none' }}
-                >
-                  &bull;&bull;&bull;
-                </Button>
-                <Menu
+              <td>
+                <div className={styles.menu} id={item.id}>
+                  <Button
+                    id={item.id}
+                    aria-controls='basic-menu'
+                    aria-haspopup='true'
+                    aria-expanded={open ? 'true' : undefined}
+                    // onClick={(e) => handleClick(e, item)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleActivityDetail(index);
+                    }}
+                    sx={{ color: 'black', boxShadow: 'none' }}
+                  >
+                    <AiOutlineInfoCircle />
+                    View Details
+                  </Button>
+                  {/* <Menu
                   anchorEl={anchorEl}
                   id={item.id}
                   open={open}
@@ -107,7 +115,7 @@ export default function ActivityParent() {
                   <MenuItem
                     onClick={(e) => {
                       e.preventDefault();
-                      handleActivityDetail(index);
+                      handleActivityDetail(item.id);
                     }}
                     id={item.id}
                     sx={{
@@ -121,11 +129,14 @@ export default function ActivityParent() {
                     </span>{' '}
                     View Details
                   </MenuItem>
-                </Menu>
-              </div>
-            </td>
-          </tr>
-        ))}
+                </Menu> */}
+                </div>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <Empty dashboard='No Children Activity' />
+        )}
       </table>
       <div className={styles.showingButton}>
         <h5>Showing 1 of 1</h5>

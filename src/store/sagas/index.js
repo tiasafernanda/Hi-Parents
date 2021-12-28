@@ -5,8 +5,28 @@ import { watchDashboarParentChild, watchDashboarChild } from './childParent';
 import { watchGetDataParent, watchDashboarParent } from './parent';
 import { watchGetDataChild } from './getChild';
 import { watchChildActivityParent, watchChildActivityParentDetail } from './childAktivityParent';
-import { watchGetActiveClients, watchGetClientDetail, watchGetClients, watchGetMainClients, watchGetClientAccepted, watchUpdateStatusAppointment } from './clients';
-import { watchGetNannyProfile, watchUpdateNannyProfile, watchGetActiveNannies, watchGetAppointment, watchGetChildActivities, watchGetChildActivity, watchPostChildActivities, watchGetNannies, watchPutManageChild } from './nannies';
+import {
+  watchGetActiveClients,
+  watchGetClientDetail,
+  watchGetClients,
+  watchGetMainClients,
+  watchUpdateStatusAppointment,
+  watchGetClientAccepted,
+} from './clients';
+import {
+  watchGetNannyProfile,
+  watchUpdateNannyProfile,
+  watchGetActiveNannies,
+  watchGetAppointment,
+  watchGetChildActivities,
+  watchGetChildActivity,
+  watchPostChildActivities,
+  watchGetNannies,
+  watchUpdateChildActivities,
+  watchDeleteChildActivities,
+  watchPaginationActivityNanny,
+  watchPutManageChild,
+} from './nannies';
 
 export default function* rootSaga() {
   yield all([
@@ -29,8 +49,11 @@ export default function* rootSaga() {
     watchGetActiveNannies(),
     watchGetAppointment(),
     watchGetChildActivity(),
+    watchPaginationActivityNanny(),
     watchGetChildActivities(),
     watchPostChildActivities(),
+    watchDeleteChildActivities(),
+    watchUpdateChildActivities(),
     watchUpdateStatusAppointment(),
     watchChildActivityParentDetail(),
     watchGetClientAccepted(),

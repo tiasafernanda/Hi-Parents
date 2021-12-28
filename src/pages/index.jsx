@@ -17,30 +17,32 @@ import Empty from '../components/empty/Empty';
 import StateDashboard from './emptyStates/StateDashboard';
 import CreateActivity from './createactivity/CreateActivity';
 import EditActivity from './editactivity/EditActivity';
+import ModalParent from './dashboardParents/ModalParent';
 
 const Dashboard = () => {
   return (
     <>
       <Layout />
       <Routes>
-        <Route path="/nannydashboard" element={<NannyDashboard />} />
-        <Route path="/clientdetail/:appointment_id" element={<ClientDetail />} />
-        <Route path="/clientlist/:page" element={<ClientList />} />
-        <Route path="/childactivity" element={<ChildActivity />} />
-        <Route path="/createactivity/:appointment_id" element={<CreateActivity />} />
-        <Route path="/editactivity/:appointment_id" element={<EditActivity />} />
-        <Route path="/activitydetail/:appointment_id" element={<ActivityDetail />} />
-        <Route path="/nannylist" element={<NannyList />} />
-        <Route path="/managenanny" element={<ManageNanny />} />
-        <Route path="/userprofilenanny" element={<UserProfile />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/activityparent" element={<ActivityParent />} />
-        <Route path="/parentdashboard" element={<DashboardParent />} />
-        <Route path="/parentactivitydetail" element={<ParentActivityDetail />} />
-        <Route path="/profileparent" element={<ProfileParent />} />
-        <Route path="/empty" element={<Empty />} />
-        <Route path="/statedashboard" element={<StateDashboard />} />
-        <Route path="*" element={<div>Not Found</div>} />
+        <Route path='/nannydashboard' element={<NannyDashboard />} />
+        <Route path='/clientdetail/:appointment_id' element={<ClientDetail />} />
+        <Route path='/clientlist/:page' element={<ClientList />} />
+        <Route path='/childactivity' element={<ChildActivity />} />
+        <Route path='/createactivity/:appointment_id' element={<CreateActivity />} />
+        <Route path='/editactivity/:appointment_id/:id' element={<EditActivity />} />
+        <Route path='/activitydetail/:appointment_id' element={<ActivityDetail />} />
+        <Route path='/nannylist' element={<NannyList />} />
+        <Route path='/managenanny' element={<ManageNanny />} />
+        <Route path='/userprofilenanny' element={<UserProfile />} />
+        <Route path='/changepassword' element={<ChangePassword />} />
+        <Route path='/activityparent' element={<ActivityParent />} />
+        <Route path='/parentdashboard' element={<DashboardParent />} />
+        <Route path='/parentactivitydetail/:id' element={<ParentActivityDetail />} />
+        <Route path='/profileparent' element={<ProfileParent />} />
+        <Route path='/empty' element={<Empty />} />
+        <Route path='/statedashboard' element={<StateDashboard />} />
+        <Route path='*' element={<div>Not Found</div>} />
+        <Route path='modal' element={<ModalParent />} />
       </Routes>
     </>
   );

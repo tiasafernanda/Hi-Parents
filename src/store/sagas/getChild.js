@@ -1,17 +1,17 @@
-import axios from "axios";
-import { put, takeEvery } from "@redux-saga/core/effects";
+import axios from 'axios';
+import { put, takeEvery } from '@redux-saga/core/effects';
 
 import {
   GET_GETDATACHILD_BEGIN,
   GET_GETDATACHILD_SUCCESS,
   GET_GETDATACHILD_FAIL,
-} from "../actions/types";
+} from '../actions/types';
 
-const baseUrl = "https://hi-parent-be.herokuapp.com";
+const baseUrl = 'https://hi-parent-be.herokuapp.com';
 function* getDataChild() {
   try {
     const res = yield axios.get(`${baseUrl}/children/`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     console.log(res);
     yield put({

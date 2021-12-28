@@ -61,7 +61,7 @@
           top: 30px;
           right: 13px;
           min-width: 150px;
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+          box-shadow: 8px 8px 16px 8px rgba(0, 0, 0, 0.1);
           z-index: 1;
           border-radius: 10px;
         }
@@ -132,6 +132,30 @@
       border-radius: 40px;
       background-color: transparent;
       font-weight: 700;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .dashboard {
+    width: 100vw;
+    .cardGroup {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      .card {
+        margin-bottom: 1rem;
+      }
+    }
+    table {
+      overflow-x: auto;
+      width: fit-content;
+      border-collapse: collapse;
+    }
+
+    a {
+      position: relative;
+      margin-right: 8rem;
     }
   }
 }

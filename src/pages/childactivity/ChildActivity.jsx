@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styles from './assets/ChildActivity.module.scss';
 import { BiSortUp } from 'react-icons/bi';
 import { HiOutlineAdjustments } from 'react-icons/hi';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineInfoCircle, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { FaChild } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +11,15 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
-import { getChildActivity } from '../../store/actions/nannies';
+import {
+  getChildActivity,
+  deleteChildActivities,
+  paginationActivityAction,
+} from '../../store/actions/nannies';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
+import Empty from '../../components/empty/Empty';
+import Pagination from '@mui/material/Pagination';
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +29,7 @@ const useStyles = makeStyles({
 export default function ChildActivity() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const activity = useSelector((state) => state.nannies.activity);
+  const activity = useSelector((state) => state?.nannies.activity);
   console.log('activity list', activity);
   useEffect(() => {
     dispatch(getChildActivity());
@@ -34,23 +40,16 @@ export default function ChildActivity() {
   const open = Boolean(anchorEl);
   const [selectedItem, setSelectedItem] = useState('');
   console.log(selectedItem, 'selectedItem');
-  // const handleClientDetail = (appointment_id) => {
-  //   console.log(appointment_id, 'appointment_id');
-  //   navigate(`/dashboard/activitydetail/${appointment_id}`);
-  // };
 
   const handleCreateActivity = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
     navigate(`/dashboard/createactivity/${appointment_id}`);
   };
 
-  const handleEditActivity = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
-    navigate(`/dashboard/editactivity/${appointment_id}`);
+  const handleEditActivity = (appointment_id, id) => {
+    navigate(`/dashboard/editactivity/${appointment_id}/${id}`);
   };
 
   const handleActivityDetail = (appointment_id) => {
-    console.log(appointment_id, 'appointment_id');
     navigate(`/dashboard/activitydetail/${appointment_id}`);
   };
 
@@ -62,6 +61,37 @@ export default function ChildActivity() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [deleteActivity, setDeleteActivity] = useState({
+    id: null,
+  });
+
+  const handleDeleteActivity = (id) => {
+    let form = new FormData();
+    form.append('id', id);
+    dispatch(deleteChildActivities(form));
+  };
+
+  const [page, setPage] = useState(1);
+  const [showPage, setShowPage] = useState(false);
+
+  const handlePage = (e) => {
+    e.preventDefault();
+    setPage(parseInt(e.target.textContent));
+    setShowPage(true);
+  };
+
+  useEffect(() => {
+    dispatch(paginationActivityAction(page));
+  }, [page]);
+
+  // useEffect(() => {
+  //   dispatch(deleteChildActivities(activity.id));
+  // }, [dispatch, activity.id]);
+
+  // const deleteActivity = () => {
+  //   dispatch(deleteChildActivities(activity.id));
+  // };
 
   // function sortTable() {
   //   var table, rows, switching, i, x, y, shouldSwitch;
@@ -122,87 +152,129 @@ export default function ChildActivity() {
           <th>Activity Detail</th>
           <th>Action</th>
         </tr>
-        {activity?.map((item, index) => (
-          <tr key={index} id={item.appointment_id}>
-            <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
-            <td>{item?.appointment?.child?.name}</td>
-            <td>{item?.appointment?.nanny?.name}</td>
-            <td>{item?.activity_detail}</td>
+        {activity?.length != [0] ? (
+          activity?.data?.map((item, index) => (
+            <tr key={index} id={item.appointment_id}>
+              <td>{dayjs(item?.createdAt).format('DD/MM/YYYY h:mm A')}</td>
+              <td>{item?.appointment?.child?.name}</td>
+              <td>{item?.appointment?.nanny?.name}</td>
+              <td>{item?.activity_detail}</td>
 
-            <td>
-              <div className={styles.menu} id={item.appointment_id}>
-                <Button
-                  id={item.appointment_id}
-                  aria-controls='basic-menu'
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={(e) => handleClick(e, item)}
-                  sx={{ color: 'black', boxShadow: 'none' }}
-                >
-                  &bull;&bull;&bull;
-                </Button>
-                <Menu
-                  anchorEl={anchorEl}
-                  id={item.appointment_id}
-                  open={open}
-                  onClose={handleClose}
-                  elevation={1}
-                  className={classes.root}
-                  sx={{ display: 'flex', flexDirection: 'column' }}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleCreateActivity(selectedItem.appointment.appointment_id);
+              <td>
+                <div className={styles.menu} appointment={item.appointment_id} id={item.id}>
+                  <Button
+                    appointment={item.appointment_id}
+                    id={item.id}
+                    aria-controls='basic-menu'
+                    aria-haspopup='true'
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={() => {
+                      handleDeleteActivity(item.id);
                     }}
-                    id={activity?.appointment?.appointment_id}
-                    sx={{
-                      boxShadow: 0,
-                      color: 'black',
+                    sx={{ boxShadow: 0, color: '#F67979' }}
+                  >
+                    <AiOutlineDelete /> Delete Activity
+                  </Button>
+                  <Button
+                    appointment={item.appointment_id}
+                    id={item.id}
+                    aria-controls='basic-menu'
+                    aria-haspopup='true'
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={(e) => handleClick(e, item)}
+                    sx={{ color: 'black', boxShadow: 'none' }}
+                  >
+                    &bull;&bull;&bull;
+                  </Button>
+                  <Menu
+                    anchorEl={anchorEl}
+                    id={(item.appointment_id, item.id)}
+                    open={open}
+                    onClose={handleClose}
+                    elevation={1}
+                    className={classes.root}
+                    sx={{ display: 'flex', flexDirection: 'column' }}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <FaChild style={{ position: 'relative', bottom: '2px', color: '#2586d7' }} />{' '}
-                    Create New Activity
-                  </MenuItem>
-                  <MenuItem
+                    <MenuItem
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCreateActivity(selectedItem.appointment.appointment_id);
+                      }}
+                      id={activity?.appointment?.appointment_id}
+                      sx={{
+                        boxShadow: 0,
+                        color: '#2586d7',
+                      }}
+                    >
+                      <FaChild style={{ position: 'relative', bottom: '2px' }} /> Create New
+                      Activity
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleEditActivity(
+                          selectedItem.appointment.appointment_id,
+                          selectedItem.id
+                        );
+                      }}
+                      id={activity?.id}
+                      sx={{
+                        boxShadow: 0,
+                        color: '#10B278',
+                      }}
+                    >
+                      <BiEdit /> Edit Activity
+                    </MenuItem>
+                    {/* <MenuItem
                     onClick={(e) => {
                       e.preventDefault();
-                      handleEditActivity(selectedItem.appointment.appointment_id);
+                      handleDeleteActivity(item.id);
                     }}
-                    id={activity?.appointment?.appointment_id}
+                    id={activity?.id}
                     sx={{
                       boxShadow: 0,
-                      color: 'black',
+                      color: '#F67979',
                     }}
                   >
-                    <BiEdit /> Edit Activity
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleActivityDetail(selectedItem.appointment.appointment_id);
-                    }}
-                    id={activity?.appointment?.appointment_id}
-                    sx={{
-                      boxShadow: 0,
-                      color: 'black',
-                    }}
-                  >
-                    {' '}
-                    <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
-                      <AiOutlineInfoCircle />
-                    </span>{' '}
-                    View Details
-                  </MenuItem>
-                </Menu>
-              </div>
-            </td>
-          </tr>
-        ))}
+                    <AiOutlineDelete /> Delete Activity
+                  </MenuItem> */}
+                    <MenuItem
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleActivityDetail(selectedItem.appointment.appointment_id);
+                      }}
+                      id={activity?.appointment?.appointment_id}
+                      sx={{
+                        boxShadow: 0,
+                        color: '#C1C1C2',
+                      }}
+                    >
+                      {' '}
+                      <span style={{ color: '#768471', position: 'relative', top: '2px' }}>
+                        <AiOutlineInfoCircle />
+                      </span>{' '}
+                      View Details
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <Empty dashboard='No Children Activity' />
+        )}
       </table>
+      <div className={styles.paginationContainer}>
+        <Pagination
+          count={activity?.pages}
+          variant='outlined'
+          shape='rounded'
+          onChange={handlePage}
+        />
+      </div>
     </div>
   );
 }

@@ -4,20 +4,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { SortIcon, FilterIcon } from './NannyListIcons';
 import { Box, Button, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ActionButton from '../../components/actionButton/ActionButton';
 import styles from './assets/NannyList.module.scss';
+import Empty from '../../components/empty/Empty';
+import Pagination from '@mui/material/Pagination';
 
 export default function NannyList() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getNannies());
-  }, [getNannies]);
-
   const { loading, nannies } = useSelector((state) => state.nannies);
   console.log(nannies, 'nannies');
+
+  const [page, setPage] = useState(1);
+  const [showPage, setShowPage] = useState(false);
+
+  const handlePage = (e) => {
+    e.preventDefault();
+    setPage(parseInt(e.target.textContent));
+    setShowPage(true);
+  };
+
+  useEffect(() => {
+    dispatch(getNannies(page));
+  }, [page]);
 
   return (
     <div className={styles.container}>
@@ -104,40 +113,9 @@ export default function NannyList() {
             </TableBody>
           </Table>
         </TableContainer>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'end',
-            marginTop: '1rem',
-            marginBottom: '1rem',
-          }}
-        >
-          <Box
-            sx={{
-              fontSize: '0.75rem',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <ArrowBackIosIcon />
-            <Typography>Previous</Typography>
-          </Box>
-          <Box
-            sx={{
-              fontSize: '0.75rem',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: '1.5rem',
-            }}
-          >
-            <Typography>Next</Typography>
-            <ArrowForwardIosIcon />
-          </Box>
-        </Box>
+        <div className={styles.paginationContainer}>
+          <Pagination count={nannies?.pages} variant="outlined" shape="rounded" onChange={handlePage} />
+        </div>
       </Box>
     </div>
   );

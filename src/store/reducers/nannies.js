@@ -23,6 +23,15 @@ import {
   POST_CHILD_ACTIVITIES_BEGIN,
   POST_CHILD_ACTIVITIES_FAIL,
   POST_CHILD_ACTIVITIES_SUCCESS,
+  UPDATE_CHILD_ACTIVITIES_BEGIN,
+  UPDATE_CHILD_ACTIVITIES_FAIL,
+  UPDATE_CHILD_ACTIVITIES_SUCCESS,
+  DELETE_CHILD_ACTIVITIES_BEGIN,
+  DELETE_CHILD_ACTIVITIES_FAIL,
+  DELETE_CHILD_ACTIVITIES_SUCCESS,
+  PAGINATION_ACTIVITY_NANNY_BEGIN,
+  PAGINATION_ACTIVITY_NANNY_FAIL,
+  PAGINATION_ACTIVITY_NANNY_SUCCESS,
   UPDATE_STATUS_APPOINTMENT_BEGIN,
   UPDATE_STATUS_APPOINTMENT_FAIL,
   UPDATE_STATUS_APPOINTMENT_SUCCESS,
@@ -213,6 +222,63 @@ const nannies = (state = initialState, action) => {
         activity: payload,
       };
     case POST_CHILD_ACTIVITIES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+      };
+    case UPDATE_CHILD_ACTIVITIES_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_CHILD_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        activity: payload,
+      };
+    case UPDATE_CHILD_ACTIVITIES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+      };
+    case DELETE_CHILD_ACTIVITIES_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case DELETE_CHILD_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        activity: payload,
+      };
+    case DELETE_CHILD_ACTIVITIES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: error,
+      };
+    case PAGINATION_ACTIVITY_NANNY_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case PAGINATION_ACTIVITY_NANNY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        activity: payload,
+      };
+    case PAGINATION_ACTIVITY_NANNY_FAIL:
       return {
         ...state,
         loading: false,

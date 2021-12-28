@@ -176,7 +176,7 @@ export default function CreateActivity() {
                       <input
                         type='text'
                         name='activity_detail'
-                        value={item.activity_detail || ''}
+                        // value={item.activity_detail || ''}
                         onChange={(e) => changeForm(index, e)}
                       />
                     </fieldset>
@@ -226,7 +226,7 @@ export default function CreateActivity() {
                       <input
                         type='time'
                         name='time'
-                        value={item.time || ''}
+                        // value={item.time || ''}
                         onChange={(e) => changeForm(index, e)}
                       />
                     </fieldset>
