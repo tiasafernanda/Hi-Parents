@@ -134,7 +134,7 @@ export default function NannyDashboard() {
           <img src={nanny} alt='' />
         </div>
       </div>
-      <div className={styles.table} style={{ overflowX: 'auto' }}>
+      <div className={styles.table}>
         <h1>Client List</h1>
         <table style={{ overflowX: 'auto' }}>
           <tr>

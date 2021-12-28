@@ -146,3 +146,19 @@
     }
   }
 }
+
+@media screen and (max-width: 1280px) {
+  .containers {
+    width: fit-content;
+
+    .container {
+      margin-right: 5rem;
+    }
+
+    .btn {
+      .savebtn {
+        margin-right: 5rem;
+      }
+    }
+  }
+}

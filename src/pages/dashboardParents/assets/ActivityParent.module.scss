@@ -1,9 +1,8 @@
 .containers {
   margin-top: 8rem;
   width: fit-content;
-  margin-left: 25rem;
-  // margin-left: auto;
-  margin-right: auto;
+  margin-left: 28rem;
+  margin-right: 8rem;
   h1 {
     margin-top: 4rem;
     // margin-left: 4rem;
@@ -33,6 +32,9 @@
     margin-top: 0.1rem;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
     border-radius: 12px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
@@ -146,5 +148,27 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .containers {
+    width: 70%;
+    margin-left: 21.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .containers {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .containers {
+    width: fit-content;
+    table {
+      border-collapse: collapse;
+    }
   }
 }
