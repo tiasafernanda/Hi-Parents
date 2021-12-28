@@ -93,11 +93,11 @@ export default function ClientList() {
       <h1>Client List</h1>
       <div className={styles.buttonTable}>
         <button>
-          <img src={sortIcon} alt='' />
+          <img src={sortIcon} alt="" />
           Sort
         </button>
         <button style={{ marginLeft: '0.75rem' }}>
-          <img src={filterIcon} alt='' />
+          <img src={filterIcon} alt="" />
           Filter
         </button>
       </div>
@@ -141,14 +141,6 @@ export default function ClientList() {
                       >
                         <MenuItem onClick={() => handleModal()} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
                           <span>
-<<<<<<< HEAD
-                            <BsCheck2Circle style={{ color: '#10B278', position: 'relative', top: '2px' }} />
-                          </span>
-                          Accept Client
-                        </MenuItem>
-                        <MenuItem onClick={handleRejectClient} disabled={selectedItem.appointment_status === 'Pending' ? false : true}>
-                          <span style={{ color: '#F67979', position: 'relative', top: '2px' }}>
-=======
                             <BsCheck2Circle
                               style={{
                                 color: '#10B278',
@@ -172,7 +164,6 @@ export default function ClientList() {
                               marginRight: '5px',
                             }}
                           >
->>>>>>> 1d4c1eea539f2487769c157a8c02feb8a4c15a45
                             <BiXCircle />
                           </span>
                           Reject Client
@@ -205,12 +196,7 @@ export default function ClientList() {
           )}
         </table>
         <div className={styles.paginationContainer}>
-          <Pagination
-            count={clients?.pages}
-            variant="outlined"
-            shape="rounded"
-            onChange={handlePage}
-          />
+          <Pagination count={clients?.pages} variant="outlined" shape="rounded" onChange={handlePage} />
         </div>
         {openModal && (
           <div onClick={(e) => handleModalCLose(e)}>
